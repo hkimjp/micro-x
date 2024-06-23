@@ -1,4 +1,9 @@
-# Ring WebSocket Chat Example
+# Simulated Micro X based on Ring WebSocket Chat Example
+
+provide @user facility which enables (simulated) unicast messaging.
+
+---
+## original documents
 
 This is an example project that demonstrates how to use WebSockets in
 [Ring][] to create a simple chat web application.
