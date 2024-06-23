@@ -40,3 +40,23 @@
 
 (defn run-server [options]
   (adapter/run-jetty (make-app-handler) options))
+
+(def server (atom nil))
+
+(defn start []
+  (when-not (some? @server)
+    (reset! server (run-server {:port 8080 :join? false}))
+    (println "server started in port 8080.")))
+
+(defn stop []
+  (when (some? @server)
+    (.stop @server)
+    (reset! server nil)
+    (println "server stopped.")))
+
+(defn restart []
+  (stop)
+  (start))
+
+(comment
+  (restart))
