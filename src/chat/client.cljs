@@ -41,11 +41,8 @@
 (defn- websocket-url [path]
   (js/console.log "websocket-url")
   (let [loc   (.-location js/window)
-        proto (if (= "https" (.-protocol loc)) "wss" "ws")]
-    (js/console.log (.-protocol loc))
-    ;; (js/console.jog (str proto "://" (.-host loc) path))
-    (js/console.log proto)
-    ;; proto must "wss" when "https".
+        ;; fixed.
+        proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
     (str proto "://" (.-host loc) path)))
 
 (defn- websocket-connect [path]

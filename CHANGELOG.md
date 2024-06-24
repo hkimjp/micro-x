@@ -4,9 +4,21 @@
 - sound.
 - it is bad to send message when Enter key?
 - build.
-- nginx can not transfer websocket data.
+- display clock.
+- not display login.
+
+## v0.7-SNAPSHOT
 
 ## v0.6.40 / 2024-06-24
+- fixed nginx can transfer websocket data.
+```
+(defn- websocket-url [path]
+  (js/console.log "websocket-url")
+  (let [loc   (.-location js/window)
+        ;; fixed. was "http".
+        proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
+    (str proto "://" (.-host loc) path)))
+```
 
 ## v0.6.1 / 2024-06-24
 - bump-version.sh updates chat/server.clj `version`.
