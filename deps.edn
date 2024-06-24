@@ -1,6 +1,9 @@
 {:deps
- {com.taoensso/telemere {:mvn/version "1.0.0-beta14"}
+ {buddy/buddy-hashers {:mvn/version "2.0.167"}
+  com.taoensso/telemere {:mvn/version "1.0.0-beta14"}
   haslett/haslett {:mvn/version "0.2.0"}
+  hato/hato {:mvn/version "0.9.0"}
+  ;; http-kit/http-kit {:mvn/version "2.8.0"}
   metosin/reitit {:mvn/version "0.7.0"}
   org.clojure/clojure {:mvn/version "1.11.3"}
   org.clojure/clojurescript {:mvn/version "1.11.132"}
