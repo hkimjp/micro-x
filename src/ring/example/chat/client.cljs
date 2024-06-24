@@ -30,8 +30,8 @@
 (defn- start-listener [stream message-log]
   (go-loop []
     (when-some [message (<! (:in stream))]
-      (js/console.log (str message))
-      (js/console.log (query "#author"))
+      ;; (js/console.log (str message))
+      ;; (js/console.log (query "#author"))
       (if (str/starts-with? (:message message) "@")
         (when (= (.-value (query "#author")) (dest (:message message)))
           (append-html message-log (message-html message)))
