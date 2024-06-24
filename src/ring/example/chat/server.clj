@@ -1,6 +1,7 @@
 (ns ring.example.chat.server
   (:require [clojure.core.async :as a]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [reitit.ring :as rr]
             [ring.adapter.jetty :as adapter]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
@@ -32,18 +33,20 @@
       (resp/content-type "text/html")
       (resp/charset "UTF-8")))
 
-(defn login! [{{:keys [login password]} :params :as request}]
-  (t/log! {:id "login"} [login password (:params request)])
-  (let [ret (-> {:status 303
-                 :headers {"location" "/"}}
-                (assoc-in [:session :identity] login))]
-    (t/log! :info ["ret" ret])
-    ret))
+(defn login! [{{:keys [login password]} :params}]
+  (t/log! {:id "login"} [login password])
+  (-> {:status 303
+       :headers {"location" "/index"}}
+      (assoc-in [:session :identity] login)))
 
 (defn index [request]
-  (-> (resp/response (slurp (io/resource "public/index")))
-      (resp/content-type "text/html")
-      (resp/charset "UTF-8")))
+  (let [login (get-in request [:session :identity] "not-found")]
+    (t/log! {:level :info :id "index improved"} ["identity" login])
+    (-> (slurp (io/resource "public/index.html"))
+        (str/replace-first #"Anonymous" login)
+        resp/response
+        (resp/content-type "text/html")
+        (resp/charset "UTF-8"))))
 
 (defn make-app-handler []
   (rr/ring-handler
