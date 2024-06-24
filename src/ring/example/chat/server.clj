@@ -55,12 +55,14 @@
 
 (defn index [request]
   (let [login (get-in request [:session :identity] "not-found")]
-    (t/log! {:level :info :id "index"} ["identity" login])
-    (-> (slurp (io/resource "public/index.html"))
-        (str/replace-first #"Anonymous" login)
-        resp/response
-        (resp/content-type "text/html")
-        (resp/charset "UTF-8"))))
+    (if (= "not-found" login)
+      (-> {:status 303
+           :headers {"location" "/login"}})
+      (-> (slurp (io/resource "index.html"))
+          (str/replace-first #"Anonymous" login)
+          resp/response
+          (resp/content-type "text/html")
+          (resp/charset "UTF-8")))))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -68,7 +70,11 @@
                                       [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
-                ["/login" {:get login :post login!}]
+                ["/" {:get login :post login!}]
+                ["/logout" (fn [_]
+                             (-> {:status 303
+                                  :headers {"location" "/"}}
+                                 (assoc :session {})))]
                 ["/index" index]]])
    (rr/routes
     (rr/create-resource-handler {:path "/"})
