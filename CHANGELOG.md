@@ -6,6 +6,10 @@
 - build.
 - nginx can not transfer websocket data.
 
+## 0.6-SNAPSHOT
+
+## 0.6.1 / 2024-06-24
+- bump-version.sh updates chat/server.clj `version`.
 
 ## v0.5.30 / 2024-06-24
 - unicast emulation.
