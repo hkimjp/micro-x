@@ -42,8 +42,10 @@
   (js/console.log "websocket-url")
   (let [loc   (.-location js/window)
         proto (if (= "https" (.-protocol loc)) "wss" "ws")]
-    ;; nginx proxy does not work
-    ;; (js/alert (str proto "://" (.-host loc) path))
+    (js/console.log (.-protocol loc))
+    ;; (js/console.jog (str proto "://" (.-host loc) path))
+    (js/console.log proto)
+    ;; proto must "wss" when "https".
     (str proto "://" (.-host loc) path)))
 
 (defn- websocket-connect [path]
