@@ -13,11 +13,11 @@
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
             [ring.websocket.async :as wsa]
-            [ring.websocket.transit :as wst]
-            [ring.websocket.keepalive :as wska]
+            ;; [ring.websocket.transit :as wst]
+            ;; [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
-(def ^:private version "0.6.1")
+(def ^:private version "what version?")
 
 (def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
 
