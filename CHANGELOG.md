@@ -6,7 +6,7 @@
 - restriction (middleware).
 - logout
 
-## v0.3-SNAPSHOT
+## v0.3.18 / 2024-06-24
 - auth.
 - flash.
 - hk-server is not good against ring-example server.
