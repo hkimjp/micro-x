@@ -18,7 +18,7 @@ ${SED} -i.bak -e "/SNAPSHOT/c\
 ## ${VER} / ${TODAY}" CHANGELOG.md
 
 # clj
-#${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/server.clj
+${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/chat/server.clj
 
 # cljs
 #${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/client.cljs

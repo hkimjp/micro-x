@@ -4,9 +4,16 @@
 - sound.
 - it is bad to send message when Enter key?
 - build.
+- nginx can not transfer websocket data.
+
+## v0.6.40 / 2024-06-24
+
+## 0.6.1 / 2024-06-24
+- bump-version.sh updates chat/server.clj `version`.
 
 ## v0.5.30 / 2024-06-24
 - unicast emulation.
+- namespace.
 
 ## v0.4.22 / 2024-06-24
 - restriction inside index.

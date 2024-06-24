@@ -1,4 +1,4 @@
-(ns ring.example.chat.server
+(ns chat.server
   (:gen-class)
   (:require [buddy.hashers :as hashers]
             [clojure.core.async :as a]
@@ -13,9 +13,13 @@
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
             [ring.websocket.async :as wsa]
-            [ring.websocket.transit :as wst]
-            [ring.websocket.keepalive :as wska]
+            ;; [ring.websocket.transit :as wst]
+            ;; [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
+
+(def ^:private version "v0.6.40")
+
+(def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -30,19 +34,20 @@
     (t/log! {:id "login"} [flash])
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
-          "<form method='post'>"
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>
+           <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
-            (str "<p>" flash"</p>"))
+            (str "<p>" flash "</p>"))
           "<input name='login'>
-         <input name='password' type='password'>
-         <input type='submit'>
-         </form>"))
+           <input name='password' type='password'>
+           <input type='submit'>
+           <p>version "
+          version
+          "</p>
+          </form>"))
         (resp/content-type "text/html")
         (resp/charset "UTF-8"))))
-
-(def url "https://l22.melt.kyutech.ac.jp/api/user/")
 
 (defn login! [{{:keys [login password]} :params}]
   (let [resp (hc/get (str url login) {:as :json})]
@@ -67,8 +72,8 @@
 
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
-                                      [wska/wrap-websocket-keepalive]]}
+   (rr/router [["/chat" {:middleware [#_[wst/wrap-websocket-transit]
+                                      #_[wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
@@ -107,5 +112,5 @@
 (comment
   (restart))
 
-(defn -main [& args]
+(defn -main [& _args]
   (start))
