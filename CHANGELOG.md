@@ -3,9 +3,13 @@
 ## Unreleased
 - unicast emulation.
 - sound.
-- restriction (middleware).
-- logout
 
+
+## v0.4-SNAPSHOT
+- restriction inside index.
+- logout. `#(assoc % session {})`.
+- moved `/resources/public/index.html` to `/resources/index.html`.
+- redirect / to /login? -> moved `/login` as `/`.
 ## v0.3.18 / 2024-06-24
 - auth.
 - flash.
