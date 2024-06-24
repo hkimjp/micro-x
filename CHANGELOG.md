@@ -1,9 +1,10 @@
 # Micro X version 3
 
 ## Unreleased
-- unicast emulation.
 - sound.
 
+## v0.5-SNAPSHOT
+- unicast emulation.
 
 ## v0.4.22 / 2024-06-24
 - restriction inside index.
