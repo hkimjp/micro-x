@@ -106,3 +106,6 @@
 
 (comment
   (restart))
+
+(defn -main [& args]
+  (start))
