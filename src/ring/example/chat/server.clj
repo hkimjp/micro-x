@@ -1,4 +1,5 @@
 (ns ring.example.chat.server
+  (:gen-class)
   (:require [buddy.hashers :as hashers]
             [clojure.core.async :as a]
             [clojure.java.io :as io]
@@ -105,3 +106,6 @@
 
 (comment
   (restart))
+
+(defn -main [& args]
+  (start))

@@ -24,10 +24,18 @@
     (set! (.-value message) "")
     (.focus message)))
 
+(defn- dest [s]
+  (re-find #"[^, ]+" (subs s 1)))
+
 (defn- start-listener [stream message-log]
   (go-loop []
     (when-some [message (<! (:in stream))]
-      (append-html message-log (message-html message))
+      ;; (js/console.log (str message))
+      ;; (js/console.log (query "#author"))
+      (if (str/starts-with? (:message message) "@")
+        (when (= (.-value (query "#author")) (dest (:message message)))
+          (append-html message-log (message-html message)))
+        (append-html message-log (message-html message)))
       (recur))))
 
 (defn- websocket-url [path]

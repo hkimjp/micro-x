@@ -1,9 +1,12 @@
 # Micro X version 3
 
 ## Unreleased
-- unicast emulation.
 - sound.
+- it is bad to send message when Enter key?
+- build.
 
+## v0.5.30 / 2024-06-24
+- unicast emulation.
 
 ## v0.4.22 / 2024-06-24
 - restriction inside index.
