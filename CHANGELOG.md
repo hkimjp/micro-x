@@ -1,10 +1,15 @@
 # Micro X version 3
 
 ## Unreleased
-- auth
-- restriction (middleware).
 - unicast emulation.
 - sound
+
+## v0.3-SNAPSHOT
+- auth
+- restriction (middleware).
+- jetty? hk-server?
+- differ websocket API, jetty and http-kit?
+
 
 ## v0.2.12 / 2024-06-24
 - moved default middleware to "/chat".

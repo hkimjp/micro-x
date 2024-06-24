@@ -1,7 +1,11 @@
 (ns ring.example.chat.server
-  (:require [clojure.core.async :as a]
+  (:require [buddy.hashers :as hashers]
+            [clojure.core.async :as a]
             [clojure.java.io :as io]
             [clojure.string :as str]
+            [hato.client :as hc]
+            ;; [org.httpkit.client :as hk-client]
+            ;; [org.httpkit.server :as hk-server]
             [reitit.ring :as rr]
             [ring.adapter.jetty :as adapter]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
@@ -33,15 +37,21 @@
       (resp/content-type "text/html")
       (resp/charset "UTF-8")))
 
+(def url "https://l22.melt.kyutech.ac.jp/api/user/")
+
 (defn login! [{{:keys [login password]} :params}]
-  (t/log! {:id "login"} [login password])
-  (-> {:status 303
-       :headers {"location" "/index"}}
-      (assoc-in [:session :identity] login)))
+  (let [resp (hc/get (str url login) {:as :json})]
+    (if (and (some? resp) (hashers/check password (get-in resp [:body :password])))
+      (-> {:status 303
+           :headers {"location" "/index"}}
+          (assoc-in [:session :identity] login))
+      (-> {:status 304
+           :headers {"location" "/login"}}
+          (assoc :session {} :flash "login failed")))))
 
 (defn index [request]
   (let [login (get-in request [:session :identity] "not-found")]
-    (t/log! {:level :info :id "index improved"} ["identity" login])
+    (t/log! {:level :info :id "index"} ["identity" login])
     (-> (slurp (io/resource "public/index.html"))
         (str/replace-first #"Anonymous" login)
         resp/response
@@ -62,7 +72,8 @@
    {:middleware []}))
 
 (defn run-server [options]
-  (adapter/run-jetty (make-app-handler) options))
+  (adapter/run-jetty (make-app-handler) options)
+  #_(hk-server/run-server (make-app-handler) options))
 
 (def server (atom nil))
 
@@ -74,6 +85,7 @@
 (defn stop []
   (when (some? @server)
     (.stop @server)
+    #_(@server)
     (reset! server nil)
     (println "server stopped.")))
 
