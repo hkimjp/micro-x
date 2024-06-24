@@ -1,4 +1,4 @@
-(ns ring.example.chat.client
+(ns chat.client
   (:require [cljs.core.async :as a :refer [<! >! go go-loop]]
             [clojure.string :as str]
             [haslett.client :as ws]

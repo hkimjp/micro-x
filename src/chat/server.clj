@@ -1,4 +1,4 @@
-(ns ring.example.chat.server
+(ns chat.server
   (:gen-class)
   (:require [buddy.hashers :as hashers]
             [clojure.core.async :as a]
@@ -34,22 +34,18 @@
     (t/log! {:id "login"} [flash])
     (-> (resp/response
          (str
-<<<<<<< HEAD
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
-          "<p>version "
-          version
-          "</p>"
-=======
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X version 3</h1>"
->>>>>>> refs/remotes/origin/develop
-          "<form method='post'>"
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>
+           <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
-            (str "<p>" flash"</p>"))
+            (str "<p>" flash "</p>"))
           "<input name='login'>
-         <input name='password' type='password'>
-         <input type='submit'>
-         </form>"))
+           <input name='password' type='password'>
+           <input type='submit'>
+           <p>version "
+          version
+          "</p>
+          </form>"))
         (resp/content-type "text/html")
         (resp/charset "UTF-8"))))
 
