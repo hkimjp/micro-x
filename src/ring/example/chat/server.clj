@@ -24,18 +24,22 @@
                         (a/tap readers out)
                         (a/pipe in writer false)))))
 
-(defn login [_request]
-  (-> (resp/response
-       (str
-        "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
-        "<form method='post'>"
-        (anti-forgery-field)
-        "<input name='login'>
+(defn login [request]
+  (let [flash (:flash request)]
+    (t/log! {:id "login"} [flash])
+    (-> (resp/response
+         (str
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
+          "<form method='post'>"
+          (anti-forgery-field)
+          (when (some? flash)
+            (str "<p>" flash"</p>"))
+          "<input name='login'>
          <input name='password' type='password'>
          <input type='submit'>
          </form>"))
-      (resp/content-type "text/html")
-      (resp/charset "UTF-8")))
+        (resp/content-type "text/html")
+        (resp/charset "UTF-8"))))
 
 (def url "https://l22.melt.kyutech.ac.jp/api/user/")
 
@@ -45,7 +49,7 @@
       (-> {:status 303
            :headers {"location" "/index"}}
           (assoc-in [:session :identity] login))
-      (-> {:status 304
+      (-> {:status 303
            :headers {"location" "/login"}}
           (assoc :session {} :flash "login failed")))))
 
