@@ -14,7 +14,7 @@
             [ring.util.response :as resp]
             [ring.websocket.async :as wsa]
             ;; [ring.websocket.transit :as wst]
-            ;; [ring.websocket.keepalive :as wska]
+            [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
 (def ^:private version "v0.6.40")
@@ -34,7 +34,7 @@
     (t/log! {:id "login"} [flash])
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X v3</h1>
            <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
@@ -44,8 +44,7 @@
            <input type='submit'>
            <p>version "
           version
-          "</p>
-          </form>"))
+          "</p></form>"))
         (resp/content-type "text/html")
         (resp/charset "UTF-8"))))
 
@@ -73,7 +72,7 @@
 (defn make-app-handler []
   (rr/ring-handler
    (rr/router [["/chat" {:middleware [#_[wst/wrap-websocket-transit]
-                                      #_[wska/wrap-websocket-keepalive]]}
+                                      [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
