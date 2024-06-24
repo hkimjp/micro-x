@@ -1,0 +1,19 @@
+{:deps
+ {org.clojure/clojure {:mvn/version "1.11.3"}
+  org.clojure/clojurescript {:mvn/version "1.11.132"}
+  org.clojure/tools.analyzer {:mvn/version "1.2.0"}
+  ring/ring-core {:mvn/version "1.12.2"}
+  ring/ring-jetty-adapter {:mvn/version "1.12.2"}
+  ring/ring-defaults {:mvn/version "0.5.0"}
+  org.ring-clojure/ring-websocket-async {:mvn/version "0.2.0"}
+  org.ring-clojure/ring-websocket-transit {:mvn/version "0.1.0"}
+  org.ring-clojure/ring-websocket-middleware {:mvn/version "0.2.0"}
+  org.slf4j/slf4j-simple {:mvn/version "2.0.13"}
+  metosin/reitit {:mvn/version "0.7.0"}
+  thheller/shadow-cljs {:mvn/version "2.28.10"}
+  haslett/haslett {:mvn/version "0.2.0"}}
+ :paths ["resources" "src" "target/assets"]
+ :aliases
+ {:cljs   {:main-opts ["-m" "shadow.cljs.devtools.cli"]}
+  :server {:exec-fn ring.example.chat.server/run-server
+           :exec-args {:port 8080}}}}
