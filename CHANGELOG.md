@@ -4,6 +4,7 @@
 - auth
 - restriction (middleware).
 - unicast emulation.
+- sound
 
 ## v0.2-SNAPSHOT
 - moved default middleware to "/chat".
