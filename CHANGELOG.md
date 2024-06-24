@@ -1,10 +1,18 @@
 # Micro X version 3
 
 ## Unreleased
-- auth
-- restriction (middleware).
 - unicast emulation.
-- sound
+- sound.
+- restriction (middleware).
+- logout
+
+## v0.3-SNAPSHOT
+- auth.
+- flash.
+- hk-server is not good against ring-example server.
+  differ websocket API, jetty and http-kit?
+- hk-client, too. need cachire to decode? (hc/get url {:as :json}) is fine.
+
 
 ## v0.2.12 / 2024-06-24
 - moved default middleware to "/chat".
