@@ -4,6 +4,8 @@
 - sound.
 - it is bad to send message when Enter key?
 - build.
+- nginx can not transfer websocket data.
+
 
 ## v0.5.30 / 2024-06-24
 - unicast emulation.

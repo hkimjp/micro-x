@@ -30,7 +30,7 @@
     (t/log! {:id "login"} [flash])
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X version 3</h1>"
           "<form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
@@ -107,5 +107,5 @@
 (comment
   (restart))
 
-(defn -main [& args]
+(defn -main [& _args]
   (start))
