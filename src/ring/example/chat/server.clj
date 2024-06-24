@@ -17,6 +17,10 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
+(def ^:private version "what version?")
+
+(def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
+
 (defn make-chat-handler []
   (let [writer  (a/chan)
         readers (a/mult writer)]
@@ -31,6 +35,9 @@
     (-> (resp/response
          (str
           "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
+          "<p>version "
+          version
+          "</p>"
           "<form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
@@ -41,8 +48,6 @@
          </form>"))
         (resp/content-type "text/html")
         (resp/charset "UTF-8"))))
-
-(def url "https://l22.melt.kyutech.ac.jp/api/user/")
 
 (defn login! [{{:keys [login password]} :params}]
   (let [resp (hc/get (str url login) {:as :json})]
@@ -67,8 +72,8 @@
 
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
-                                      [wska/wrap-websocket-keepalive]]}
+   (rr/router [["/chat" {:middleware [#_[wst/wrap-websocket-transit]
+                                      #_[wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
