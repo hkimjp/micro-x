@@ -1,7 +1,7 @@
 # Micro X version 3
 
 
-## v0.1.0 / 2024-06-05
+## v0.1.0 / 2024-06-24
 - initialized repository.
 - updated libraries.
 - it works.
