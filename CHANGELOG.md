@@ -6,7 +6,7 @@
 - unicast emulation.
 - sound
 
-## v0.2-SNAPSHOT
+## v0.2.12 / 2024-06-24
 - moved default middleware to "/chat".
 - added "/login".
 
