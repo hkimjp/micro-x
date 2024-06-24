@@ -34,10 +34,14 @@
     (t/log! {:id "login"} [flash])
     (-> (resp/response
          (str
+<<<<<<< HEAD
           "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>"
           "<p>version "
           version
           "</p>"
+=======
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X version 3</h1>"
+>>>>>>> refs/remotes/origin/develop
           "<form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
@@ -112,5 +116,5 @@
 (comment
   (restart))
 
-(defn -main [& args]
+(defn -main [& _args]
   (start))
