@@ -3,6 +3,7 @@
 ## Unreleased
 - sound.
 - it is bad to send message when Enter key?
+- build.
 
 ## v0.5-SNAPSHOT
 - unicast emulation.
