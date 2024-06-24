@@ -13,7 +13,7 @@
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
             [ring.websocket.async :as wsa]
-            ;; [ring.websocket.transit :as wst]
+            [ring.websocket.transit :as wst]
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
@@ -41,7 +41,7 @@
             (str "<p>" flash "</p>"))
           "<input name='login'>
            <input name='password' type='password'>
-           <input type='submit'>
+           <input type='submit' value='LOGIN'>
            <p>version "
           version
           "</p></form>"))
@@ -71,7 +71,7 @@
 
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [#_[wst/wrap-websocket-transit]
+   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
                                       [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}

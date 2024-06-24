@@ -8,7 +8,7 @@
 
 ## v0.6.40 / 2024-06-24
 
-## 0.6.1 / 2024-06-24
+## v0.6.1 / 2024-06-24
 - bump-version.sh updates chat/server.clj `version`.
 
 ## v0.5.30 / 2024-06-24
