@@ -4,10 +4,20 @@
 - sound.
 - it is bad to send message when Enter key?
 - build.
-- display clock.
-- not display login.
+- not user login in chat. instead, clock.
+- login failed in red.
+
 
 ## v0.7-SNAPSHOT
+code cleanup.
+- ring.util.response intead of {:status 303 :headers {"location" ...}}.
+- hato timeout 3000msec.
+- MX3_DEBUG
+```clojure
+(if (System/getenv "MX3_DEBUG")
+    (-> (resp/redirect "/index")
+        (assoc-in [:session :identity] login)))
+```
 
 ## v0.6.40 / 2024-06-24
 - fixed nginx can transfer websocket data.
