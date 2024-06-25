@@ -2,11 +2,13 @@
 
 ## Unreleased
 - sound.
-- build.
+- make build.
+- make deply.
 - do not dislay user login in chat. instead, clock.
-- login failed in red.
+- display failed login in red.
 
-## v0.7-SNAPSHOT
+
+## v0.7.52 / 2024-06-25
 code cleanup.
 - shift+Enter sends a message.
 - ring.util.response intead of {:status 303 :headers {"location" ...}}.
