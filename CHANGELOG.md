@@ -2,14 +2,13 @@
 
 ## Unreleased
 - sound.
-- it is bad to send message when Enter key?
 - build.
-- not user login in chat. instead, clock.
+- do not dislay user login in chat. instead, clock.
 - login failed in red.
-
 
 ## v0.7-SNAPSHOT
 code cleanup.
+- shift+Enter sends a message.
 - ring.util.response intead of {:status 303 :headers {"location" ...}}.
 - hato timeout 3000msec.
 - MX3_DEBUG

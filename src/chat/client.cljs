@@ -59,7 +59,10 @@
         (.focus message)
         (.addEventListener message "keyup"
                            (fn [e]
-                             (when (= (.-code e) "Enter")
+                             (when (and
+                                    (= (.-code e) "Enter")
+                                    (.-shiftKey e))
+                               (js/console.log (str e))
                                (send-message stream)))))))
 
 (defn init []
