@@ -2,5 +2,4 @@ client:
 	clj -M:cljs compile client
 
 start:
-	clj -X:server
-
+	clojure -X:server &
