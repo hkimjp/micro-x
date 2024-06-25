@@ -2,13 +2,36 @@
 
 ## Unreleased
 - sound.
-- it is bad to send message when Enter key?
-- build.
-- nginx can not transfer websocket data.
+- make build.
+- make deply.
+- do not dislay user login in chat. instead, clock.
+- display failed login in red.
+
+
+## v0.7.52 / 2024-06-25
+code cleanup.
+- shift+Enter sends a message.
+- ring.util.response intead of {:status 303 :headers {"location" ...}}.
+- hato timeout 3000msec.
+- MX3_DEBUG
+```clojure
+(if (System/getenv "MX3_DEBUG")
+    (-> (resp/redirect "/index")
+        (assoc-in [:session :identity] login)))
+```
 
 ## v0.6.40 / 2024-06-24
+- fixed nginx can transfer websocket data.
+```
+(defn- websocket-url [path]
+  (js/console.log "websocket-url")
+  (let [loc   (.-location js/window)
+        ;; fixed. was "http".
+        proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
+    (str proto "://" (.-host loc) path)))
+```
 
-## 0.6.1 / 2024-06-24
+## v0.6.1 / 2024-06-24
 - bump-version.sh updates chat/server.clj `version`.
 
 ## v0.5.30 / 2024-06-24

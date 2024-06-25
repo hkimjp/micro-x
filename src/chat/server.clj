@@ -5,19 +5,17 @@
             [clojure.java.io :as io]
             [clojure.string :as str]
             [hato.client :as hc]
-            ;; [org.httpkit.client :as hk-client]
-            ;; [org.httpkit.server :as hk-server]
             [reitit.ring :as rr]
             [ring.adapter.jetty :as adapter]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
             [ring.websocket.async :as wsa]
-            ;; [ring.websocket.transit :as wst]
-            ;; [ring.websocket.keepalive :as wska]
+            [ring.websocket.transit :as wst]
+            [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
-(def ^:private version "v0.6.40")
+(def ^:private version "v0.7.52")
 
 (def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
 
@@ -31,40 +29,44 @@
 
 (defn login [request]
   (let [flash (:flash request)]
-    (t/log! {:id "login"} [flash])
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X versin 3</h1>
+          "<!DOCTYPE html><title>MX3</title><h1>Micro X version3</h1>
            <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
             (str "<p>" flash "</p>"))
           "<input name='login'>
            <input name='password' type='password'>
-           <input type='submit'>
+           <input type='submit' value='LOGIN'>
            <p>version "
           version
-          "</p>
-          </form>"))
+          "</p></form>"))
         (resp/content-type "text/html")
         (resp/charset "UTF-8"))))
 
 (defn login! [{{:keys [login password]} :params}]
-  (let [resp (hc/get (str url login) {:as :json})]
-    (if (and (some? resp) (hashers/check password (get-in resp [:body :password])))
-      (-> {:status 303
-           :headers {"location" "/index"}}
-          (assoc-in [:session :identity] login))
-      (-> {:status 303
-           :headers {"location" "/login"}}
-          (assoc :session {} :flash "login failed")))))
+  (if (System/getenv "MX3_DEBUG")
+    (-> (resp/redirect "/index")
+        (assoc-in [:session :identity] login))
+    (try
+      (let [resp (hc/get (str url login) {:timeout 3000 :as :json})]
+        (if (and (some? resp)
+                 (hashers/check password (get-in resp [:body :password])))
+          (-> (resp/redirect "/index")
+              (assoc-in [:session :identity] login))
+          (-> (resp/redirect "/")
+              (assoc :session {} :flash "login failed"))))
+      (catch Exception e
+        (t/log! :warn (.getMessage e))
+        (-> (resp/redirect "/")
+            (assoc :session {} :flash "server does not respond."))))))
 
 (defn index [request]
   (let [login (get-in request [:session :identity] "not-found")]
     (if (= "not-found" login)
-      (-> {:status 303
-           :headers {"location" "/login"}})
-      (-> (slurp (io/resource "index.html"))
+      (-> (resp/redirect "/"))
+      (-> (slurp (io/resource "micro-x.html"))
           (str/replace-first #"Anonymous" login)
           resp/response
           (resp/content-type "text/html")
@@ -72,14 +74,13 @@
 
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [#_[wst/wrap-websocket-transit]
-                                      #_[wska/wrap-websocket-keepalive]]}
+   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
+                                      [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
-                             (-> {:status 303
-                                  :headers {"location" "/"}}
+                             (-> (resp/redirect "/")
                                  (assoc :session {})))]
                 ["/index" index]]])
    (rr/routes
@@ -88,8 +89,7 @@
    {:middleware []}))
 
 (defn run-server [options]
-  (adapter/run-jetty (make-app-handler) options)
-  #_(hk-server/run-server (make-app-handler) options))
+  (adapter/run-jetty (make-app-handler) options))
 
 (def server (atom nil))
 
@@ -101,7 +101,6 @@
 (defn stop []
   (when (some? @server)
     (.stop @server)
-    #_(@server)
     (reset! server nil)
     (println "server stopped.")))
 
@@ -109,8 +108,8 @@
   (stop)
   (start))
 
-(comment
-  (restart))
-
 (defn -main [& _args]
   (start))
+
+(comment
+  (restart))

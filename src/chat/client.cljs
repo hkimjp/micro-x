@@ -16,6 +16,7 @@
        "<span class='message'>" message "</span></li>"))
 
 (defn- send-message [stream]
+  (js/console.log "send-message")
   (let [message (query "#message")
         author  (query "#author")
         data    {:author  (.-value author)
@@ -28,10 +29,9 @@
   (re-find #"[^, ]+" (subs s 1)))
 
 (defn- start-listener [stream message-log]
+  (js/console.log "start-listener")
   (go-loop []
     (when-some [message (<! (:in stream))]
-      ;; (js/console.log (str message))
-      ;; (js/console.log (query "#author"))
       (if (str/starts-with? (:message message) "@")
         (when (= (.-value (query "#author")) (dest (:message message)))
           (append-html message-log (message-html message)))
@@ -39,14 +39,18 @@
       (recur))))
 
 (defn- websocket-url [path]
+  (js/console.log "websocket-url")
   (let [loc   (.-location js/window)
-        proto (if (= "https" (.-protocol loc)) "wss" "ws")]
+        ;; fixed.
+        proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
     (str proto "://" (.-host loc) path)))
 
 (defn- websocket-connect [path]
+  (js/console.log "websocket-connect")
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
 (defn- on-load [_]
+  (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
             message (query "#message")]
         (start-listener stream (query "#message-log"))
@@ -55,8 +59,12 @@
         (.focus message)
         (.addEventListener message "keyup"
                            (fn [e]
-                             (when (= (.-code e) "Enter")
+                             (when (and
+                                    (= (.-code e) "Enter")
+                                    (.-shiftKey e))
+                               (js/console.log (str e))
                                (send-message stream)))))))
 
 (defn init []
+  (js/console.log "init")
   (.addEventListener js/window "load" on-load))
