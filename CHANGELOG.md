@@ -7,6 +7,8 @@
 - do not dislay user login in chat. instead, clock.
 - display failed login in red.
 - slf4j.
+- favicon.ico.
+- who is login now?
 
 
 ## v0.7.52 / 2024-06-25
