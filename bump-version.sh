@@ -20,5 +20,5 @@ ${SED} -i.bak -e "/SNAPSHOT/c\
 # clj
 ${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/chat/server.clj
 
-# cljs
-#${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/client.cljs
+# build.clj
+${SED} -i "s/(def version) .+/\1 \"$1\")/" build.clj

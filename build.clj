@@ -2,8 +2,8 @@
   (:refer-clojure :exclude [test])
   (:require [clojure.tools.build.api :as b]))
 
-(def lib 'dev.hkimura.build/build)
-(def version "0.1.0-SNAPSHOT")
+(def lib 'build/micro-x)
+(def version "v0.8.65")
 (def main 'chat.server)
 (def class-dir "target/classes")
 

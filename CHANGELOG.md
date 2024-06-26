@@ -5,9 +5,16 @@
 - do not dislay user login in chat. instead, clock.
 - who is login now?
 - sound.
+- against zenkaku @.
+
+## v0.8.65 / 2024-06-26
+- bump-version.sh bumps `build.clj`.
 
 ## v0.8.64 / 2024-06-26
 - successed `make build`.
+- deps.edn
+- build.clj
+- shadow-cljs.edn
 
 ## v0.7.58 / 2024-06-26
 - insert new message after begin.
