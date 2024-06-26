@@ -1,6 +1,13 @@
 # Simulated Micro X based on Ring WebSocket Chat Example
 
-provide @user facility which enables (simulated) unicast messaging.
+Provide @user facility which enables (simulated) unicast messaging.
+
+For development,
+
+```
+% make client
+% MX3_DEBUG=1 make start
+```
 
 ---
 ## original documents
