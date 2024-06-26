@@ -10,3 +10,6 @@ kill:
 restart:
 	make kill
 	make start
+
+build:
+	clj -T:build uber
