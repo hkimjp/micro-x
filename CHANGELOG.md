@@ -6,7 +6,7 @@
 - who is login now?
 - sound.
 
-## v0.8-SNAPSHOT
+## v0.8.64 / 2024-06-26
 - successed `make build`.
 
 ## v0.7.58 / 2024-06-26
