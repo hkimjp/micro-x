@@ -1,11 +1,11 @@
 # Micro X for Hkimura Classes
 
 ## Unreleased
-- sound.
 - make build.
-- make deply.
+- make deploy.
 - do not dislay user login in chat. instead, clock.
 - who is login now?
+- sound.
 
 ## v0.7.58 / 2024-06-26
 - insert new message after begin.
@@ -18,7 +18,7 @@ code cleanup.
 - shift+Enter sends a message.
 - ring.util.response intead of {:status 303 :headers {"location" ...}}.
 - hato timeout 3000msec.
-- MX3_DEBUG
+- MX3\_DEBUG
 ```clojure
 (if (System/getenv "MX3_DEBUG")
     (-> (resp/redirect "/index")
