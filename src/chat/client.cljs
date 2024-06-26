@@ -22,9 +22,12 @@
         author  (query "#author")
         data    {:author  (.-value author)
                  :message (.-value message)}]
-    (go (>! (:out stream) data))
-    (set! (.-value message) "")
-    (.focus message)))
+    (if (str/starts-with? (.-value message) "＠")
+      (js/alert "全角の ＠ を使っています。")
+      (do
+        (go (>! (:out stream) data))
+        (set! (.-value message) "")
+        (.focus message)))))
 
 (defn- dest [s]
   (re-find #"[^, ]+" (subs s 1)))
