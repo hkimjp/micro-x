@@ -6,7 +6,7 @@
 - who is login now?
 - sound.
 
-## v0.8.65 / 2024-06-26
+## v0.8.75 / 2024-06-26
 - bump-version.sh bumps `build.clj`.
 - warn full-width at-mark.
 
