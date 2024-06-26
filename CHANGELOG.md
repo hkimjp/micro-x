@@ -6,6 +6,12 @@
 - who is login now?
 - sound.
 
+## V0.9-SNAPSHOT
+- can compile by `clj -T:build uber` with:
+```
+    (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
+```
+
 ## v0.8.75 / 2024-06-26
 - bump-version.sh bumps `build.clj`.
 - warn full-width at-mark.
