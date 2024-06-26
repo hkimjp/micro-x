@@ -12,4 +12,12 @@ restart:
 	make start
 
 build:
+	rm -rf target
+	make client
 	clj -T:build uber
+
+debug:
+	(cd target/build && MX3_DEBUG=1 java -jar micro-x-*.jar)
+
+jammy:
+	scp target/build/micro-x-*.jar jammy.local:micro-x/
