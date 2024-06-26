@@ -7,7 +7,7 @@
 - do not dislay user login in chat. instead, clock.
 - who is login now?
 
-## v0.7-SNAPSHOT
+## v0.7.58 / 2024-06-26
 - insert new message after begin.
 - displayed failed login in red, use flash.
 - updated `Makefile`.
