@@ -15,7 +15,7 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
-(def ^:private version "v0.7.52")
+(def ^:private version "v0.8.64")
 
 (def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
 
@@ -31,17 +31,19 @@
   (let [flash (:flash request)]
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>MX3</title><h1>Micro X version3</h1>
+          "<!DOCTYPE html><title>MX3</title>
+           <h1>Micro X for hkimura classes</h1>
+           <body style='font-family:sans-serif;'>
            <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
-            (str "<p>" flash "</p>"))
+            (str "<p style='color:red;'>" flash "</p>"))
           "<input name='login'>
            <input name='password' type='password'>
            <input type='submit' value='LOGIN'>
            <p>version "
           version
-          "</p></form>"))
+          "</p></body></form>"))
         (resp/content-type "text/html")
         (resp/charset "UTF-8"))))
 
