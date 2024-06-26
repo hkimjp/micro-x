@@ -1,15 +1,17 @@
-# Micro X version 3
+# Micro X for Hkimura Classes
 
 ## Unreleased
 - sound.
 - make build.
 - make deply.
 - do not dislay user login in chat. instead, clock.
-- display failed login in red.
-- slf4j.
-- favicon.ico.
 - who is login now?
 
+## v0.7-SNAPSHOT
+- insert new message after begin.
+- displayed failed login in red, use flash.
+- updated `Makefile`.
+- assured `favicon.ico`.
 
 ## v0.7.52 / 2024-06-25
 code cleanup.
@@ -25,7 +27,7 @@ code cleanup.
 
 ## v0.6.40 / 2024-06-24
 - fixed nginx can transfer websocket data.
-```
+```clojure
 (defn- websocket-url [path]
   (js/console.log "websocket-url")
   (let [loc   (.-location js/window)
@@ -62,7 +64,7 @@ code cleanup.
 - initialized repository.
 - updated libraries.
 - it works.
-```
+```shell
 % clj -M:cljs compile client
 % clj -X:server
 ```

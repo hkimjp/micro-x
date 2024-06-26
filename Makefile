@@ -2,4 +2,11 @@ client:
 	clj -M:cljs compile client
 
 start:
-	clojure -X:server &
+	MX3_DEBUG=1 clojure -X:server &
+
+kill:
+	killp 8080
+
+restart:
+	make kill
+	make start
