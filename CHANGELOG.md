@@ -1,11 +1,13 @@
 # Micro X for Hkimura Classes
 
 ## Unreleased
-- make build.
 - make deploy.
 - do not dislay user login in chat. instead, clock.
 - who is login now?
 - sound.
+
+## v0.8-SNAPSHOT
+- successed `make build`.
 
 ## v0.7.58 / 2024-06-26
 - insert new message after begin.
