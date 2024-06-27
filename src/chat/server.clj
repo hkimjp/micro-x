@@ -15,7 +15,7 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
-(def ^:private version "v0.9.83")
+(def ^:private version "v0.10.88")
 
 (def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
 

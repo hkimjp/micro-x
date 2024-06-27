@@ -7,7 +7,7 @@
 - DB.
 
 
-## v0.10-SNAPSHOT
+## v0.10.88 / 2024-06-27
 - systemd service.
 - update "Makefile".
 
