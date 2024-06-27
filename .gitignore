@@ -10,7 +10,6 @@
 /classes
 /codox
 /node_modules
-/resources/public/js
 /target
 pom.xml
 pom.xml.asc

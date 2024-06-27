@@ -1,16 +1,21 @@
 # Micro X for Hkimura Classes
 
 ## Unreleased
+- who is login now?
 - make deploy.
 - do not dislay user login in chat. instead, clock.
-- who is login now?
 - sound.
+- DB.
+- PORT. without compile.
 
-## V0.9-SNAPSHOT
+## v0.9-SNAPSHOT / 2024-06-27
+- cleanup Makefile.
 - can compile by `clj -T:build uber` with:
 ```
     (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
 ```
+- removed - git unignore /resources/public/js.
+- changed - MX3_DEBUG -> MX3_DEV.
 
 ## v0.8.75 / 2024-06-26
 - bump-version.sh bumps `build.clj`.
