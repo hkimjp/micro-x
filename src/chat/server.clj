@@ -15,7 +15,7 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
-(def ^:private version "v0.8.75")
+(def ^:private version "v0.10.88")
 
 (def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")
 
@@ -32,7 +32,7 @@
     (-> (resp/response
          (str
           "<!DOCTYPE html><title>MX3</title>
-           <h1>Micro X for hkimura classes</h1>
+           <h1>Micro X version3</h1>
            <body style='font-family:sans-serif;'>
            <form method='post'>"
           (anti-forgery-field)
@@ -48,7 +48,7 @@
         (resp/charset "UTF-8"))))
 
 (defn login! [{{:keys [login password]} :params}]
-  (if (System/getenv "MX3_DEBUG")
+  (if (System/getenv "MX3_DEV")
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
@@ -95,10 +95,14 @@
 
 (def server (atom nil))
 
-(defn start []
-  (when-not (some? @server)
-    (reset! server (run-server {:port 8080 :join? false}))
-    (println "server started in port 8080.")))
+(defn start
+  ([] (if-let [p (System/getenv "PORT")]
+        (start {:port (Long/parseLong p)})
+        (start {:port 8080})))
+  ([{:keys [port]}]
+   (when-not (some? @server)
+     (reset! server (run-server {:port port :join? false}))
+     (println "server started in port " port "."))))
 
 (defn stop []
   (when (some? @server)

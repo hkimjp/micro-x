@@ -1,0 +1,15 @@
+[Unit]
+Description=micro-x service.
+
+[Service]
+User=ubuntu
+Type=simple
+WorkingDirectory=/home/ubuntu/micro-x
+ExecStart=/bin/sh start.sh
+ExecStop=/bin/sh stop.sh
+StandardOutput=append:/home/ubuntu/micro-x/log/micro-x.log
+StandardError=append:/home/ubuntu/micro-x/log/micro-x.log
+
+
+[Install]
+WantedBy=multi-user.target
