@@ -7,7 +7,7 @@
 - DB.
 
 
-## v0.9-SNAPSHOT / 2024-06-27
+## v0.9.83 / 2024-06-27
 - "make deploy".
 - cleanup "Makefile".
 - found how to compile by `clj -T:build uber`.
