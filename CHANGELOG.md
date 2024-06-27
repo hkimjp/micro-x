@@ -1,11 +1,31 @@
 # Micro X for Hkimura Classes
 
 ## Unreleased
-- sound.
-- make build.
-- make deply.
-- do not dislay user login in chat. instead, clock.
 - who is login now?
+- do not dislay user login in chat. instead, clock.
+- sound.
+- DB.
+
+
+## v0.9.83 / 2024-06-27
+- "make deploy".
+- cleanup "Makefile".
+- found how to compile by `clj -T:build uber`.
+```
+    (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
+```
+
+- changed - MX3_DEBUG -> MX3_DEV.
+
+## v0.8.75 / 2024-06-26
+- bump-version.sh bumps `build.clj`.
+- warn full-width at-mark.
+
+## v0.8.64 / 2024-06-26
+- successed `make build`.
+- deps.edn
+- build.clj
+- shadow-cljs.edn
 
 ## v0.7.58 / 2024-06-26
 - insert new message after begin.
@@ -18,7 +38,7 @@ code cleanup.
 - shift+Enter sends a message.
 - ring.util.response intead of {:status 303 :headers {"location" ...}}.
 - hato timeout 3000msec.
-- MX3_DEBUG
+- MX3\_DEBUG
 ```clojure
 (if (System/getenv "MX3_DEBUG")
     (-> (resp/redirect "/index")

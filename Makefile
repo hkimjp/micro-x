@@ -1,12 +1,34 @@
+PORT=8080
+
 client:
 	clj -M:cljs compile client
 
-start:
-	MX3_DEBUG=1 clojure -X:server &
+develop:
+	MX3_DEV=1 clj -X:server :port ${PORT}
 
-kill:
-	killp 8080
+start:
+	clj -X:server :port ${PORT}
+
+stop:
+	kill `lsof -t -i:${PORT}`
 
 restart:
-	make kill
+	make stop
 	make start
+
+build:
+	clj -T:build uber
+
+deploy: build
+	scp target/build/micro-x-*.jar app.melt:micro-x/micro-x.jar
+	ssh app.melt 'cd micro-x && make restart'
+
+jammy:
+	scp target/build/micro-x-*.jar jammy.local:micro-x/micro-x.jar
+
+clean:
+	${RM} -r target resources/public/js
+
+realclean:
+	make clean
+	${RM} -r .clj-kondo .lsp .shadow-cljs
