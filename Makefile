@@ -21,7 +21,7 @@ build:
 
 deploy: build
 	scp target/build/micro-x-*.jar app.melt:micro-x/micro-x.jar
-	ssh app.melt 'cd micro-x && make restart'
+	ssh app.melt 'sudo systemctl restart micro-x.service'
 
 jammy:
 	scp target/build/micro-x-*.jar jammy.local:micro-x/micro-x.jar

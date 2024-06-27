@@ -7,6 +7,10 @@
 - DB.
 
 
+## v0.10.88 / 2024-06-27
+- systemd service.
+- update "Makefile".
+
 ## v0.9.83 / 2024-06-27
 - "make deploy".
 - cleanup "Makefile".
