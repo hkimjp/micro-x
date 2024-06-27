@@ -17,9 +17,18 @@ restart:
 	make start
 
 build:
-	rm -rf target
-	make client
 	clj -T:build uber
 
+deploy: build
+	scp target/build/micro-x-*.jar app.melt:micro-x/micro-x.jar
+	ssh app.melt 'cd micro-x && make restart'
+
 jammy:
-	scp target/build/micro-x-*.jar jammy.local:micro-x/
+	scp target/build/micro-x-*.jar jammy.local:micro-x/micro-x.jar
+
+clean:
+	${RM} -r target resources/public/js
+
+realclean:
+	make clean
+	${RM} -r .clj-kondo .lsp .shadow-cljs

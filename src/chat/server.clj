@@ -96,7 +96,9 @@
 (def server (atom nil))
 
 (defn start
-  ([] (start {:port 8080}))
+  ([] (if-let [p (System/getenv "PORT")]
+        (start {:port (Long/parseLong p)})
+        (start {:port 8080})))
   ([{:keys [port]}]
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))

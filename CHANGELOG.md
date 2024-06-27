@@ -2,19 +2,19 @@
 
 ## Unreleased
 - who is login now?
-- make deploy.
 - do not dislay user login in chat. instead, clock.
 - sound.
 - DB.
-- PORT. without compile.
+
 
 ## v0.9-SNAPSHOT / 2024-06-27
-- cleanup Makefile.
-- can compile by `clj -T:build uber` with:
+- "make deploy".
+- cleanup "Makefile".
+- found how to compile by `clj -T:build uber`.
 ```
     (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
 ```
-- removed - git unignore /resources/public/js.
+
 - changed - MX3_DEBUG -> MX3_DEV.
 
 ## v0.8.75 / 2024-06-26
