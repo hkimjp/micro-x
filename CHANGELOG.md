@@ -8,10 +8,13 @@
 
 - load button. last 10 or last 10 minutes messages.
 
-## v0.11-SNAPSHOT
+## v0.11-99 / 2024-06-28
 - not random button, assign key.
 - changed my mind. cljs-http/cljs-http {:mvn/version "0.1.48"}
 - ctrl+U put '@user ' to '#message'.
+```
+  (set! (.-value (query "#message")) (str "@" user " "))
+```
 
 ## v0.11.97
 - both function and endpoint is 'user-random'.
