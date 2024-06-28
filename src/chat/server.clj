@@ -3,6 +3,7 @@
   (:require [buddy.hashers :as hashers]
             [clojure.core.async :as a]
             [clojure.java.io :as io]
+            [java-time.api :as jt]
             [clojure.string :as str]
             [hato.client :as hc]
             [muuntaja.middleware :as mw]
@@ -17,8 +18,8 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]
             ;;
-            [chat.xtdb :as xt]
-            ))
+            [chat.xtdb :as xt]))
+
 (def debug? (System/getenv "MX3_DEV"))
 
 (def ^:private version "v0.12.116")
@@ -108,11 +109,25 @@
               {:as :json :timeout 1000})
       :body))
 
-(defn- load-data [_n]
+;; messages (q db
+;;              '{:find (pull msg [*])
+;;                :in [t0]
+;;                :where [[msg :msg/sent-at t]
+;;                        [(<= t0 t)]]}
+;;              (biff/add-seconds (java.util.Date.) (* -60 10)))]
+;;
+;; (jt/minus now (jt/days 1))
+;=> #object[java.time.LocalDate "2015-09-26"]
+
+(defn- load-data [{{:keys [n]} :path-params}]
+  (t/log! :debug [(class n) n]) ; string
   (xt/q '{:find [author message timestamp]
+          :in [t0]
           :where [[e :author author]
                   [e :message message]
-                  [e :timestamp timestamp]]}))
+                  [e :timestamp timestamp]
+                  [(<= t0 timestamp)]]}
+        (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -122,8 +137,8 @@
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
-                ["/load" (fn [_]
-                           (resp/response (load-data 10)))]
+                ["/load/:n" (fn [req]
+                              (resp/response (load-data req)))]
                 ["/user-random" {:get (fn [_]
                                         (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
