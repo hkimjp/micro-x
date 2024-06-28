@@ -70,7 +70,8 @@
 (defn- load-messages [n]
   (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
-        (js/console.log (str messages)))))
+        (js/console.log (str messages))
+        (append-html (query "#message-log") (str "<pre>" messages "<pre>")))))
 
 (defn- on-load [_]
   (js/console.log "on-load")
