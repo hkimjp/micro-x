@@ -5,6 +5,7 @@
             [clojure.java.io :as io]
             [clojure.string :as str]
             [hato.client :as hc]
+            [muuntaja.middleware :as mw]
             [reitit.ring :as rr]
             [ring.adapter.jetty :as adapter]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
@@ -96,8 +97,10 @@
                      (utime t)))))
 
 (defn random-user [_]
-  (let [j (hc/get (str l22 "api/user/" (uhour) "/randomly") {:as :json})]
-    j))
+  (t/log! :info "random-user")
+  (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
+              {:as :json :timeout 1000})
+      :body))
 
 (comment
   (random-user nil)
@@ -108,10 +111,13 @@
    (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
                                       [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
-               ["/api" {:middleware [[def/wrap-defaults def/api-defaults]]}
+               ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
+                                     mw/wrap-format
+                                     mw/wrap-params]}
                 ["/user" {:get (fn [_]
-                                 (resp/response (random-user nil))
-                                 #_(-> (resp/response {:ret "Hello, World"})))}]]
+                                 (random-user nil)
+                                 {:status 200
+                                  :body {:name "you"}})}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
