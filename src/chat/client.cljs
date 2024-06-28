@@ -67,6 +67,11 @@
 (defn- admin? []
   (= (.-value (query "#author")) "hkimura"))
 
+(defn- load-messages [_n]
+  (go (let [response (<! (http/get "/api/load"))
+            messages (:body response)]
+        (js/console.log (str messages)))))
+
 (defn- on-load [_]
   (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
@@ -77,14 +82,15 @@
         (.focus message)
         (.addEventListener message "keyup"
                            (fn [e]
-                             (js/console.log (.-code e))
                              (cond
                                (and (= (.-code e) "Enter") (.-shiftKey e))
                                (send-message stream)
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
                                (if (admin?)
                                  (insert-random-user)
-                                 (js/alert "admin only."))))))))
+                                 (js/alert "admin only.")))))
+        (.addEventListener (query "#load") "click"
+                           (fn [_] (load-messages 10))))))
 
 (defn init []
   (js/console.log "init")

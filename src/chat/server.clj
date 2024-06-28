@@ -108,21 +108,22 @@
               {:as :json :timeout 1000})
       :body))
 
-;; no effect.
-;; (defn- wrap-debug [handler]
-;;   (fn [request]
-;;     (t/log! :debug (:body request))
-;;     (handler request)))
+(defn- load-data [_n]
+  (xt/q '{:find [author message timestamp]
+          :where [[e :author author]
+                  [e :message message]
+                  [e :timestamp timestamp]]}))
 
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [;; wrap-debug
-                                      [wst/wrap-websocket-transit]
+   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
                                       [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
+                ["/load" (fn [_]
+                           (resp/response (load-data 10)))]
                 ["/user-random" {:get (fn [_]
                                         (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
