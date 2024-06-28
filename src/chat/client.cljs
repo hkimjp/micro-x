@@ -68,7 +68,7 @@
   (= (.-value (query "#author")) "hkimura"))
 
 (defn- load-messages [_n]
-  (go (let [response (<! (http/get "/api/load"))
+  (go (let [response (<! (http/get "/api/load/10"))
             messages (:body response)]
         (js/console.log (str messages)))))
 
