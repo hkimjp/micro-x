@@ -59,6 +59,9 @@
          ;; this is it!
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
+(defn- admin? []
+  (= (.-value (query "#author")) "hkimura"))
+
 (defn- on-load [_]
   (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
@@ -74,7 +77,9 @@
                                (and (= (.-code e) "Enter") (.-shiftKey e))
                                (send-message stream)
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
-                               (insert-random-user)))))))
+                               (if (admin?)
+                                 (insert-random-user)
+                                 (js/alert "admin only."))))))))
 
 (defn init []
   (js/console.log "init")

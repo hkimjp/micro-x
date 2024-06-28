@@ -40,7 +40,7 @@
     (-> (resp/response
          (str
           "<!DOCTYPE html><title>MX3</title>
-           <h1>Micro X version3</h1>
+           <h1>Micro X for Classes</h1>
            <body style='font-family:sans-serif;'>
            <form method='post'>"
           (anti-forgery-field)
@@ -105,10 +105,6 @@
               {:as :json :timeout 1000})
       :body))
 
-(comment
-  (user-random nil)
-  :rcf)
-
 (defn make-app-handler []
   (rr/ring-handler
    (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
@@ -118,7 +114,7 @@
                                      mw/wrap-format
                                      mw/wrap-params]}
                 ["/user-random" {:get (fn [_]
-                                 (resp/response (user-random nil)))}]]
+                                        (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
