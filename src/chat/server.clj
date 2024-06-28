@@ -11,21 +11,24 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
-            [ring.websocket.async :as wsa]
+            ;; [ring.websocket.async :as wsa]
+            [chat.async :as wsa]
             [ring.websocket.transit :as wst]
             [ring.websocket.keepalive :as wska]
-            [taoensso.telemere :as t]))
-
+            [taoensso.telemere :as t]
+            ;;
+            [chat.xtdb :as xt]
+            ))
 (def debug? (System/getenv "MX3_DEV"))
 
-(t/set-min-level! (if debug? :debug :info))
-
-(def ^:private version "v0.11.107")
+(def ^:private version "v0.12.116")
 
 (def ^:private l22
   (if debug?
     "http://localhost:3090/"
     "https://l22.melt.kyutech.ac.jp/"))
+
+(t/set-min-level! (if debug? :debug :info))
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -40,7 +43,7 @@
     (-> (resp/response
          (str
           "<!DOCTYPE html><title>MX3</title>
-           <h1>Micro X version3</h1>
+           <h1>Micro X for Classes</h1>
            <body style='font-family:sans-serif;'>
            <form method='post'>"
           (anti-forgery-field)
@@ -105,20 +108,23 @@
               {:as :json :timeout 1000})
       :body))
 
-(comment
-  (user-random nil)
-  :rcf)
+;; no effect.
+;; (defn- wrap-debug [handler]
+;;   (fn [request]
+;;     (t/log! :debug (:body request))
+;;     (handler request)))
 
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
+   (rr/router [["/chat" {:middleware [;; wrap-debug
+                                      [wst/wrap-websocket-transit]
                                       [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
                 ["/user-random" {:get (fn [_]
-                                 (resp/response (user-random nil)))}]]
+                                        (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
@@ -142,12 +148,14 @@
   ([{:keys [port]}]
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
+     (xt/start! "config.edn")
      (println "server started in port " port "."))))
 
 (defn stop []
   (when (some? @server)
     (.stop @server)
     (reset! server nil)
+    (xt/stop!)
     (println "server stopped.")))
 
 (defn restart []
@@ -158,4 +166,8 @@
   (start))
 
 (comment
-  (restart))
+  (xt/q '{:find [who what when]
+          :where [[e :author who]
+                  [e :message what]
+                  [e :timestamp when]]})
+  :rcf)

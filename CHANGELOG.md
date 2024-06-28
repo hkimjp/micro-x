@@ -4,9 +4,14 @@
 - who is login now?
 - do not dislay user login in chat. instead, clock.
 - sound.
-- DB.
+- load. last 10 or last 10 minutes messages.
+- display error message when sent to a non-existent user.
 
-- load button. last 10 or last 10 minutes messages.
+## v0.12.116 / 2024-06-28
+- only admin can use Ctrl+U.
+- if jetty lives, xtdb-http can not?
+- added `async.clj` based on `ring.websocket.async`.
+
 
 ## v0.11.107 / 2024-06-28
 - tag?

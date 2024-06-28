@@ -11,9 +11,14 @@
 (defn- append-html [element html]
   (.insertAdjacentHTML element "afterbegin" html))
 
+(defn- abbrev [s]
+  (str (first s) "****"))
+
 (defn- message-html [{:keys [author message]}]
-  (str "<li><span class='author'>"
-       (if (str/blank? author) "Anonymous" author) "</span>"
+  (str "<li><span class='date'>"
+       (js/Date.)
+        "<br><span class='author'>"
+       (if (str/blank? author) "Anonymous" (abbrev author)) "</span>"
        "<span class='message'>" message "</span></li>"))
 
 (defn- send-message [stream]
@@ -59,6 +64,9 @@
          ;; this is it!
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
+(defn- admin? []
+  (= (.-value (query "#author")) "hkimura"))
+
 (defn- on-load [_]
   (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
@@ -74,7 +82,9 @@
                                (and (= (.-code e) "Enter") (.-shiftKey e))
                                (send-message stream)
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
-                               (insert-random-user)))))))
+                               (if (admin?)
+                                 (insert-random-user)
+                                 (js/alert "admin only."))))))))
 
 (defn init []
   (js/console.log "init")
