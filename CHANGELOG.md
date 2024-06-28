@@ -9,7 +9,7 @@
 - load button. last 10 or last 10 minutes messages.
 
 
-## v0.11-SNAPSHOT
+## v0.11.96 / 2024-06-28
 - added /api/user - returns {:user "login"}
 
 ## v0.10.88 / 2024-06-27
