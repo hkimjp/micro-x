@@ -1,5 +1,6 @@
 (ns chat.client
   (:require [cljs.core.async :as a :refer [<! >! go go-loop]]
+            [cljs-http.client :as http]
             [clojure.string :as str]
             [haslett.client :as ws]
             [haslett.format :as wsfmt]))
@@ -8,7 +9,6 @@
   (.querySelector js/document query))
 
 (defn- append-html [element html]
-  ;;(.insertAdjacentHTML element "beforeend" html)
   (.insertAdjacentHTML element "afterbegin" html))
 
 (defn- message-html [{:keys [author message]}]
@@ -53,6 +53,16 @@
   (js/console.log "websocket-connect")
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
+;;
+(defn- insert-random-user []
+  (go (let [response (<! (http/get "/api/user-random"))
+            user (:user (:body response))]
+        (js/console.log user)
+        (js/alert user)
+        ;;
+        (.-value (query "#message") "hello")
+        (set! (.-value (query "#message")) user))))
+
 (defn- on-load [_]
   (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
@@ -63,11 +73,12 @@
         (.focus message)
         (.addEventListener message "keyup"
                            (fn [e]
-                             (when (and
-                                    (= (.-code e) "Enter")
-                                    (.-shiftKey e))
-                               (js/console.log (str e))
-                               (send-message stream)))))))
+                             (js/console.log (.-code e))
+                             (cond
+                               (and (= (.-code e) "Enter") (.-shiftKey e))
+                               (send-message stream)
+                               (and (= (.-code e) "KeyU") (.-altKey e))
+                               (insert-random-user)))))))
 
 (defn init []
   (js/console.log "init")

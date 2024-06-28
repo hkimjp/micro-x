@@ -5,12 +5,18 @@
 - do not dislay user login in chat. instead, clock.
 - sound.
 - DB.
-- random button.
+
 - load button. last 10 or last 10 minutes messages.
 
+## v0.11-SNAPSHOT
+- not random button, assign key.
+- changed my mind. cljs-http/cljs-http {:mvn/version "0.1.48"}
+
+## v0.11.97
+- both function and endpoint is 'user-random'.
 
 ## v0.11.96 / 2024-06-28
-- added /api/user - returns {:user "login"}
+- added /api/user-random - returns {:user "login"}
 
 ## v0.10.88 / 2024-06-27
 - systemd service.

@@ -20,12 +20,12 @@
 
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.11.96")
+(def ^:private version "v0.11.97")
 
 (def ^:private l22
   (if debug?
     "http://localhost:3090/"
-    "https://l22.melt.kyutech.ac.jp/api/user/"))
+    "https://l22.melt.kyutech.ac.jp/"))
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -60,7 +60,8 @@
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
-      (let [resp (hc/get (str l22 login) {:timeout 3000 :as :json})]
+      (let [resp (hc/get (str l22 "api/user/"login)
+                         {:timeout 3000 :as :json})]
         (if (and (some? resp)
                  (hashers/check password (get-in resp [:body :password])))
           (-> (resp/redirect "/index")
@@ -99,13 +100,13 @@
                      (if debug? "wed" wd)
                      (utime t)))))
 
-(defn random-user [_]
+(defn user-random [_]
   (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
               {:as :json :timeout 1000})
       :body))
 
 (comment
-  (random-user nil)
+  (user-random nil)
   :rcf)
 
 (defn make-app-handler []
@@ -116,8 +117,8 @@
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
-                ["/user" {:get (fn [_]
-                                 (resp/response (random-user nil)))}]]
+                ["/user-random" {:get (fn [_]
+                                 (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
