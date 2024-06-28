@@ -12,7 +12,7 @@
 
 (defn read-config
   [fname]
-  (let [conf (read-string (slurp (io/file (io/resource fname))))
+  (let [conf (read-string (slurp (io/file fname)))
         ret {:xtdb/tx-log         (kv-store (:tx-log conf))
              :xtdb/index-store    (kv-store (:index-store conf))
              :xtdb/document-store (kv-store (:document-store conf))}]

@@ -1,4 +1,0 @@
-{;; :port 8888
- :tx-log         "storage/xtdb/tx-log"
- :index-store    "storage/xtdb/index-store"
- :document-store "storage/xtdb/document-store"}
