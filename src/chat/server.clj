@@ -11,10 +11,13 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
-            [ring.websocket.async :as wsa]
+            ;; [ring.websocket.async :as wsa]
+            [chat.async :as wsa]
             [ring.websocket.transit :as wst]
             [ring.websocket.keepalive :as wska]
-            [taoensso.telemere :as t]))
+            [taoensso.telemere :as t]
+            ;;
+            [chat.xtdb :as xt]))
 
 (def debug? (System/getenv "MX3_DEV"))
 
@@ -105,9 +108,16 @@
               {:as :json :timeout 1000})
       :body))
 
+;; no effect.
+;; (defn- wrap-debug [handler]
+;;   (fn [request]
+;;     (t/log! :debug (:body request))
+;;     (handler request)))
+
 (defn make-app-handler []
   (rr/ring-handler
-   (rr/router [["/chat" {:middleware [[wst/wrap-websocket-transit]
+   (rr/router [["/chat" {:middleware [;; wrap-debug
+                                      [wst/wrap-websocket-transit]
                                       [wska/wrap-websocket-keepalive]]}
                 ["" (make-chat-handler)]]
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]

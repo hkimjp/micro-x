@@ -9,7 +9,8 @@
 - display error message when sent to a non-existent user.
 
 ## v0.12-SNAPSHOT
-- client/admin?
+- only admin can use Ctrl+U.
+- if jetty lives, xtdb-http can not?
 
 ## v0.11.107 / 2024-06-28
 - tag?
