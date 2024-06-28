@@ -5,7 +5,11 @@
 - do not dislay user login in chat. instead, clock.
 - sound.
 - DB.
+- random button.
+- load button. last 10 or last 10 minutes messages.
 
+
+## v0.11-SNAPSHOT
 
 ## v0.10.88 / 2024-06-27
 - systemd service.
