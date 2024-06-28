@@ -8,6 +8,7 @@
 - display error message when sent to a non-existent user.
 
 ## v0.13-SNAPSHOT
+- added a load button.
 
 
 ## v0.12.116 / 2024-06-28
