@@ -8,7 +8,7 @@
 
 - load button. last 10 or last 10 minutes messages.
 
-## v0.11-SNAPSHOT
+## v0.11.107 / 2024-06-28
 - tag?
 
 ## v0.11.99 / 2024-06-28
