@@ -11,6 +11,7 @@
 ## v0.11-SNAPSHOT
 - not random button, assign key.
 - changed my mind. cljs-http/cljs-http {:mvn/version "0.1.48"}
+- ctrl+U put '@user ' to '#message'.
 
 ## v0.11.97
 - both function and endpoint is 'user-random'.

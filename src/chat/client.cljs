@@ -53,15 +53,11 @@
   (js/console.log "websocket-connect")
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
-;;
 (defn- insert-random-user []
   (go (let [response (<! (http/get "/api/user-random"))
             user (:user (:body response))]
-        (js/console.log user)
-        (js/alert user)
-        ;;
-        (.-value (query "#message") "hello")
-        (set! (.-value (query "#message")) user))))
+         ;; this is it!
+        (set! (.-value (query "#message")) (str "@" user " ")))))
 
 (defn- on-load [_]
   (js/console.log "on-load")
@@ -77,7 +73,7 @@
                              (cond
                                (and (= (.-code e) "Enter") (.-shiftKey e))
                                (send-message stream)
-                               (and (= (.-code e) "KeyU") (.-altKey e))
+                               (and (= (.-code e) "KeyU") (.-ctrlKey e))
                                (insert-random-user)))))))
 
 (defn init []
