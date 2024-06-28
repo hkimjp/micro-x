@@ -1,10 +1,40 @@
 # Micro X for Hkimura Classes
 
 ## Unreleased
-- make deploy.
-- do not dislay user login in chat. instead, clock.
 - who is login now?
+- do not dislay user login in chat. instead, clock.
 - sound.
+- DB.
+
+- load button. last 10 or last 10 minutes messages.
+
+## v0.11-99 / 2024-06-28
+- not random button, assign key.
+- changed my mind. cljs-http/cljs-http {:mvn/version "0.1.48"}
+- ctrl+U put '@user ' to '#message'.
+```
+  (set! (.-value (query "#message")) (str "@" user " "))
+```
+
+## v0.11.97
+- both function and endpoint is 'user-random'.
+
+## v0.11.96 / 2024-06-28
+- added /api/user-random - returns {:user "login"}
+
+## v0.10.88 / 2024-06-27
+- systemd service.
+- update "Makefile".
+
+## v0.9.83 / 2024-06-27
+- "make deploy".
+- cleanup "Makefile".
+- found how to compile by `clj -T:build uber`.
+```
+    (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
+```
+
+- changed - MX3_DEBUG -> MX3_DEV.
 
 ## v0.8.75 / 2024-06-26
 - bump-version.sh bumps `build.clj`.

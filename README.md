@@ -6,7 +6,7 @@ For development,
 
 ```
 % make client
-% MX3_DEBUG=1 make start
+% MX3_DEV=1 make start
 ```
 
 ---

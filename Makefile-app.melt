@@ -1,0 +1,14 @@
+PORT=8080
+
+start:
+	PORT=${PORT} java -jar micro-x.jar &
+
+stop:
+	if [ `lsof -t -i:${PORT}` ]; then \
+		kill `lsof -t -i:${PORT}`; \
+	fi
+
+restart:
+	make stop
+	make start
+
