@@ -17,11 +17,9 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]
             ;;
-            [chat.xtdb :as xt]))
-
+            [chat.xtdb :as xt]
+            ))
 (def debug? (System/getenv "MX3_DEV"))
-
-(t/set-min-level! (if debug? :debug :info))
 
 (def ^:private version "v0.11.107")
 
@@ -29,6 +27,8 @@
   (if debug?
     "http://localhost:3090/"
     "https://l22.melt.kyutech.ac.jp/"))
+
+(t/set-min-level! (if debug? :debug :info))
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -148,12 +148,14 @@
   ([{:keys [port]}]
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
+     (xt/start!)
      (println "server started in port " port "."))))
 
 (defn stop []
   (when (some? @server)
     (.stop @server)
     (reset! server nil)
+    (xt/stop!)
     (println "server stopped.")))
 
 (defn restart []
