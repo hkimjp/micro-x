@@ -77,7 +77,6 @@
         (.focus message)
         (.addEventListener message "keyup"
                            (fn [e]
-                             (js/console.log (.-code e))
                              (cond
                                (and (= (.-code e) "Enter") (.-shiftKey e))
                                (send-message stream)

@@ -41,7 +41,7 @@ body {
     padding: 0;
 }
 
-#author, #message, #send {
+#author, #message, #send, #load {
     font-size: 12pt;
     border-radius: 10px;
     height: 30px;
@@ -50,7 +50,7 @@ body {
     padding: 0 10px;
 }
 
-#author:focus, #message:focus, #send:focus {
+#author:focus, #message:focus, #send:focus, #load:focus {
     outline: none;
 }
 
@@ -60,7 +60,8 @@ body {
 }
 
 #message {
-    width: calc(100% - 290px);
+    /* width: calc(100% - 290px); */
+    width: calc(100% - 360px);
 }
 
 #send {
@@ -74,3 +75,14 @@ body {
     background: #69d;
 }
 
+/* add */
+#load {
+    background: orange;
+    color: white;
+    width: 60px;
+    cursor: pointer;
+}
+
+#load:hover {
+    background: rgb(255, 199, 86);
+}
