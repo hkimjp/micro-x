@@ -11,9 +11,14 @@
 (defn- append-html [element html]
   (.insertAdjacentHTML element "afterbegin" html))
 
+(defn- abbrev [s]
+  (str (first s) "****"))
+
 (defn- message-html [{:keys [author message]}]
-  (str "<li><span class='author'>"
-       (if (str/blank? author) "Anonymous" author) "</span>"
+  (str "<li><span class='date'>"
+       (js/Date.)
+        "<br><span class='author'>"
+       (if (str/blank? author) "Anonymous" (abbrev author)) "</span>"
        "<span class='message'>" message "</span></li>"))
 
 (defn- send-message [stream]
