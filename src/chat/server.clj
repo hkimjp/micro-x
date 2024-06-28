@@ -16,10 +16,14 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
+(def debug? (System/getenv "MX3_DEV"))
+
+(t/set-min-level! (if debug? :debug :info))
+
 (def ^:private version "v0.10.88")
 
 (def ^:private l22
-  (if (System/getenv "MX3_DEV")
+  (if debug?
     "http://localhost:3090/"
     "https://l22.melt.kyutech.ac.jp/api/user/"))
 
@@ -52,7 +56,7 @@
         (resp/charset "UTF-8"))))
 
 (defn login! [{{:keys [login password]} :params}]
-  (if (System/getenv "MX3_DEV")
+  (if debug?
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
@@ -81,6 +85,7 @@
 ;; must be rewritten with java-time. agry.
 (defn- utime [t]
   (cond
+    debug? "1"
     (< (+ (* 8 60) 50) t  (+ (* 10 60) 20)) "1"
     (< (+ (* 10 60) 30) t (+ (* 12 60))) "2"
     :else "0"))
@@ -91,13 +96,10 @@
         [hh mm] (str/split hhmmss #":")
         t (+ (* 60 (Long/parseLong hh)) (Long/parseLong mm))]
     (str/lower-case (str
-                     (if (System/getenv "MX3_DEV")
-                       "wed"
-                       wd)
+                     (if debug? "wed" wd)
                      (utime t)))))
 
 (defn random-user [_]
-  (t/log! :info "random-user")
   (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
               {:as :json :timeout 1000})
       :body))
@@ -115,9 +117,7 @@
                                      mw/wrap-format
                                      mw/wrap-params]}
                 ["/user" {:get (fn [_]
-                                 (random-user nil)
-                                 {:status 200
-                                  :body {:name "you"}})}]]
+                                 (resp/response (random-user nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]

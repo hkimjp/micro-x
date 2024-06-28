@@ -10,6 +10,7 @@
 
 
 ## v0.11-SNAPSHOT
+- added /api/user - returns {:user "login"}
 
 ## v0.10.88 / 2024-06-27
 - systemd service.
