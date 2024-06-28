@@ -148,7 +148,7 @@
   ([{:keys [port]}]
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
-     (xt/start!)
+     (xt/start! "config.edn")
      (println "server started in port " port "."))))
 
 (defn stop []
@@ -166,4 +166,8 @@
   (start))
 
 (comment
-  (restart))
+  (xt/q '{:find [who what when]
+          :where [[e :author who]
+                  [e :message what]
+                  [e :timestamp when]]})
+  :rcf)
