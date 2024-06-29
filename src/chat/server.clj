@@ -119,9 +119,9 @@
 ;;         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 
 (defn- load-data [{{:keys [n]} :path-params}]
-  (xt/q '{:find [pull [*]]
+  (xt/q '{:find [( pull eid [*])]
           :in [t0]
-          :where [[e :timestamp timestamp]
+          :where [[eid :timestamp timestamp]
                   [(<= t0 timestamp)]]}
         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 
