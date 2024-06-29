@@ -67,6 +67,25 @@
 (defn- admin? []
   (= (.-value (query "#author")) "hkimura"))
 
+;; from biff,
+;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
+
+(defn- format-message [{:keys [author message timestamp]}]
+  (str "<p>&nbsp" timestamp "<br>&nbsp"
+       author ":" message "</p>"))
+
+(defn- replace-content [element messages]
+  ;; this again. do not forget.
+  (set! (.-textContent element) "")
+  (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
+    (.insertAdjacentHTML element "afterbegin" (format-message msg))))
+
+(defn- load-messages [n]
+  (go (let [response (<! (http/get (str "/api/load/" n)))
+            messages (:body response)]
+        (js/console.log (str messages))
+        (replace-content (query "#message-log") messages))))
+
 (defn- on-load [_]
   (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
@@ -77,14 +96,15 @@
         (.focus message)
         (.addEventListener message "keyup"
                            (fn [e]
-                             (js/console.log (.-code e))
                              (cond
                                (and (= (.-code e) "Enter") (.-shiftKey e))
                                (send-message stream)
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
                                (if (admin?)
                                  (insert-random-user)
-                                 (js/alert "admin only."))))))))
+                                 (js/alert "admin only.")))))
+        (.addEventListener (query "#load") "click"
+                           (fn [_] (load-messages 10))))))
 
 (defn init []
   (js/console.log "init")

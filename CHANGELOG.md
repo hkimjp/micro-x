@@ -7,11 +7,22 @@
 - load. last 10 or last 10 minutes messages.
 - display error message when sent to a non-existent user.
 
+## v0.13.136 / 2024-06-29
+- format-message
+
+
+## v0.13.134 / 2024-06-29
+- added a load button.
+- added a route '/api/load'.
+- added a client function, client/load-messages
+- added an incomplete function, client/replace-content
+- learn 'pull'. pull returns #{[] [] ...}. It is not good.
+- sort by timestamp on client.clj.
+
 ## v0.12.116 / 2024-06-28
 - only admin can use Ctrl+U.
 - if jetty lives, xtdb-http can not?
 - added `async.clj` based on `ring.websocket.async`.
-
 
 ## v0.11.107 / 2024-06-28
 - tag?
