@@ -67,14 +67,18 @@
 (defn- admin? []
   (= (.-value (query "#author")) "hkimura"))
 
+;; from biff,
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
+
+(defn- format-message [{:keys [author message timestamp]}]
+  (str "<p>&nbsp" timestamp "<br>&nbsp"
+       author ":" message "</p>"))
 
 (defn- replace-content [element messages]
   ;; this again. do not forget.
   (set! (.-textContent element) "")
   (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
-    (.insertAdjacentHTML element "afterbegin" (str "<p>" msg "</p"))))
-
+    (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
 (defn- load-messages [n]
   (go (let [response (<! (http/get (str "/api/load/" n)))

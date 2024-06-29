@@ -7,6 +7,10 @@
 - load. last 10 or last 10 minutes messages.
 - display error message when sent to a non-existent user.
 
+## v0.13-SNAPSHOT
+- format-message
+
+
 ## v0.13.134 / 2024-06-29
 - added a load button.
 - added a route '/api/load'.
