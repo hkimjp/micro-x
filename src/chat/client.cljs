@@ -71,7 +71,7 @@
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
 (defn- format-message [{:keys [author message timestamp]}]
   (str "<p>&nbsp" timestamp "<br>&nbsp"
-       (abbrev author) ":" message "</p>"))
+       "<b>" (abbrev author) ":</b> " message "</p>"))
 
 (defn- replace-content [element messages]
   ;; this again. do not forget.
