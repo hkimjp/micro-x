@@ -3,7 +3,7 @@
   (:require [clojure.tools.build.api :as b]))
 
 (def lib 'build/micro-x)
-(def version "v0.13.136")
+(def version "v0.13.141")
 (def main 'chat.server)
 (def class-dir "target/classes")
 
@@ -20,7 +20,7 @@
   (b/delete {:path "target"})
   (let [opts (uber-opts opts)]
     (println (str "\nCompiling client ..."))
-    (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
+    (b/process {:command-args ["clojure" "-M:cljs" "release" "client"]})
     (println "\nCopying source...")
     (b/copy-dir {:src-dirs ["resources" "src"] :target-dir class-dir})
     (println (str "\nCompiling " main "..."))
