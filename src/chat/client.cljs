@@ -70,9 +70,9 @@
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
 
 (defn- replace-content [element messages]
-  (let [msg (sort-by :timestamp #(compare %1 %2) messages)]
-    ;; this again. do not forget.
-    (set! (.-textContent element) "")
+  ;; this again. do not forget.
+  (set! (.-textContent element) "")
+  (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
     (.insertAdjacentHTML element "afterbegin" (str "<p>" msg "</p"))))
 
 

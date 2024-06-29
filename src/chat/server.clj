@@ -22,7 +22,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def ^:private version "v0.12.116")
+(def ^:private version "v0.13.134")
 
 (def ^:private l22
   (if debug?
@@ -109,21 +109,28 @@
               {:as :json :timeout 1000})
       :body))
 
-;; (defn- load-data [{{:keys [n]} :path-params}]
-;;   (xt/q '{:find [author message timestamp]
+(defn- load-data [{{:keys [n]} :path-params}]
+  (xt/q '{:find [author message timestamp]
+          :keys [author message timestamp]
+          :in [t0]
+          :where [[e :author author]
+                  [e :message message]
+                  [e :timestamp timestamp]
+                  [(<= t0 timestamp)]]}
+        (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
+
+;; (defn- load-data [{{:keys [n]} :path-params :as request}]
+;;   (def *r* request)
+;;   (xt/q '{:find [(pull eid [*])]
+;;           ;; :keys [author message timestamp]
 ;;           :in [t0]
-;;           :where [[e :author author]
-;;                   [e :message message]
-;;                   [e :timestamp timestamp]
+;;           :where [[eid :timestamp timestamp]
 ;;                   [(<= t0 timestamp)]]}
 ;;         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 
-(defn- load-data [{{:keys [n]} :path-params}]
-  (xt/q '{:find [( pull eid [*])]
-          :in [t0]
-          :where [[eid :timestamp timestamp]
-                  [(<= t0 timestamp)]]}
-        (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
+(comment
+  (load-data {:path-params {:n "10"}})
+  :rcf)
 
 (defn make-app-handler []
   (rr/ring-handler
