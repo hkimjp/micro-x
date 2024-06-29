@@ -109,23 +109,19 @@
               {:as :json :timeout 1000})
       :body))
 
-;; messages (q db
-;;              '{:find (pull msg [*])
-;;                :in [t0]
-;;                :where [[msg :msg/sent-at t]
-;;                        [(<= t0 t)]]}
-;;              (biff/add-seconds (java.util.Date.) (* -60 10)))]
-;;
-;; (jt/minus now (jt/days 1))
-;=> #object[java.time.LocalDate "2015-09-26"]
+;; (defn- load-data [{{:keys [n]} :path-params}]
+;;   (xt/q '{:find [author message timestamp]
+;;           :in [t0]
+;;           :where [[e :author author]
+;;                   [e :message message]
+;;                   [e :timestamp timestamp]
+;;                   [(<= t0 timestamp)]]}
+;;         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 
 (defn- load-data [{{:keys [n]} :path-params}]
-  (t/log! :debug [(class n) n]) ; string
-  (xt/q '{:find [author message timestamp]
+  (xt/q '{:find [pull [*]]
           :in [t0]
-          :where [[e :author author]
-                  [e :message message]
-                  [e :timestamp timestamp]
+          :where [[e :timestamp timestamp]
                   [(<= t0 timestamp)]]}
         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 

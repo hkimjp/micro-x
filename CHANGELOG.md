@@ -11,7 +11,7 @@
 - added a load button.
 - added a route '/api/load'.
 - added a client function, client/load-messages
-- added a incomplete function, client/replace-content
+- added an incomplete function, client/replace-content
 
 
 ## v0.12.116 / 2024-06-28
