@@ -8,7 +8,7 @@
 - display error message when sent to a non-existent user.
 - abbdev sender in 'Load'.
 
-## v0.13-SNAPSHOT
+## v0.13.141 / 2024-06-29
 - (abbrev author)
 
 ## v0.13.136 / 2024-06-29
