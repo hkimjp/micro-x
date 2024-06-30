@@ -3,6 +3,9 @@ PORT=8080
 client:
 	clj -M:cljs compile client
 
+watch:
+	clj -M:cljs watch client
+
 develop:
 	MX3_DEV=1 clj -X:server :port ${PORT}
 
