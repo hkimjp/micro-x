@@ -5,7 +5,7 @@
 - display error message when sent to a non-existent user.
 - fixme: do not display @user when `load`.
 
-## v0.15-SNAPSHOT
+## v0.15.159 / 2024-06-30
 - hide @who when `load`ed.
 - fixed: if start by `clj -X:server`, xtdb is not started.
   use `make start`.
