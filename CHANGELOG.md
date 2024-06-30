@@ -9,6 +9,10 @@
 - hide @who when `load`ed.
 - fixed: if start by `clj -X:server`, xtdb is not started.
   use `make start`.
+- chat.client/load-messages
+```clj
+(remove #(str/starts-with? (:message %) "@") messages)
+```
 
 ## v0.14.152 / 2024-06-30
 - add sound.
