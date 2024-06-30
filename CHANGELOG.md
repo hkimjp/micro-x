@@ -5,7 +5,7 @@
 - display error message when sent to a non-existent user.
 - fixme: do not display @user when `load`.
 
-## v0.15-SNAPSHOT
+## v0.15.163 / 2024-06-30
 - `maou_se_system28.mp3` by Pantsman.
 
 ## v0.15.159 / 2024-06-30
