@@ -21,6 +21,7 @@
             [chat.xtdb :as xt]))
 
 (def debug? (System/getenv "MX3_DEV"))
+(t/set-min-level! (if debug? :debug :info))
 
 (def ^:private version "v0.15.163")
 
@@ -28,8 +29,6 @@
   (if debug?
     "http://localhost:3090/"
     "https://l22.melt.kyutech.ac.jp/"))
-
-(t/set-min-level! (if debug? :debug :info))
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -128,9 +127,6 @@
 ;;                   [(<= t0 timestamp)]]}
 ;;         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
 
-(comment
-  (load-data {:path-params {:n "10"}})
-  :rcf)
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -154,6 +150,8 @@
     (rr/create-resource-handler {:path "/"})
     (rr/create-default-handler))
    {:middleware []}))
+
+;;
 
 (defn run-server [options]
   (adapter/run-jetty (make-app-handler) options))
