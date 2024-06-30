@@ -10,7 +10,7 @@ develop:
 	MX3_DEV=1 clj -X:server :port ${PORT}
 
 start:
-	clj -X:server :port ${PORT}
+	clj -X:start :port ${PORT}
 
 stop:
 	kill `lsof -t -i:${PORT}`
