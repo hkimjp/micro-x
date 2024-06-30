@@ -90,8 +90,7 @@
 (defn- load-messages [n]
   (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
-        (replace-content (query "#message-log")
-                         (map hide-user-name messages)))))
+        (replace-content (query "#message-log") messages))))
 
 (defn- on-load [_]
   (js/console.log "on-load")

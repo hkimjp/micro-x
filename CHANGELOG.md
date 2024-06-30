@@ -3,10 +3,11 @@
 ## Unreleased
 - who is login now?
 - display error message when sent to a non-existent user.
+- fixme: do not display @user when `load`.
 
 ## v0.14-SNAPSHOT
 - add sound.
-- fixme: do not display @user when `load`.
+
 
 ## v0.13.141 / 2024-06-29
 - (abbrev author) - - do not dislay user names.
