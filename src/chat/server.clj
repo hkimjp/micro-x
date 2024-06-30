@@ -168,7 +168,7 @@
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
      (xt/start! "config.edn")
-     (println "server started in port " port "."))))
+     (println "server started in port" port))))
 
 (defn stop []
   (when (some? @server)
