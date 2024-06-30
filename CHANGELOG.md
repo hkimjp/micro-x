@@ -13,7 +13,7 @@
 - can not filter from messages to me by sender.
   because messages does not have from information. change message format?
 - added chat.xtdb/client
-
+- messages whose owner is self are always `load`.
 
 ## v0.15.163 / 2024-06-30
 - `maou_se_system28.mp3` by Pantsman.

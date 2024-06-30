@@ -84,11 +84,15 @@
   (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
     (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
-(defn- remove? [msg]
-  (let [m (:message msg)]
-    (if (str/starts-with? m (str "@" (author) " "))
+(defn- remove? [{:keys [author message]}]
+  ;; can not use (author). `author` is a parameter name.
+  ;; so I chose `owner`.
+  (let [owner (.-value (query "#author"))]
+    (if (= author owner)
       false
-      (str/starts-with? m "@"))))
+      (if (str/starts-with? message (str "@" owner " "))
+        false
+        (str/starts-with? message "@")))))
 
 (defn- load-messages [n]
   (go (let [response (<! (http/get (str "/api/load/" n)))
