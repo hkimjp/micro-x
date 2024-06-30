@@ -26,8 +26,8 @@
  :paths ["resources" "src" "target/assets"]
  :aliases
  {:cljs   {:main-opts ["-m" "shadow.cljs.devtools.cli"]}
-  :server {:exec-fn chat.server/run-server
-           :exec-args {:port 8080}}
+  :start {:exec-fn chat.server/start
+          :exec-args {:port 8080}}
   :build {:deps {io.github.clojure/tools.build
                  {:git/tag "v0.9.2" :git/sha "fe6b140"}}
           :ns-default build}}}
