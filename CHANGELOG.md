@@ -4,15 +4,16 @@
 - who is login now?
 - display error message when sent to a non-existent user.
 - fixme: do not display @user when `load`.
-- @hkimura って出されたメッセージは、hkimura ユーザが Load した時には表示されてほしい
 - \#(+ 1 2)
 - \$1+2
-- display messates more long period in 'load'?
+
 
 ## 0.16-SNAPSHOT
 - load displays message directed to me.
 - can not filter from messages to me by sender.
   because messages does not have from information. change message format?
+- added chat.xtdb/client
+
 
 ## v0.15.163 / 2024-06-30
 - `maou_se_system28.mp3` by Pantsman.
