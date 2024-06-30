@@ -2,14 +2,15 @@
 
 ## Unreleased
 - who is login now?
-- do not dislay user login in chat. instead, clock.
-- sound.
-- load. last 10 or last 10 minutes messages.
 - display error message when sent to a non-existent user.
-- abbdev sender in 'Load'.
+- fixme: do not display @user when `load`.
+
+## v0.14.152 / 2024-06-30
+- add sound.
 
 ## v0.13.141 / 2024-06-29
-- (abbrev author)
+- (abbrev author) - - do not dislay user names.
+- load. last 10 or last 10 minutes messages.
 
 ## v0.13.136 / 2024-06-29
 - format-message
