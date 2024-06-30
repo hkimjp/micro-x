@@ -23,7 +23,7 @@
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.15.163")
+(def ^:private version "0.16.175")
 
 (def ^:private l22
   (if debug?
