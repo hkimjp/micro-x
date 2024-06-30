@@ -1,6 +1,8 @@
 (ns chat.xtdb
   (:require
    [clojure.java.io :as io]
+   [clojure.main :as main]
+   [clojure.pprint :refer [pprint]]
    [xtdb.api :as xt]))
 
 (def node (atom nil))
@@ -54,6 +56,12 @@
   `(xt/q (xt/db @node) ~query ~@opt))
 
 ;; pull
+
+(defn client [{:keys [config]}]
+  (println "config read" config)
+  (println "do (in-ns 'chat.xtdb)")
+  (start! config)
+  (main/repl))
 
 (comment
   (start!)
