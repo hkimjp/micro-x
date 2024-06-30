@@ -9,13 +9,16 @@
 (defn- query [query]
   (.querySelector js/document query))
 
+(defn- admin? []
+  (= (.-value (query "#author")) "hkimura"))
+
+(defn- abbrev [s]
+  (str (first s) "****"))
+
 (defn- append-html [element html]
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
   (.insertAdjacentHTML element "afterbegin" html))
-
-(defn- abbrev [s]
-  (str (first s) "****"))
 
 (defn- message-html [{:keys [author message]}]
   (str "<li><span class='date'>"
@@ -67,8 +70,7 @@
          ;; this is it!
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
-(defn- admin? []
-  (= (.-value (query "#author")) "hkimura"))
+
 
 ;; from biff,
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
@@ -82,15 +84,12 @@
   (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
     (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
-(defn- hide-user-name [message]
-  ;; (js/console.log (str message))
-  ;; (t/log! :info message)
-  message)
-
 (defn- load-messages [n]
   (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
-        (replace-content (query "#message-log") messages))))
+        (replace-content
+         (query "#message-log")
+         (remove #(str/starts-with? (:message %) "@") messages)))))
 
 (defn- on-load [_]
   (js/console.log "on-load")

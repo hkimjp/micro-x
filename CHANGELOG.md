@@ -6,8 +6,13 @@
 - fixme: do not display @user when `load`.
 
 ## v0.15-SNAPSHOT
-- bug: if start by `clj -X:server`, xtdb is not started.
+- hide @who when `load`ed.
+- fixed: if start by `clj -X:server`, xtdb is not started.
   use `make start`.
+- chat.client/load-messages
+```clj
+(remove #(str/starts-with? (:message %) "@") messages)
+```
 
 ## v0.14.152 / 2024-06-30
 - add sound.
@@ -44,7 +49,7 @@
 ```
 
 ## v0.11.97
-- both function and endpoint is 'user-random'.
+- both function and endpoint are 'user-random'.
 
 ## v0.11.96 / 2024-06-28
 - added /api/user-random - returns {:user "login"}
