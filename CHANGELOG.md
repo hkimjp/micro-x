@@ -8,7 +8,6 @@
 ## v0.14-SNAPSHOT
 - add sound.
 
-
 ## v0.13.141 / 2024-06-29
 - (abbrev author) - - do not dislay user names.
 - load. last 10 or last 10 minutes messages.
