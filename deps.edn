@@ -28,6 +28,9 @@
  {:cljs   {:main-opts ["-m" "shadow.cljs.devtools.cli"]}
   :start {:exec-fn chat.server/start
           :exec-args {:port 8080}}
+  :xtdbc {:ns-default chat.xtdb
+          :exec-fn client
+          :exec-args {:config "config.edn"}}
   :build {:deps {io.github.clojure/tools.build
                  {:git/tag "v0.9.2" :git/sha "fe6b140"}}
           :ns-default build}}}
