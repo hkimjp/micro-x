@@ -13,7 +13,7 @@
         (js/alert "全角の ＠ を使っています。"))
 ```
 
-## 0.16-SNAPSHOT
+## 0.16.175 / 2024-06-30
 
 ## 0.16.173
 - load displays message directed to me.
