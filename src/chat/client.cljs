@@ -17,6 +17,10 @@
 (defn- abbrev [s]
   (str (first s) "*****"))
 
+(defn alert [s]
+  (.play js/failed)
+  (js/alert s))
+
 (defn- append-html [element html]
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
@@ -36,9 +40,7 @@
         data    {:author  (.-value author)
                  :message (.-value message)}]
     (if (str/starts-with? (.-value message) "＠")
-      (do
-        (.play js/failed)
-        (js/alert "全角の ＠ を使っています。"))
+      (alert "全角の ＠ を使っています。")
       (do
         (go (>! (:out stream) data))
         (set! (.-value message) "")
@@ -69,6 +71,7 @@
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
 (defn- insert-random-user []
+  (js/console.log "insert-radom-user")
   (go (let [response (<! (http/get "/api/user-random"))
             user (:user (:body response))]
          ;; this is it!
@@ -118,7 +121,7 @@
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
                                (if (admin?)
                                  (insert-random-user)
-                                 (js/alert "admin only.")))))
+                                 (alert "admin only.")))))
         (.addEventListener (query "#load") "click"
                            (fn [_] (load-messages 10))))))
 
