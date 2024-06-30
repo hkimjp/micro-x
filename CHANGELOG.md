@@ -6,9 +6,16 @@
 - fixme: do not display @user when `load`.
 - \#(+ 1 2)
 - \$1+2
+- does not play sound.
+```
+      (do
+        (.play js/failed)
+        (js/alert "全角の ＠ を使っています。"))
+```
 
+## 0.16.175 / 2024-06-30
 
-## 0.16-SNAPSHOT
+## 0.16.173
 - load displays message directed to me.
 - can not filter from messages to me by sender.
   because messages does not have from information. change message format?

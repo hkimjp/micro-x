@@ -36,7 +36,9 @@
         data    {:author  (.-value author)
                  :message (.-value message)}]
     (if (str/starts-with? (.-value message) "＠")
-      (js/alert "全角の ＠ を使っています。")
+      (do
+        (.play js/failed)
+        (js/alert "全角の ＠ を使っています。"))
       (do
         (go (>! (:out stream) data))
         (set! (.-value message) "")
