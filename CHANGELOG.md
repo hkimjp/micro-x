@@ -2,15 +2,70 @@
 
 ## Unreleased
 - who is login now?
-- do not dislay user login in chat. instead, clock.
-- sound.
-- Database.
-- '/logout'.
+- display error message when sent to a non-existent user.
+- fixme: do not display @user when `load`.
+- \#(+ 1 2)
+- \$1+2
 
 
-## v0.11-SNAPSHOT
-- last 10 messages? last 10 minutes?
+## 0.16-SNAPSHOT
+- load displays message directed to me.
+- can not filter from messages to me by sender.
+  because messages does not have from information. change message format?
+- added chat.xtdb/client
 
+
+## v0.15.163 / 2024-06-30
+- `maou_se_system28.mp3` by Pantsman.
+
+## v0.15.159 / 2024-06-30
+- hide @who when `load`ed.
+- fixed: if start by `clj -X:server`, xtdb is not started.
+  use `make start`.
+- chat.client/load-messages
+```clj
+(remove #(str/starts-with? (:message %) "@") messages)
+```
+
+## v0.14.152 / 2024-06-30
+- add sound.
+
+## v0.13.141 / 2024-06-29
+- (abbrev author) - - do not dislay user names.
+- load. last 10 or last 10 minutes messages.
+
+## v0.13.136 / 2024-06-29
+- format-message
+
+## v0.13.134 / 2024-06-29
+- added a load button.
+- added a route '/api/load'.
+- added a client function, client/load-messages
+- added an incomplete function, client/replace-content
+- learn 'pull'. pull returns #{[] [] ...}. It is not good.
+- sort by timestamp on client.clj.
+
+## v0.12.116 / 2024-06-28
+- only admin can use Ctrl+U.
+- if jetty lives, xtdb-http can not?
+- added `async.clj` based on `ring.websocket.async`.
+
+## v0.11.107 / 2024-06-28
+- tag?
+
+## v0.11.99 / 2024-06-28
+- not random button, assign key.
+- changed my mind. cljs-http/cljs-http {:mvn/version "0.1.48"}
+- ctrl+U put '@user ' to '#message'.
+```
+  (set! (.-value (query "#message")) (str "@" user " "))
+```
+
+## v0.11.97
+- both function and endpoint are 'user-random'.
+
+## v0.11.96 / 2024-06-28
+- added /api/user-random - returns {:user "login"}
 
 ## v0.10.88 / 2024-06-27
 - systemd service.
