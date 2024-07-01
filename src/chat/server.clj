@@ -15,6 +15,10 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]))
 
+(t/set-min-level! (if (System/getenv "MX3_DEV") :debug :info))
+;; (t/log! {:level :debug :id "telemere"} "debug level")
+;; (t/log! :info  ["telemere" "info" "level"])
+
 (def ^:private version "v0.10.88")
 
 (def ^:pricate url "https://l22.melt.kyutech.ac.jp/api/user/")

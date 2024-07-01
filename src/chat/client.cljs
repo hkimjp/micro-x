@@ -8,7 +8,6 @@
   (.querySelector js/document query))
 
 (defn- append-html [element html]
-  ;;(.insertAdjacentHTML element "beforeend" html)
   (.insertAdjacentHTML element "afterbegin" html))
 
 (defn- message-html [{:keys [author message]}]
