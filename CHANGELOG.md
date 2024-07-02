@@ -81,9 +81,8 @@
 - cleanup "Makefile".
 - found how to compile by `clj -T:build uber`.
 ```
-    (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
+  (b/process {:command-args ["clojure" "-M:cljs" "compile" "client"]})
 ```
-
 - changed - MX3_DEBUG -> MX3_DEV.
 
 ## v0.8.75 / 2024-06-26
@@ -142,8 +141,9 @@ code cleanup.
 - auth.
 - flash.
 - hk-server is not good against ring-example server.
-  differ websocket API, jetty and http-kit?
-- hk-client, too. need cachire to decode? (hc/get url {:as :json}) is fine.
+  differs websocket API between jetty and http-kit?
+- hk-client can not parse (get-in resp [:body :password])
+  need cachire to decode? (hc/get url {:as :json}) is fine.
 
 ## v0.2.12 / 2024-06-24
 - moved default middleware to "/chat".
