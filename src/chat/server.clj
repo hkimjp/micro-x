@@ -86,7 +86,7 @@
           (resp/content-type "text/html")
           (resp/charset "UTF-8")))))
 
-;; must be rewritten with java-time. agry.
+;; agry. must be rewritten with java-time.
 (defn- utime [t]
   (cond
     debug? "1"
@@ -95,15 +95,13 @@
     :else "0"))
 
 (defn- uhour []
-  (if debug?
-    "wed1"
-    (let [[wd _ _ hhmmss] (-> (str (java.util.Date.))
-                              (str/split #"\s"))
-          [hh mm] (str/split hhmmss #":")
-          t (+ (* 60 (Long/parseLong hh)) (Long/parseLong mm))]
-      (str/lower-case (str
-                       (if debug? "wed" wd)
-                       (utime t))))))
+  (let [[wd _ _ hhmmss] (-> (str (java.util.Date.))
+                            (str/split #"\s"))
+        [hh mm] (str/split hhmmss #":")
+        t (+ (* 60 (Long/parseLong hh)) (Long/parseLong mm))]
+    (str/lower-case (str
+                     (if debug? "wed" wd)
+                     (utime t)))))
 
 (defn user-random [_]
   (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")

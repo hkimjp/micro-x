@@ -8,6 +8,8 @@
 - \$1+2
 - is it better to provide `/api/user/:klass/random`?
   client change calls according to development/production.
+- how about ^U to send a query to a random student, rather than only
+  choosing a student to answer.
 
 
 ## v0.16.179 / 2024-06-30
