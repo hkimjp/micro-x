@@ -95,13 +95,15 @@
     :else "0"))
 
 (defn- uhour []
-  (let [[wd _ _ hhmmss] (-> (str (java.util.Date.))
-                            (str/split #"\s"))
-        [hh mm] (str/split hhmmss #":")
-        t (+ (* 60 (Long/parseLong hh)) (Long/parseLong mm))]
-    (str/lower-case (str
-                     (if debug? "wed" wd)
-                     (utime t)))))
+  (if debug?
+    "wed1"
+    (let [[wd _ _ hhmmss] (-> (str (java.util.Date.))
+                              (str/split #"\s"))
+          [hh mm] (str/split hhmmss #":")
+          t (+ (* 60 (Long/parseLong hh)) (Long/parseLong mm))]
+      (str/lower-case (str
+                       (if debug? "wed" wd)
+                       (utime t))))))
 
 (defn user-random [_]
   (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
