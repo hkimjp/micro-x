@@ -6,6 +6,9 @@
 - fixme: do not display @user when `load`.
 - \#(+ 1 2)
 - \$1+2
+- is it better to provide `/api/user/:klass/random`?
+  client change calls according to development/production.
+
 
 ## v0.16.179 / 2024-06-30
 - add alert(s)
