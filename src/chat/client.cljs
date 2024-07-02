@@ -17,6 +17,10 @@
 (defn- abbrev [s]
   (str (first s) "*****"))
 
+(defn alert [s]
+  (.play js/failed)
+  (js/alert s))
+
 (defn- append-html [element html]
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
@@ -36,7 +40,7 @@
         data    {:author  (.-value author)
                  :message (.-value message)}]
     (if (str/starts-with? (.-value message) "＠")
-      (js/alert "全角の ＠ を使っています。")
+      (alert "全角の ＠ を使っています。")
       (do
         (go (>! (:out stream) data))
         (set! (.-value message) "")
@@ -67,6 +71,7 @@
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
 (defn- insert-random-user []
+  (js/console.log "insert-radom-user")
   (go (let [response (<! (http/get "/api/user-random"))
             user (:user (:body response))]
          ;; this is it!
@@ -84,11 +89,15 @@
   (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
     (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
-(defn- remove? [msg]
-  (let [m (:message msg)]
-    (if (str/starts-with? m (str "@" (author) " "))
+(defn- remove? [{:keys [author message]}]
+  ;; can not use (author). `author` is a parameter name.
+  ;; so I chose `owner`.
+  (let [owner (.-value (query "#author"))]
+    (if (= author owner)
       false
-      (str/starts-with? m "@"))))
+      (if (str/starts-with? message (str "@" owner " "))
+        false
+        (str/starts-with? message "@")))))
 
 (defn- load-messages [n]
   (go (let [response (<! (http/get (str "/api/load/" n)))
@@ -112,7 +121,7 @@
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
                                (if (admin?)
                                  (insert-random-user)
-                                 (js/alert "admin only.")))))
+                                 (alert "admin only.")))))
         (.addEventListener (query "#load") "click"
                            (fn [_] (load-messages 10))))))
 

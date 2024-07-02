@@ -6,14 +6,19 @@
 - fixme: do not display @user when `load`.
 - \#(+ 1 2)
 - \$1+2
+- is it better to provide `/api/user/:klass/random`?
+  client change calls according to development/production.
 
 
-## 0.16-SNAPSHOT
+## v0.16.179 / 2024-06-30
+- add alert(s)
+
+## v0.16.173
 - load displays message directed to me.
 - can not filter from messages to me by sender.
   because messages does not have from information. change message format?
 - added chat.xtdb/client
-
+- messages whose owner is self are always `load`.
 
 ## v0.15.163 / 2024-06-30
 - `maou_se_system28.mp3` by Pantsman.
