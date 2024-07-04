@@ -10,6 +10,12 @@
   client change calls according to development/production.
 
 
+## v0.17-SNAPSHOT
+- load-records and fetch-records.
+  the names do not reflect their functions.
+- fixme: order-by and in [n].
+
+
 ## v0.16.179 / 2024-06-30
 - add alert(s)
 
