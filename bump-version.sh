@@ -22,3 +22,6 @@ ${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/chat/server.clj
 
 # build.clj
 ${SED} -i "s/(def version) .+/\1 \"$1\")/" build.clj
+
+# micro-x.html
+${SED} -i "s/(main.js\?v=).*\"/\1$1\")/" resources/micro-x.html
