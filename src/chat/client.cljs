@@ -33,24 +33,31 @@
        (if (str/blank? author) "Anonymous" (abbrev author)) "</span>"
        "<span class='message'>" message "</span></li>"))
 
+(defn- empty-message? [s]
+  (empty? (-> s
+              (str/replace #"^@[^ ]*" "")
+              (str/replace #"^\s*" ""))))
+
 (defn- send-message [stream]
-  (js/console.log "send-message")
+  ;; (js/console.log "send-message")
   (let [message (query "#message")
         author  (query "#author")
         data    {:author  (.-value author)
                  :message (.-value message)}]
-    (if (str/starts-with? (.-value message) "＠")
-      (alert "全角の ＠ を使っています。")
-      (do
-        (go (>! (:out stream) data))
-        (set! (.-value message) "")
-        (.focus message)))))
+    (cond (str/starts-with? (.-value message) "＠")
+          (alert "全角の ＠ を使っています。")
+          (empty-message? (.-value message))
+          (alert "メッセージが空(カラ)です．")
+          :else (do
+                  (go (>! (:out stream) data))
+                  (set! (.-value message) "")
+                  (.focus message)))))
 
 (defn- dest [s]
   (re-find #"[^, ]+" (subs s 1)))
 
 (defn- start-listener [stream message-log]
-  (js/console.log "start-listener")
+  ;; (js/console.log "start-listener")
   (go-loop []
     (when-some [message (<! (:in stream))]
       (if (str/starts-with? (:message message) "@")
@@ -60,14 +67,14 @@
       (recur))))
 
 (defn- websocket-url [path]
-  (js/console.log "websocket-url")
+  ;; (js/console.log "websocket-url")
   (let [loc   (.-location js/window)
         ;; fixed.
         proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
     (str proto "://" (.-host loc) path)))
 
 (defn- websocket-connect [path]
-  (js/console.log "websocket-connect")
+  ;; (js/console.log "websocket-connect")
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
 (defn- insert-random-user []
@@ -107,7 +114,7 @@
          (query "#message-log") (remove remove? messages)))))
 
 (defn- on-load [_]
-  (js/console.log "on-load")
+  ;; (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
             message (query "#message")]
         (start-listener stream (query "#message-log"))
@@ -127,5 +134,5 @@
                            (fn [_] (load-messages 10))))))
 
 (defn init []
-  (js/console.log "init")
+  ;; (js/console.log "init")
   (.addEventListener js/window "load" on-load))

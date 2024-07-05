@@ -23,7 +23,7 @@
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.17.190")
+(def ^:private version "v0.17.199")
 
 (def ^:private l22
   (if debug?
@@ -86,7 +86,7 @@
           (resp/content-type "text/html")
           (resp/charset "UTF-8")))))
 
-;; must be rewritten with java-time. agry.
+;; agry. must be rewritten with java-time.
 (defn- utime [t]
   (cond
     debug? "1"
