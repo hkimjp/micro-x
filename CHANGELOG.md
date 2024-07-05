@@ -6,6 +6,10 @@
 - fixme: do not display @user when `load`.
 - \#(+ 1 2)
 - \$1+2
+- is it better to provide `/api/user/:klass/random`?
+  client change calls according to development/production.
+- how about ^U to send a query to a random student, rather than only
+  choosing a student to answer.
 
 ## v0.17.190 / 2024-07-05
 - load-records and fetch-records.

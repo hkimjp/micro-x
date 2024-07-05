@@ -86,7 +86,7 @@
           (resp/content-type "text/html")
           (resp/charset "UTF-8")))))
 
-;; must be rewritten with java-time. agry.
+;; agry. must be rewritten with java-time.
 (defn- utime [t]
   (cond
     debug? "1"
