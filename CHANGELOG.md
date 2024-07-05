@@ -10,6 +10,8 @@
   client change calls according to development/production.
 - how about ^U to send a query to a random student, rather than only
   choosing a student to answer.
+- alert empty messages.
+
 
 ## v0.17.190 / 2024-07-05
 - load-records and fetch-records.
