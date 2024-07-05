@@ -11,8 +11,11 @@
 - how about ^U to send a query to a random student, rather than only
   choosing a student to answer.
 
-## v0.17-SNAPSHOT
-- main.js?v=_version-number_
+## v0.17.203 / 2024-07-05
+- fake argument to main.js
+```
+main.js?v=_version-number_
+```
 
 ## v0.17.199 / 2024-07-05
 - alert empty messages.
