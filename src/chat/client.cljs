@@ -100,6 +100,7 @@
         (str/starts-with? message "@")))))
 
 (defn- load-messages [n]
+  ;; which is better, load or fetch?
   (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
         (replace-content

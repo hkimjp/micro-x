@@ -108,7 +108,10 @@
               {:as :json :timeout 1000})
       :body))
 
-(defn- load-data [{{:keys [n]} :path-params}]
+;; clojure has a function `load`.
+(defn load-records
+  "fetch last `n` minutes submissions."
+  [n]
   (xt/q '{:find [author message timestamp]
           :keys [author message timestamp]
           :in [t0]
@@ -116,9 +119,23 @@
                   [e :message message]
                   [e :timestamp timestamp]
                   [(<= t0 timestamp)]]}
-        (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
+        (jt/minus (jt/local-date-time) (jt/minutes n))))
 
-;; (defn- load-data [{{:keys [n]} :path-params :as request}]
+;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
+;; why not?
+(defn fetch-records
+  "fetch last `n` submissions."
+  [n]
+  (take n
+        (dedupe ; why needed?
+         (xt/q '{:find [author message timestamp]
+                 :keys [author message timestamp]
+                 :where [[e :author author]
+                         [e :message message]
+                         [e :timestamp timestamp]]
+                 :order-by [[timestamp :desc]]}))))
+
+;; (defn- load-records [{{:keys [n]} :path-params :as request}]
 ;;   (def *r* request)
 ;;   (xt/q '{:find [(pull eid [*])]
 ;;           ;; :keys [author message timestamp]
@@ -136,8 +153,12 @@
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
-                ["/load/:n" (fn [req]
-                              (resp/response (load-data req)))]
+                ["/load/:n" (fn [{{:keys [n]} :path-params}]
+                              (let [n (Long/parseLong n)]
+                                (resp/response (load-records n))))]
+                ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
+                               (let [n (Long/parseLong n)]
+                                 (resp/response (fetch-records n))))]
                 ["/user-random" {:get (fn [_]
                                         (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
@@ -181,10 +202,3 @@
 
 (defn -main [& _args]
   (start))
-
-(comment
-  (xt/q '{:find [who what when]
-          :where [[e :author who]
-                  [e :message what]
-                  [e :timestamp when]]})
-  :rcf)
