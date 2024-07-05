@@ -2,11 +2,10 @@
   (:require [clojure.core.async :as a]
             [ring.websocket :as ws]
             [ring.websocket.protocols :as wsp]
-            [taoensso.telemere :as t]
             [chat.xtdb :as xt]
-            [java-time.api :as jt]))
-
-;; (xt/start!)
+            [java-time.api :as jt]
+            ;;
+            [taoensso.telemere :as t]))
 
 (defrecord Closed [code reason])
 
@@ -40,6 +39,7 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
+                ;; hkimura
                 (xt/put! (assoc mesg
                                 :xt/id (random-uuid)
                                 :timestamp (jt/local-date-time)))

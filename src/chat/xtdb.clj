@@ -2,7 +2,7 @@
   (:require
    [clojure.java.io :as io]
    [clojure.main :as main]
-   [clojure.pprint :refer [pprint]]
+   ;; [clojure.pprint :refer [pprint]]
    [xtdb.api :as xt]))
 
 (def node (atom nil))
@@ -55,7 +55,7 @@
 (defmacro q [query & opt]
   `(xt/q (xt/db @node) ~query ~@opt))
 
-;; pull
+;; FIXME: define pull?
 
 (defn client [{:keys [config]}]
   (println "config read" config)
