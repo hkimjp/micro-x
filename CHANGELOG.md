@@ -7,7 +7,7 @@
 - \#(+ 1 2)
 - \$1+2
 
-## v0.17-SNAPSHOT
+## v0.17.190 / 2024-07-05
 - load-records and fetch-records.
 - the function names do not reflect their functions.
 - fixme: order-by and in [n].
