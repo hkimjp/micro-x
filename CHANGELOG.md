@@ -12,7 +12,10 @@
   choosing a student to answer.
 
 ## v0.17.203 / 2024-07-05
-- main.js?v=_version-number_
+- fake argument to main.js
+```
+main.js?v=_version-number_
+```
 
 ## v0.17.199 / 2024-07-05
 - alert empty messages.
