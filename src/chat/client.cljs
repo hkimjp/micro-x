@@ -33,18 +33,25 @@
        (if (str/blank? author) "Anonymous" (abbrev author)) "</span>"
        "<span class='message'>" message "</span></li>"))
 
+(defn- empty-message? [s]
+  (empty? (-> s
+              (str/replace #"^@[^ ]*" "")
+              (str/replace #"^\s*" ""))))
+
 (defn- send-message [stream]
   ;; (js/console.log "send-message")
   (let [message (query "#message")
         author  (query "#author")
         data    {:author  (.-value author)
                  :message (.-value message)}]
-    (if (str/starts-with? (.-value message) "＠")
-      (alert "全角の ＠ を使っています。")
-      (do
-        (go (>! (:out stream) data))
-        (set! (.-value message) "")
-        (.focus message)))))
+    (cond (str/starts-with? (.-value message) "＠")
+          (alert "全角の ＠ を使っています。")
+          (empty-message? (.-value message))
+          (alert "メッセージが空(カラ)です．")
+          :else (do
+                  (go (>! (:out stream) data))
+                  (set! (.-value message) "")
+                  (.focus message)))))
 
 (defn- dest [s]
   (re-find #"[^, ]+" (subs s 1)))
