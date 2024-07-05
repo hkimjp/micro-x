@@ -119,14 +119,15 @@
                   [e :message message]
                   [e :timestamp timestamp]
                   [(<= t0 timestamp)]]}
-        (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
+        (jt/minus (jt/local-date-time) (jt/minutes n))))
 
-;; FIXME: can not use `:limit n`. why?
+;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
+;; why not?
 (defn fetch-records
   "fetch last `n` submissions."
   [n]
-  (take (Long/parseLong n)
-        (dedupe
+  (take n
+        (dedupe ; why needed?
          (xt/q '{:find [author message timestamp]
                  :keys [author message timestamp]
                  :where [[e :author author]
@@ -153,9 +154,11 @@
                                      mw/wrap-format
                                      mw/wrap-params]}
                 ["/load/:n" (fn [{{:keys [n]} :path-params}]
-                              (resp/response (load-records n)))]
+                              (let [n (Long/parseLong n)]
+                                (resp/response (load-records n))))]
                 ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
-                               (resp/response (fetch-records n)))]
+                               (let [n (Long/parseLong n)]
+                                 (resp/response (fetch-records n))))]
                 ["/user-random" {:get (fn [_]
                                         (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}

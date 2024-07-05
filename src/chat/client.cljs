@@ -100,7 +100,8 @@
         (str/starts-with? message "@")))))
 
 (defn- load-messages [n]
-  (go (let [response (<! (http/get (str "/api/fetch/" n)));; was "/api/laod"
+  ;; which is better, load or fetch?
+  (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
         (replace-content
          (query "#message-log") (remove remove? messages)))))
