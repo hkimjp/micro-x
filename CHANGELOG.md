@@ -12,7 +12,7 @@
   choosing a student to answer.
 
 
-## v0.17-SNAPSHOT
+## v0.17.199 / 2024-07-05
 - alert empty messages.
 ```clj
 (defn- empty-message? [s]
