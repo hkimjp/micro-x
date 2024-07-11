@@ -29,7 +29,7 @@
 (defn- message-html [{:keys [author message]}]
   (str "<li><span class='date'>"
        (js/Date.)
-        "<br><span class='author'>"
+       "<br><span class='author'>"
        (if (str/blank? author) "Anonymous" (abbrev author)) "</span>"
        "<span class='message'>" message "</span></li>"))
 
@@ -38,11 +38,7 @@
               (str/replace #"^@[^ ]*" "")
               (str/replace #"^\s*" ""))))
 
-(defn- deliver [out data]
-  (go (>! out data)))
-
 (defn- send-message [stream]
-  ;; (js/console.log "send-message")
   (let [message (query "#message")
         author  (query "#author")
         data    {:author  (.-value author)
@@ -52,9 +48,10 @@
           (empty-message? (.-value message))
           (alert "メッセージが空(カラ)です．")
           :else (do
-                  ;; (go (>! (:out stream) data))
-                  (deliver (:out stream) {:author  (.-value author)
-                                          :message (.-value message)})
+                  (go (>! (:out stream) data))
+                  ;; :message will be empty
+                  ;; (go (>! (:out stream) {:author  (.-value author)
+                  ;;                        :message (.-value message)}))
                   (set! (.-value message) "")
                   (.focus message)))))
 
@@ -62,7 +59,6 @@
   (re-find #"[^, ]+" (subs s 1)))
 
 (defn- start-listener [stream message-log]
-  ;; (js/console.log "start-listener")
   (go-loop []
     (when-some [message (<! (:in stream))]
       (if (str/starts-with? (:message message) "@")
@@ -72,14 +68,12 @@
       (recur))))
 
 (defn- websocket-url [path]
-  ;; (js/console.log "websocket-url")
   (let [loc   (.-location js/window)
         ;; fixed.
         proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
     (str proto "://" (.-host loc) path)))
 
 (defn- websocket-connect [path]
-  ;; (js/console.log "websocket-connect")
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
 (defn- insert-random-user []
@@ -88,6 +82,16 @@
             user (:user (:body response))]
          ;; this is it!
         (set! (.-value (query "#message")) (str "@" user " ")))))
+
+(defn- deliver-random [stream]
+  (go (let [response (<! (http/get "/api/user-random"))
+            user (:user (:body response))
+            author  (query "#author")
+            message (query "#message")]
+        (>! (:out stream) {:author (.-value author)
+                           :message (str "@" user " " (.-value message))})
+        (set! (.-value message) "")
+        (.focus message))))
 
 ;; from biff,
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
@@ -102,8 +106,6 @@
     (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
 (defn- remove? [{:keys [author message]}]
-  ;; can not use (author). `author` is a parameter name.
-  ;; so I chose `owner`.
   (let [owner (.-value (query "#author"))]
     (if (= author owner)
       false
@@ -112,14 +114,12 @@
         (str/starts-with? message "@")))))
 
 (defn- load-messages [n]
-  ;; which is better, load or fetch?
   (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
         (replace-content
          (query "#message-log") (remove remove? messages)))))
 
 (defn- on-load [_]
-  ;; (js/console.log "on-load")
   (go (let [stream  (<! (websocket-connect "/chat"))
             message (query "#message")]
         (start-listener stream (query "#message-log"))
@@ -134,10 +134,13 @@
                                (and (= (.-code e) "KeyU") (.-ctrlKey e))
                                (if (admin?)
                                  (insert-random-user)
-                                 (alert "admin only.")))))
+                                 (alert "^U admin only."))
+                               (and (= (.-code e) "KeyI") (.-ctrlKey e))
+                               (if (admin?)
+                                 (deliver-random stream)
+                                 (alert "^I admin only.")))))
         (.addEventListener (query "#load") "click"
                            (fn [_] (load-messages 10))))))
 
 (defn init []
-  ;; (js/console.log "init")
   (.addEventListener js/window "load" on-load))
