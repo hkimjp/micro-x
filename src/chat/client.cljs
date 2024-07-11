@@ -38,6 +38,9 @@
               (str/replace #"^@[^ ]*" "")
               (str/replace #"^\s*" ""))))
 
+(defn- deliver [out data]
+  (go (>! out data)))
+
 (defn- send-message [stream]
   ;; (js/console.log "send-message")
   (let [message (query "#message")
@@ -49,7 +52,9 @@
           (empty-message? (.-value message))
           (alert "メッセージが空(カラ)です．")
           :else (do
-                  (go (>! (:out stream) data))
+                  ;; (go (>! (:out stream) data))
+                  (deliver (:out stream) {:author  (.-value author)
+                                          :message (.-value message)})
                   (set! (.-value message) "")
                   (.focus message)))))
 
