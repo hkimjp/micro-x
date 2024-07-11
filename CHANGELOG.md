@@ -11,7 +11,7 @@
 - how about ^U to send a query to a random student, rather than only
   choosing a student to answer.
 
-## v0.18-SNAPSHOT
+## v0.18.211 / 2024-07-11
 - changed: C-I delivers secretly to a random user.
 
 ## v0.17.203 / 2024-07-05
