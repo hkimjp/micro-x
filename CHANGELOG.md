@@ -10,14 +10,15 @@
   client change calls according to development/production.
 - how about ^U to send a query to a random student, rather than only
   choosing a student to answer.
+- if @ is empty, make it as @tue1.
 
 ## v0.18.211 / 2024-07-11
-- changed: C-I delivers secretly to a random user.
+- changed: cntrl+I delivers secretly to a random user.
 
 ## v0.17.203 / 2024-07-05
-- fake argument to main.js
+- fake argument to main.js. effects?
 ```
-main.js?v=_version-number_
+main.js?v=version-number
 ```
 
 ## v0.17.199 / 2024-07-05

@@ -49,7 +49,7 @@
           (alert "メッセージが空(カラ)です．")
           :else (do
                   (go (>! (:out stream) data))
-                  ;; :message will be empty
+                  ;; :message will be empty if use,
                   ;; (go (>! (:out stream) {:author  (.-value author)
                   ;;                        :message (.-value message)}))
                   (set! (.-value message) "")
