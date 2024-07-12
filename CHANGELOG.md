@@ -3,14 +3,11 @@
 ## Unreleased
 - who is login now?
 - display error message when sent to a non-existent user.
-- fixme: do not display @user when `load`.
 - \#(+ 1 2)
 - \$1+2
-- is it better to provide `/api/user/:klass/random`?
-  client change calls according to development/production.
-- how about ^U to send a query to a random student, rather than only
-  choosing a student to answer.
-- if @ is empty, make it as @tue1.
+
+## v0.18-SNAPSHOT
+- take care `go loop`.
 
 ## v0.18.211 / 2024-07-11
 - changed: cntrl+I delivers secretly to a random user.
