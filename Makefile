@@ -7,7 +7,7 @@ watch:
 	clj -M:cljs watch client
 
 develop:
-	MX3_DEV=1 clj -X:server :port ${PORT}
+	MX3_DEV=1 clj -X:start :port ${PORT}
 
 start:
 	clj -X:start :port ${PORT}
@@ -20,6 +20,8 @@ restart:
 	make start
 
 build:
+	# app.melt's jdk is `openjdk 11.0.23 2024-04-16`.
+	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
 	clj -T:build uber
 
 deploy: build
