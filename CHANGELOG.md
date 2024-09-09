@@ -5,6 +5,8 @@
 - display error message when sent to a non-existent user.
 - \#(+ 1 2)
 - \$1+2
+- cache messages with `redis`?
+
 
 ## v0.18.218 / 2024-09-09
 - take care `go loop`
@@ -19,10 +21,13 @@
 |          | org.clojure/clojure           | 1.11.3       | 1.12.0       |
 |          | thheller/shadow-cljs          | 2.28.10      | 2.28.14      |
 
+
 ## v0.18.211 / 2024-07-11
+
 - changed: cntrl+I delivers secretly to a random user.
 
 ## v0.17.203 / 2024-07-05
+
 - fake argument to main.js. effects?
 ```
 main.js?v=version-number
