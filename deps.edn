@@ -1,17 +1,17 @@
 {:deps
  {buddy/buddy-hashers {:mvn/version "2.0.167"}
   cljs-http/cljs-http {:mvn/version "0.1.48"}
-  com.taoensso/telemere {:mvn/version "1.0.0-beta14"}
+  com.taoensso/telemere {:mvn/version "1.0.0-beta22"}
   com.xtdb/xtdb-core {:mvn/version "1.24.4"}
-  ;; no good with jetty
+  ;; no good with jetty, port?
   ;; com.xtdb/xtdb-http-server {:mvn/version "1.24.4"}
   com.xtdb/xtdb-rocksdb {:mvn/version "1.24.4"}
   haslett/haslett {:mvn/version "0.2.0"}
-  hato/hato {:mvn/version "0.9.0"}
+  hato/hato {:mvn/version "1.0.0"}
   clojure.java-time/clojure.java-time {:mvn/version "1.4.2"}
   metosin/muuntaja {:mvn/version "0.6.10"}
-  metosin/reitit {:mvn/version "0.7.0"}
-  org.clojure/clojure {:mvn/version "1.11.3"}
+  metosin/reitit {:mvn/version "0.7.2"}
+  org.clojure/clojure {:mvn/version "1.12.0"}
   org.clojure/clojurescript {:mvn/version "1.11.132"}
   org.clojure/tools.analyzer {:mvn/version "1.2.0"}
   org.ring-clojure/ring-websocket-async {:mvn/version "0.2.0"}
@@ -22,8 +22,10 @@
   ring/ring-core {:mvn/version "1.12.2"}
   ring/ring-defaults {:mvn/version "0.5.0"}
   ring/ring-jetty-adapter {:mvn/version "1.12.2"}
-  thheller/shadow-cljs {:mvn/version "2.28.10"}}
+  thheller/shadow-cljs {:mvn/version "2.28.14"}}
+
  :paths ["resources" "src" "target/assets"]
+
  :aliases
  {:cljs   {:main-opts ["-m" "shadow.cljs.devtools.cli"]}
   :start {:exec-fn chat.server/start
@@ -32,5 +34,5 @@
           :exec-fn client
           :exec-args {:config "config.edn"}}
   :build {:deps {io.github.clojure/tools.build
-                 {:git/tag "v0.9.2" :git/sha "fe6b140"}}
+                 {:git/tag "v0.10.5" :git/sha "2a21b7a"}}
           :ns-default build}}}

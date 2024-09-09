@@ -3,21 +3,29 @@
 ## Unreleased
 - who is login now?
 - display error message when sent to a non-existent user.
-- fixme: do not display @user when `load`.
 - \#(+ 1 2)
 - \$1+2
-- is it better to provide `/api/user/:klass/random`?
-  client change calls according to development/production.
-- how about ^U to send a query to a random student, rather than only
-  choosing a student to answer.
+
+## v0.18.218 / 2024-09-09
+- take care `go loop`
+- libraries updated
+
+| :file    | :name                         | :current     | :latest      |
+|--------- | ----------------------------- | ------------ | -------------|
+| deps.edn | com.taoensso/telemere         | 1.0.0-beta14 | 1.0.0-beta22 |
+|          | hato/hato                     | 0.9.0        | 1.0.0        |
+|          | io.github.clojure/tools.build | v0.9.2       | v0.10.5      |
+|          | metosin/reitit                | 0.7.0        | 0.7.2        |
+|          | org.clojure/clojure           | 1.11.3       | 1.12.0       |
+|          | thheller/shadow-cljs          | 2.28.10      | 2.28.14      |
 
 ## v0.18.211 / 2024-07-11
-- changed: C-I delivers secretly to a random user.
+- changed: cntrl+I delivers secretly to a random user.
 
 ## v0.17.203 / 2024-07-05
-- fake argument to main.js
+- fake argument to main.js. effects?
 ```
-main.js?v=_version-number_
+main.js?v=version-number
 ```
 
 ## v0.17.199 / 2024-07-05
