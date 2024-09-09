@@ -6,7 +6,7 @@
 - \#(+ 1 2)
 - \$1+2
 
-## v0.18-SNAPSHOT
+## v0.18.218 / 2024-09-09
 - take care `go loop`
 - libraries updated
 
