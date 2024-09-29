@@ -87,19 +87,18 @@
           (resp/content-type "text/html")
           (resp/charset "UTF-8")))))
 
-(defn- between? [hm1 hm2 hm3]
-  (let [[t1 t2 t3] (map (fn [[h m]] (+ (* 3600 h) (* 60 m))) [hm1 hm2 hm3])]
-    (<= t1 t2 t3)))
+(defn- between? [t1 t2 t3]
+  (and (neg? (compare t1 t2))
+       (neg? (compare t2 t3))))
 
 (defn- utime [hhmmss]
-  (let [[hh mm _] (map parse-long (str/split hhmmss #":"))]
-    (cond
-      (between? [ 8 50] [hh mm] [10 20]) 1
-      (between? [10 30] [hh mm] [12  0]) 2
-      (between? [13 00] [hh mm] [14 30]) 3
-      (between? [14 40] [hh mm] [16 10]) 4
-      (between? [16 20] [hh mm] [18 50]) 5
-      :else 0)))
+  (cond
+    (between? "08:50:00" hhmmss "10:20:00") 1
+    (between? "10:30:00" hhmmss "12:00:00") 2
+    (between? "13:00:00" hhmmss "14:30:00") 3
+    (between? "14:40:00" hhmmss "16:10:00") 4
+    (between? "16:20:00" hhmmss "17:50:00") 5
+    :else 0))
 
 (defn- uhour []
   (let [[wd _ _ hhmmss] (-> (java.util.Date.)
@@ -111,6 +110,9 @@
 
 (comment
   (uhour)
+  (between? "17:00:00" "17:55:02" "18:00:00")
+  (compare "17:00:00" "17:30:30")
+  (compare "17:30:00" "18:00:00")
   :rcf)
 
 (defn user-random [_]

@@ -13,6 +13,7 @@
   use class GITHUB_API_TOKEN instead of find-grained GH_TOKEN.
 - use `clojure.core/parse-long` instead of `Long/parseLong`.
   (from clojure 1.11).
+- redefined `between?` using `compare`.
 
 
 ## v0.18.218 / 2024-09-09
