@@ -23,8 +23,9 @@
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.18.218")
+(def ^:private version "v0.19.227")
 
+;; FIXME
 (def ^:private l22
   (if debug?
     "http://localhost:3090/"
@@ -63,7 +64,7 @@
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
-      (let [resp (hc/get (str l22 "api/user/"login)
+      (let [resp (hc/get (str l22 "api/user/" login)
                          {:timeout 3000 :as :json})]
         (if (and (some? resp)
                  (hashers/check password (get-in resp [:body :password])))
@@ -86,22 +87,33 @@
           (resp/content-type "text/html")
           (resp/charset "UTF-8")))))
 
-;; agry. must be rewritten with java-time.
-(defn- utime [t]
+(defn- between? [t1 t2 t3]
+  (and (neg? (compare t1 t2))
+       (neg? (compare t2 t3))))
+
+(defn- utime [hhmmss]
   (cond
-    debug? "1"
-    (< (+ (* 8 60) 50) t  (+ (* 10 60) 20)) "1"
-    (< (+ (* 10 60) 30) t (+ (* 12 60))) "2"
-    :else "0"))
+    (between? "08:50:00" hhmmss "10:20:00") 1
+    (between? "10:30:00" hhmmss "12:00:00") 2
+    (between? "13:00:00" hhmmss "14:30:00") 3
+    (between? "14:40:00" hhmmss "16:10:00") 4
+    (between? "16:20:00" hhmmss "17:50:00") 5
+    :else 0))
 
 (defn- uhour []
-  (let [[wd _ _ hhmmss] (-> (str (java.util.Date.))
-                            (str/split #"\s"))
-        [hh mm] (str/split hhmmss #":")
-        t (+ (* 60 (Long/parseLong hh)) (Long/parseLong mm))]
-    (str/lower-case (str
-                     (if debug? "wed" wd)
-                     (utime t)))))
+  (let [[wd _ _ hhmmss] (-> (java.util.Date.)
+                            str
+                            (str/split #"\s"))]
+    (if debug?
+      "wed1"
+      (str/lower-case (str wd (utime hhmmss))))))
+
+(comment
+  (uhour)
+  (between? "17:00:00" "17:55:02" "18:00:00")
+  (compare "17:00:00" "17:30:30")
+  (compare "17:30:00" "18:00:00")
+  :rcf)
 
 (defn user-random [_]
   (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
@@ -135,15 +147,23 @@
                          [e :timestamp timestamp]]
                  :order-by [[timestamp :desc]]}))))
 
-;; (defn- load-records [{{:keys [n]} :path-params :as request}]
-;;   (def *r* request)
-;;   (xt/q '{:find [(pull eid [*])]
-;;           ;; :keys [author message timestamp]
-;;           :in [t0]
-;;           :where [[eid :timestamp timestamp]
-;;                   [(<= t0 timestamp)]]}
-;;         (jt/minus (jt/local-date-time) (jt/minutes (Long/parseLong n)))))
+;; do not. why?
+;; (defn fetch-records
+;;   "fetch last `n` submissions."
+;;   [n]
+;;   (xt/q '{:find [author message timestamp]
+;;           :keys [author message timestamp]
+;;           :in [n]
+;;           :where [[e :author author]
+;;                   [e :message message]
+;;                   [e :timestamp timestamp]]
+;;           :order-by [[timestamp :desc]]
+;;           :limit [n]}
+;;         n))
 
+(comment
+  (fetch-records 3)
+  :rcf)
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -154,10 +174,10 @@
                                      mw/wrap-format
                                      mw/wrap-params]}
                 ["/load/:n" (fn [{{:keys [n]} :path-params}]
-                              (let [n (Long/parseLong n)]
+                              (let [n (parse-long n)]
                                 (resp/response (load-records n))))]
                 ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
-                               (let [n (Long/parseLong n)]
+                               (let [n (parse-long n)]
                                  (resp/response (fetch-records n))))]
                 ["/user-random" {:get (fn [_]
                                         (resp/response (user-random nil)))}]]
@@ -172,7 +192,7 @@
     (rr/create-default-handler))
    {:middleware []}))
 
-;;
+;; ----------------------
 
 (defn run-server [options]
   (adapter/run-jetty (make-app-handler) options))
@@ -181,7 +201,7 @@
 
 (defn start
   ([] (if-let [p (System/getenv "PORT")]
-        (start {:port (Long/parseLong p)})
+        (start {:port (parse-long p)})
         (start {:port 8080})))
   ([{:keys [port]}]
    (when-not (some? @server)

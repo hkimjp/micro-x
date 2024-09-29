@@ -1,4 +1,4 @@
-# Micro X for Hkimura Classes
+# simulated Micro X for hkimura Classes
 
 ## Unreleased
 - who is login now?
@@ -7,8 +7,17 @@
 - \$1+2
 - cache messages with `redis`?
 
+## v0.19.227 / 2024-09-29
+
+- solved: can not `gh repo clone`.
+  use class GITHUB_API_TOKEN instead of find-grained GH_TOKEN.
+- use `clojure.core/parse-long` instead of `Long/parseLong`.
+  (from clojure 1.11).
+- redefined `between?` using `compare`.
+
 
 ## v0.18.218 / 2024-09-09
+
 - take care `go loop`
 - libraries updated
 

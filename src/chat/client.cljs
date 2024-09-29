@@ -15,7 +15,8 @@
   (= (author) "hkimura"))
 
 (defn- abbrev [s]
-  (str (first s) "*****"))
+  ; (str (first s) "*****")
+  s)
 
 (defn alert [s]
   (.play js/failed)
