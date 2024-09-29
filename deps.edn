@@ -1,7 +1,7 @@
 {:deps
  {buddy/buddy-hashers {:mvn/version "2.0.167"}
   cljs-http/cljs-http {:mvn/version "0.1.48"}
-  com.taoensso/telemere {:mvn/version "1.0.0-beta22"}
+  com.taoensso/telemere {:mvn/version "1.0.0-beta25"}
   com.xtdb/xtdb-core {:mvn/version "1.24.4"}
   ;; no good with jetty, port?
   ;; com.xtdb/xtdb-http-server {:mvn/version "1.24.4"}
@@ -22,7 +22,7 @@
   ring/ring-core {:mvn/version "1.12.2"}
   ring/ring-defaults {:mvn/version "0.5.0"}
   ring/ring-jetty-adapter {:mvn/version "1.12.2"}
-  thheller/shadow-cljs {:mvn/version "2.28.14"}}
+  thheller/shadow-cljs {:mvn/version "2.28.15"}}
 
  :paths ["resources" "src" "target/assets"]
 

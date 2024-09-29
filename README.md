@@ -9,6 +9,11 @@ For development,
 % MX3_DEV=1 make start
 ```
 
+## can not gh repo clone
+
+but can `git clone`.
+
+
 ---
 ## original documents
 

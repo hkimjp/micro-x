@@ -1,4 +1,4 @@
-# Micro X for Hkimura Classes
+# simulated Micro X for hkimura Classes
 
 ## Unreleased
 - who is login now?
@@ -6,6 +6,10 @@
 - \#(+ 1 2)
 - \$1+2
 - cache messages with `redis`?
+
+## can not gh repo clone / 2024-09-26
+
+but can `git clone`.
 
 
 ## v0.18.218 / 2024-09-09
