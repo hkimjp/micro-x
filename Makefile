@@ -21,7 +21,7 @@ restart:
 
 build:
 	# app.melt's jdk is `openjdk 11.0.23 2024-04-16`.
-	JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
+	# JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.12/libexec/openjdk.jdk/Contents/Home \
 	clj -T:build uber
 
 deploy: build
