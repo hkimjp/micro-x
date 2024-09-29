@@ -7,7 +7,7 @@
 - \$1+2
 - cache messages with `redis`?
 
-## v0.19-SNAPSHOT / 2024-09-29
+## v0.19.227 / 2024-09-29
 
 - solved: can not `gh repo clone`.
   use class GITHUB_API_TOKEN instead of find-grained GH_TOKEN.
