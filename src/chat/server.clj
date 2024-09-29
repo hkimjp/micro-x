@@ -23,7 +23,7 @@
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.19-SNAPSHOT")
+(def ^:private version "v0.19.227")
 
 ;; FIXME
 (def ^:private l22
