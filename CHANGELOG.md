@@ -7,7 +7,7 @@
 - cache messages with `redis`.
 - batting ctrl-U with view-source in Edge, Windows.
 - send multiple messages by ctrl-I.
-
+- how about (version)? ?version, ?help
 
 ## v0.19.227 / 2024-09-29
 
