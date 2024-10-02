@@ -6,8 +6,13 @@
 - display error message when sent to a non-existent user.
 - cache messages with `redis`.
 - batting ctrl-U with view-source in Edge, Windows.
-- send multiple messages by ctrl-I.
+
 - how about (version)? ?version, ?help
+
+## v0.20-SNAPSHOT
+
+- chat.client/deliver-random: not clear input `message` after sending.
+  to send the same message repeatedly.
 
 ## v0.19.227 / 2024-09-29
 
