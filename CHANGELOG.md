@@ -6,10 +6,12 @@
 - display error message when sent to a non-existent user.
 - cache messages with `redis`.
 - batting ctrl-U with view-source in Edge, Windows.
-
 - how about (version)? ?version, ?help
+- move `uhour` things from `server.clj` to `client.cljs`.
+  need api changes.
 
-## v0.20-SNAPSHOT
+
+## v0.20-SNAPSHOT / 2024-10-03
 
 - chat.client/deliver-random: not clear input `message` after sending.
   to send the same message repeatedly.
