@@ -2,10 +2,12 @@
 
 ## Unreleased
 - who is login now?
+  => redis. when logout, expire. or exire after a period.
 - display error message when sent to a non-existent user.
-- \#(+ 1 2)
-- \$1+2
-- cache messages with `redis`?
+- cache messages with `redis`.
+- batting ctrl-U with view-source in Edge, Windows.
+- send multiple messages by ctrl-I.
+
 
 ## v0.19.227 / 2024-09-29
 

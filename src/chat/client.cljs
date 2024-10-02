@@ -65,7 +65,6 @@
 
 (defn- websocket-url [path]
   (let [loc   (.-location js/window)
-        ;; fixed.
         proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
     (str proto "://" (.-host loc) path)))
 

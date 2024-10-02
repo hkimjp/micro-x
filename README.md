@@ -16,8 +16,8 @@ For development,
 
 ## solved: can not gh repo clone but can `git clone`.
 
-Fine-grained GH_TOKEN is not yet good.
-Use classic GITHUB_API_TOKEN.
+Fine-grained GH\_TOKEN is not good yet.
+Use classic GITHUB\_API\_TOKEN.
 
 ---
 ## original documents
