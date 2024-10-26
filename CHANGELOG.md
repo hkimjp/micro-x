@@ -9,6 +9,9 @@
 - how about (version)? ?version, ?help
 - move `uhour` things from `server.clj` to `client.cljs`.
   need api changes.
+- web interface. use xtdb's.
+- ?version
+
 
 
 ## v0.20-SNAPSHOT / 2024-10-03

@@ -9,6 +9,12 @@ For development,
 % MX3_DEV=1 make start
 ```
 
+or simply,
+
+```
+% make develop
+```
+
 ## require
 
 - clojure >= 1.11
@@ -20,6 +26,7 @@ Fine-grained GH\_TOKEN is not good yet.
 Use classic GITHUB\_API\_TOKEN.
 
 ---
+
 ## original documents
 
 This is an example project that demonstrates how to use WebSockets in
