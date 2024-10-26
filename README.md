@@ -17,6 +17,7 @@ or simply,
 
 ## require
 
+- openjdk >= 21
 - clojure >= 1.11
   clojure.core/parse-long appears in clojure 1.11.
 
