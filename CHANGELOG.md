@@ -16,9 +16,6 @@
 ## v0.20.240 / 2025-01-15
 
 - viewport.
-
-## v0.20.240 / 2025-01-15
-
 - chat.client/deliver-random: not clear input `message` after sending.
   to send the same message repeatedly.
 
