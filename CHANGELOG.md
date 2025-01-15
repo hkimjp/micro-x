@@ -12,7 +12,7 @@
   choosing a student to answer.
 - DataScript
 
-## v0.19-SNAPSHOT
+## v0.19.213 / 2025-01-15
 
 - added charset, viewport micro-x.html
 
