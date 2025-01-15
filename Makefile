@@ -7,7 +7,7 @@ watch:
 	clj -M:cljs watch client
 
 develop:
-	MX3_DEV=1 clj -X:server :port ${PORT}
+	MX3_DEV=1 clj -X:start :port ${PORT}
 
 start:
 	clj -X:start :port ${PORT}
