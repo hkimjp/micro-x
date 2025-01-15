@@ -10,6 +10,16 @@
   client change calls according to development/production.
 - how about ^U to send a query to a random student, rather than only
   choosing a student to answer.
+- DataScript
+
+## v0.19.213 / 2025-01-15
+
+- added charset, viewport micro-x.html
+
+```
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+```
 
 ## v0.18.211 / 2024-07-11
 - changed: C-I delivers secretly to a random user.
