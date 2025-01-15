@@ -65,7 +65,6 @@
 
 (defn- websocket-url [path]
   (let [loc   (.-location js/window)
-        ;; fixed.
         proto (if (= "https:" (.-protocol loc)) "wss" "ws")]
     (str proto "://" (.-host loc) path)))
 
@@ -76,7 +75,6 @@
   (js/console.log "insert-radom-user")
   (go (let [response (<! (http/get "/api/user-random"))
             user (:user (:body response))]
-         ;; this is it!
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
 (defn- deliver-random [stream]
@@ -86,8 +84,9 @@
             message (query "#message")]
         (>! (:out stream) {:author (.-value author)
                            :message (str "@" user " " (.-value message))})
-        (set! (.-value message) "")
-        (.focus message))))
+        ;; (set! (.-value message) "")
+        ;; (.focus message)
+        )))
 
 ;; from biff,
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))

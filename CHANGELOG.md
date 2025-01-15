@@ -2,10 +2,25 @@
 
 ## Unreleased
 - who is login now?
+  => redis. when logout, expire. or exire after a period.
 - display error message when sent to a non-existent user.
-- \#(+ 1 2)
-- \$1+2
-- cache messages with `redis`?
+- cache messages with `redis`.
+- batting ctrl-U with view-source in Edge, Windows.
+- how about (version)? ?version, ?help
+- move `uhour` things from `server.clj` to `client.cljs`.
+  need api changes.
+- web interface. use xtdb's.
+- ?version
+
+
+## v0.20.240 / 2025-01-15
+
+- viewport.
+
+## v0.20.240 / 2025-01-15
+
+- chat.client/deliver-random: not clear input `message` after sending.
+  to send the same message repeatedly.
 
 ## v0.19.227 / 2024-09-29
 

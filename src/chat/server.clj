@@ -13,6 +13,7 @@
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
             ;; [ring.websocket.async :as wsa]
+            ;; patched by hkimura to record chats in xtdb
             [chat.async :as wsa]
             [ring.websocket.transit :as wst]
             [ring.websocket.keepalive :as wska]
@@ -23,9 +24,9 @@
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.19.227")
+(def ^:private version "v0.20.240")
 
-;; FIXME
+;; FIXME `localhost:3090` is not so good.
 (def ^:private l22
   (if debug?
     "http://localhost:3090/"

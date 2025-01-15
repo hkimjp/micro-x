@@ -6,7 +6,8 @@ client:
 watch:
 	clj -M:cljs watch client
 
-develop: client
+develop:
+	make watch &
 	MX3_DEV=1 clj -X:start :port ${PORT}
 
 start: client
