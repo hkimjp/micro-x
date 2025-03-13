@@ -11,7 +11,30 @@
   need api changes.
 - web interface. use xtdb's.
 - ?version
+- does not stop cljs process by `make stop`.
 
+## v0.21-SNAPSHOT
+
+* added `Justfile`
+* updated `async.clj` for datascript.
+* [chat.xtdb :as db]
+* added `src/chat/datascript.clj`
+* upgraded libraries
+
+| :file    | :name                                      | :current  | :latest   |
+|--------- | ------------------------------------------ | --------- | ----------|
+| deps.edn | clojure.java-time/clojure.java-time        | 1.4.2     | 1.4.3     |
+|          | com.taoensso/telemere                      | 1.0.0-RC4 | 1.0.0-RC5 |
+|          | com.xtdb/xtdb-core                         | 1.24.4    | 2.0.0-b1  |
+|          | io.github.clojure/tools.build              | v0.10.5   | v0.10.7   |
+|          | metosin/muuntaja                           | 0.6.10    | 0.6.11    |
+|          | org.ring-clojure/ring-websocket-middleware | 0.2.0     | 0.2.1     |
+|          | org.xerial/sqlite-jdbc                     | 3.48.0.0  | 3.49.1.0  |
+|          | ring/ring-anti-forgery                     | 1.3.1     | 1.4.0     |
+|          | ring/ring-core                             | 1.12.2    | 1.13.0    |
+|          | ring/ring-defaults                         | 0.5.0     | 0.6.0     |
+|          | ring/ring-jetty-adapter                    | 1.12.2    | 1.13.0    |
+|          | thheller/shadow-cljs                       | 2.28.15   | 2.28.21   |
 
 ## v0.20.240 / 2025-01-15
 
