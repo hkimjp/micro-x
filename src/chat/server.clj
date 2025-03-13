@@ -19,7 +19,8 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]
             ;;
-            [chat.xtdb :as db]))
+            ;;[chat.xtdb :as db]
+            [chat.datascript :as db]))
 
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
@@ -205,6 +206,7 @@
         (start {:port (parse-long p)})
         (start {:port 8080})))
   ([{:keys [port]}]
+   (t/log! :info "start")
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
      (db/start! "config.edn")
@@ -223,3 +225,7 @@
 
 (defn -main [& _args]
   (start))
+
+(comment
+  (restart)
+  :rcf)
