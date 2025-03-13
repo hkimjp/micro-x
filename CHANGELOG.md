@@ -5,21 +5,28 @@
   => redis. when logout, expire. or exire after a period.
 - display error message when sent to a non-existent user.
 - cache messages with `redis`.
-- batting ctrl-U with view-source in Edge, Windows.
-- how about (version)? ?version, ?help
 - move `uhour` things from `server.clj` to `client.cljs`.
   need api changes.
-- web interface. use xtdb's.
-- ?version
-- does not stop cljs process by `make stop`.
+- reconsider how to debug/develop.
+- min-level?
+- ポップアップメニュー、キーバインドを表示する。
+- dev で l22 を見に行かないは？
+
+
+## v0.22.251 / 2025-03-13
+
+* can load (debugged).
+* Just receipe `watch`.
+* Just receipe `dev` to call `watch`.
+* added `dev/user.clj`.
 
 ## v0.21.248 / 2025-03-13
 
-* added `Justfile`
+* added `Justfile`.
 * updated `async.clj` for datascript.
 * [chat.xtdb :as db]
-* added `src/chat/datascript.clj`
-* upgraded libraries
+* added `src/chat/datascript.clj`.
+* updated libraries,
 
 | :file    | :name                                      | :current  | :latest   |
 |--------- | ------------------------------------------ | --------- | ----------|
