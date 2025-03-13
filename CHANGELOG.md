@@ -13,7 +13,7 @@
 
 
 
-## v0.23-SNAPSHOT
+## v0.23.255 / 2025-03-13
 
 * .env, gitignored.
 * MX3_DEV=1 で l22 を見に行かない。
