@@ -13,13 +13,18 @@
 - ?version
 - does not stop cljs process by `make stop`.
 
+## v0.22-SNAPSHOT
+
+* Just receipe `watch`.
+* added `dev/user.clj`.
+
 ## v0.21.248 / 2025-03-13
 
-* added `Justfile`
+* added `Justfile`.
 * updated `async.clj` for datascript.
 * [chat.xtdb :as db]
-* added `src/chat/datascript.clj`
-* upgraded libraries
+* added `src/chat/datascript.clj`.
+* updated libraries,
 
 | :file    | :name                                      | :current  | :latest   |
 |--------- | ------------------------------------------ | --------- | ----------|
