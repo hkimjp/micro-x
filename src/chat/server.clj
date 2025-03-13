@@ -25,7 +25,7 @@
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.20.240")
+(def ^:private version "v0.21.248")
 
 ;; FIXME `localhost:3090` is not so good.
 (def ^:private l22
