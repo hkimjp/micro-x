@@ -13,7 +13,7 @@
 - ?version
 - does not stop cljs process by `make stop`.
 
-## v0.21-SNAPSHOT
+## v0.21.248 / 2025-03-13
 
 * added `Justfile`
 * updated `async.clj` for datascript.
