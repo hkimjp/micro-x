@@ -26,7 +26,7 @@
 
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.21.248")
+(def ^:private version "v0.22.251")
 
 ;; FIXME `localhost:3090` is not so good.
 (def ^:private l22
