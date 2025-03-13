@@ -15,6 +15,8 @@
 
 ## v0.21-SNAPSHOT
 
+* added `Justfile`
+* updated `async.clj` for datascript.
 * [chat.xtdb :as db]
 * added `src/chat/datascript.clj`
 * upgraded libraries

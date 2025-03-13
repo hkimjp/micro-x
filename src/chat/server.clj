@@ -227,5 +227,8 @@
   (start))
 
 (comment
-  (restart)
+  (start)
+  (db/q '[:find ?e ?time
+          :where
+          [?e :timestamp ?time]])
   :rcf)

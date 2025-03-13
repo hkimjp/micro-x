@@ -40,7 +40,7 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-                ;; hkimura
+      ;; hkimura
       ; (xt/put! (assoc mesg
       ;                 :xt/id (random-uuid)
       ;                 :timestamp (jt/local-date-time))
