@@ -3,6 +3,7 @@
             [ring.websocket :as ws]
             [ring.websocket.protocols :as wsp]
             [chat.xtdb :as xt]
+            [chat.datascript :as ds]
             [java-time.api :as jt]
             ;;
             [taoensso.telemere :as t]))
@@ -39,11 +40,14 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-                ;; hkimura
-                (xt/put! (assoc mesg
-                                :xt/id (random-uuid)
-                                :timestamp (jt/local-date-time)))
-                (a/put! in mesg))
+      ;; hkimura
+      ; (xt/put! (assoc mesg
+      ;                 :xt/id (random-uuid)
+      ;                 :timestamp (jt/local-date-time))
+      (ds/put! (assoc mesg
+                      :db/add -1
+                      :timestamp (jt/local-date-time)))
+      (a/put! in mesg))
     (on-pong [_ _ _])
     (on-error [_ _ ex]
       (a/put! err ex))

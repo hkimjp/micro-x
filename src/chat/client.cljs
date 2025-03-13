@@ -42,14 +42,15 @@
 (defn- send-message [stream]
   (let [message (query "#message")
         author  (query "#author")]
-    (cond (str/starts-with? (.-value message) "＠")
-          (alert "全角の ＠ を使っています。")
-          (empty-message? (.-value message))
-          (alert "メッセージが空(カラ)です．")
-          :else (go (>! (:out stream) {:author  (.-value author)
-                                       :message (.-value message)})
-                    (set! (.-value message) "")
-                    (.focus message)))))
+    (cond
+      (str/starts-with? (.-value message) "＠")
+      (alert "全角の ＠ を使っています。")
+      (empty-message? (.-value message))
+      (alert "メッセージが空(カラ)です．")
+      :else (go (>! (:out stream) {:author  (.-value author)
+                                   :message (.-value message)})
+                (set! (.-value message) "")
+                (.focus message)))))
 
 (defn- dest [s]
   (re-find #"[^, ]+" (subs s 1)))
