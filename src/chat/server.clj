@@ -187,7 +187,7 @@
 (defn start
   ([] (if-let [p (System/getenv "PORT")]
         (start {:port (parse-long p)})
-        (start {:port 8080})))
+        (start {:port 3000})))
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
