@@ -19,7 +19,7 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]
             ;;
-            [chat.xtdb :as xt]))
+            [chat.xtdb :as db]))
 
 (def debug? (System/getenv "MX3_DEV"))
 (t/set-min-level! (if debug? :debug :info))
@@ -125,7 +125,7 @@
 (defn load-records
   "fetch last `n` minutes submissions."
   [n]
-  (xt/q '{:find [author message timestamp]
+  (db/q '{:find [author message timestamp]
           :keys [author message timestamp]
           :in [t0]
           :where [[e :author author]
@@ -141,7 +141,7 @@
   [n]
   (take n
         (dedupe ; why needed?
-         (xt/q '{:find [author message timestamp]
+         (db/q '{:find [author message timestamp]
                  :keys [author message timestamp]
                  :where [[e :author author]
                          [e :message message]
@@ -152,7 +152,7 @@
 ;; (defn fetch-records
 ;;   "fetch last `n` submissions."
 ;;   [n]
-;;   (xt/q '{:find [author message timestamp]
+;;   (db/q '{:find [author message timestamp]
 ;;           :keys [author message timestamp]
 ;;           :in [n]
 ;;           :where [[e :author author]
@@ -207,14 +207,14 @@
   ([{:keys [port]}]
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
-     (xt/start! "config.edn")
+     (db/start! "config.edn")
      (println "server started in port" port))))
 
 (defn stop []
   (when (some? @server)
     (.stop @server)
     (reset! server nil)
-    (xt/stop!)
+    (db/stop!)
     (println "server stopped.")))
 
 (defn restart []
