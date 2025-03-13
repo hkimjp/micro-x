@@ -23,6 +23,7 @@
             [chat.datascript :as db]))
 
 (def debug? (System/getenv "MX3_DEV"))
+
 (t/set-min-level! (if debug? :debug :info))
 
 (def ^:private version "v0.21.248")
@@ -126,14 +127,29 @@
 (defn load-records
   "fetch last `n` minutes submissions."
   [n]
-  (db/q '{:find [author message timestamp]
-          :keys [author message timestamp]
-          :in [t0]
-          :where [[e :author author]
-                  [e :message message]
-                  [e :timestamp timestamp]
-                  [(<= t0 timestamp)]]}
+  (db/q '[:find ?author ?message ?timestamp
+          :keys author message timestamp
+          :in $ ?t0
+          :where
+          [?e :author ?author]
+          [?e :message ?message]
+          [?e :timestamp ?timestamp]
+          [(<= ?t0 ?timestamp)]]
         (jt/minus (jt/local-date-time) (jt/minutes n))))
+
+(comment
+  (load-records 3)
+  (db/q '[:find ?author ?message ?timestamp
+          :keys  author message timestamp
+          :in $ ?author
+          :where
+          [?e :author ?author]
+          [?e :message ?message]
+          [?e :timestamp ?timestamp]
+          [(<= (jt/local-date-time) ?timestamp)]]
+        "hkimura")
+  (db/pull 1)
+  :rcf)
 
 ;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
 ;; why not?

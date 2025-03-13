@@ -3,7 +3,8 @@
             [cljs-http.client :as http]
             [clojure.string :as str]
             [haslett.client :as ws]
-            [haslett.format :as wsfmt]))
+            [haslett.format :as wsfmt]
+            [taoensso.telemere :as t]))
 
 (defn- query [query]
   (.querySelector js/document query))
@@ -110,6 +111,7 @@
         (str/starts-with? message "@")))))
 
 (defn- load-messages [n]
+  (t/log! :info (str "load-messages " n))
   (go (let [response (<! (http/get (str "/api/load/" n)))
             messages (:body response)]
         (replace-content
