@@ -13,7 +13,7 @@
 - dev で l22 を見に行かないは？
 
 
-## v0.22-SNAPSHOT
+## v0.22.251 / 2025-03-13
 
 * can load (debugged).
 * Just receipe `watch`.
