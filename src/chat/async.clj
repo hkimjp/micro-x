@@ -2,7 +2,7 @@
   (:require [clojure.core.async :as a]
             [ring.websocket :as ws]
             [ring.websocket.protocols :as wsp]
-            [chat.xtdb :as xt]
+            ;;[chat.xtdb :as xt]
             [chat.datascript :as ds]
             [java-time.api :as jt]
             ;;
@@ -40,7 +40,7 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-      ;; hkimura
+      ;; hkimura, use datascript.
       ; (xt/put! (assoc mesg
       ;                 :xt/id (random-uuid)
       ;                 :timestamp (jt/local-date-time))

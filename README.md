@@ -15,16 +15,21 @@ or simply,
 % make develop
 ```
 
-## require
+## Require
 
 - openjdk >= 21
 - clojure >= 1.11
   clojure.core/parse-long appears in clojure 1.11.
 
-## solved: can not gh repo clone but can `git clone`.
+## Usage
 
-Fine-grained GH\_TOKEN is not good yet.
-Use classic GITHUB\_API\_TOKEN.
+* Shift + Enter  send message
+* Cntl + U       insert random user
+* Cntl + I       deliver message to random users
+
+## solved
+
+* can not gh repo clone but can `git clone`. Fine-grained GH\_TOKEN is not good yet. Use classic GITHUB\_API\_TOKEN.
 
 ---
 

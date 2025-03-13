@@ -2,8 +2,8 @@
  {buddy/buddy-hashers {:mvn/version "2.0.167"}
   cljs-http/cljs-http {:mvn/version "0.1.48"}
   com.taoensso/telemere {:mvn/version "1.0.0-RC5"}
-  com.xtdb/xtdb-core {:mvn/version "1.24.4"}
-  com.xtdb/xtdb-rocksdb {:mvn/version "1.24.4"}
+  ; com.xtdb/xtdb-core {:mvn/version "1.24.4"}
+  ; com.xtdb/xtdb-rocksdb {:mvn/version "1.24.4"}
   haslett/haslett {:mvn/version "0.2.0"}
   hato/hato {:mvn/version "1.0.0"}
   clojure.java-time/clojure.java-time {:mvn/version "1.4.3"}

@@ -26,12 +26,11 @@
 
 (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.22.251")
+(def ^:private version "v0.23.255")
 
-;; FIXME `localhost:3090` is not so good.
 (def ^:private l22
   (if debug?
-    "http://localhost:3090/"
+    nil
     "https://l22.melt.kyutech.ac.jp/"))
 
 (defn make-chat-handler []
@@ -46,8 +45,8 @@
   (let [flash (:flash request)]
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>MX3</title>
-           <h1>Micro X for Classes</h1>
+          "<!DOCTYPE html><title>Micro X</title>
+           <h1>Micro X</h1>
            <body style='font-family:sans-serif;'>
            <form method='post'>"
           (anti-forgery-field)
@@ -137,20 +136,6 @@
           [(<= ?t0 ?timestamp)]]
         (jt/minus (jt/local-date-time) (jt/minutes n))))
 
-(comment
-  (load-records 3)
-  (db/q '[:find ?author ?message ?timestamp
-          :keys  author message timestamp
-          :in $ ?author
-          :where
-          [?e :author ?author]
-          [?e :message ?message]
-          [?e :timestamp ?timestamp]
-          [(<= (jt/local-date-time) ?timestamp)]]
-        "hkimura")
-  (db/pull 1)
-  :rcf)
-
 ;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
 ;; why not?
 (defn fetch-records
@@ -164,24 +149,6 @@
                          [e :message message]
                          [e :timestamp timestamp]]
                  :order-by [[timestamp :desc]]}))))
-
-;; do not. why?
-;; (defn fetch-records
-;;   "fetch last `n` submissions."
-;;   [n]
-;;   (db/q '{:find [author message timestamp]
-;;           :keys [author message timestamp]
-;;           :in [n]
-;;           :where [[e :author author]
-;;                   [e :message message]
-;;                   [e :timestamp timestamp]]
-;;           :order-by [[timestamp :desc]]
-;;           :limit [n]}
-;;         n))
-
-(comment
-  (fetch-records 3)
-  :rcf)
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -242,9 +209,3 @@
 (defn -main [& _args]
   (start))
 
-(comment
-  (start)
-  (db/q '[:find ?e ?time
-          :where
-          [?e :timestamp ?time]])
-  :rcf)

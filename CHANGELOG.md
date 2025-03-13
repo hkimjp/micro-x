@@ -10,7 +10,13 @@
 - reconsider how to debug/develop.
 - min-level?
 - ポップアップメニュー、キーバインドを表示する。
-- dev で l22 を見に行かないは？
+
+
+
+## v0.23.255 / 2025-03-13
+
+* .env, gitignored.
+* MX3_DEV=1 で l22 を見に行かない。
 
 
 ## v0.22.251 / 2025-03-13
