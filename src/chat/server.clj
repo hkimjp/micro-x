@@ -24,7 +24,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(t/set-min-level! (if debug? :debug :info))
+; (t/set-min-level! (if debug? :debug :info))
 
 (def ^:private version "v0.23.255")
 
@@ -90,8 +90,7 @@
           (resp/charset "UTF-8")))))
 
 (defn- between? [t1 t2 t3]
-  (and (neg? (compare t1 t2))
-       (neg? (compare t2 t3))))
+  (and (neg? (compare t1 t2)) (neg? (compare t2 t3))))
 
 (defn- utime [hhmmss]
   (cond
