@@ -26,7 +26,7 @@
 
 ; (t/set-min-level! (if debug? :debug :info))
 
-(def ^:private version "v0.23.255")
+(def ^:private version "0.24.0")
 
 (def ^:private l22
   (if debug?
