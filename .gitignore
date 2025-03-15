@@ -12,6 +12,7 @@
 /node_modules
 /storage
 /resources/public/js
+!/target/.keep
 /target
 pom.xml
 pom.xml.asc

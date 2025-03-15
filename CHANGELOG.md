@@ -15,7 +15,9 @@
 ## v0.24-SNAPSHOT
 
 - Justfile: set dotenv-load
--
+- .env gitignored
+- target/.keep
+
 
 ## v0.23.255 / 2025-03-13
 
