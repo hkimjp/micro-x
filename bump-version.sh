@@ -15,7 +15,7 @@ fi
 VER=$1
 TODAY=`date +%F`
 ${SED} -i -e "/SNAPSHOT/c\
-## ${VER} / ${TODAY}" CHANGELOG.md
+## ${VER} (${TODAY})" CHANGELOG.md
 
 # clj
 ${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/chat/server.clj

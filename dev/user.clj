@@ -6,5 +6,5 @@
 
 (t/set-min-level! :debug)
 
-(s/start)
+(s/restart)
 

@@ -26,7 +26,7 @@
 (defn- append-html [element html]
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
-  (.insertAdjacentHTML element "afterbegin" html))
+  (.insertAdjacentHTML element "beforeend" html)) ; afterbegin
 
 (defn- message-html [{:keys [author message]}]
   (str "<li><span class='date'>"
@@ -99,7 +99,8 @@
 (defn- replace-content [element messages]
   ;; this again. do not forget.
   (set! (.-textContent element) "")
-  (doseq [msg (sort-by :timestamp #(compare %1 %2) messages)]
+  ;; sort-by hear
+  (doseq [msg (sort-by :timestamp #(compare %2 %1) messages)]
     (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
 (defn- remove? [{:keys [author message]}]
@@ -124,21 +125,25 @@
         (.addEventListener (query "#send") "click"
                            (fn [_] (send-message stream)))
         (.focus message)
-        (.addEventListener message "keyup"
-                           (fn [e]
-                             (cond
-                               (and (= (.-code e) "Enter") (.-shiftKey e))
-                               (send-message stream)
-                               (and (= (.-code e) "KeyU") (.-ctrlKey e))
-                               (if (admin?)
-                                 (insert-random-user)
-                                 (alert "^U admin only."))
-                               (and (= (.-code e) "KeyI") (.-ctrlKey e))
-                               (if (admin?)
-                                 (deliver-random stream)
-                                 (alert "^I admin only.")))))
+        (.addEventListener
+         message
+         "keyup"
+         (fn [e]
+           (cond
+             (and (= (.-code e) "Enter") (.-shiftKey e))
+             (send-message stream)
+             (and (= (.-code e) "KeyU") (.-ctrlKey e))
+             (if (admin?)
+               (insert-random-user)
+               (alert "^U admin only."))
+             (and (= (.-code e) "KeyI") (.-ctrlKey e))
+             (if (admin?)
+               (deliver-random stream)
+               (alert "^I admin only."))
+             (and (= (.-code e) "KeyX") (.-ctrlKey e))
+             (alert "^X pushed"))))
         (.addEventListener (query "#load") "click"
-                           (fn [_] (load-messages 10))))))
+                           (fn [_] (load-messages 100))))))
 
 (defn init []
   (.addEventListener js/window "load" on-load))

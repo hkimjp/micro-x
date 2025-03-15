@@ -125,29 +125,31 @@
 (defn load-records
   "fetch last `n` minutes submissions."
   [n]
-  (db/q '[:find ?author ?message ?timestamp
-          :keys author message timestamp
-          :in $ ?t0
-          :where
-          [?e :author ?author]
-          [?e :message ?message]
-          [?e :timestamp ?timestamp]
-          [(<= ?t0 ?timestamp)]]
-        (jt/minus (jt/local-date-time) (jt/minutes n))))
+  (let [resp (db/q '[:find ?author ?message ?timestamp
+                     :keys author message timestamp
+                     :in $ ?t0
+                     :where
+                     [?e :author ?author]
+                     [?e :message ?message]
+                     [?e :timestamp ?timestamp]
+                     [(<= ?t0 ?timestamp)]]
+                   (jt/minus (jt/local-date-time) (jt/minutes n)))]
+    (t/log! :info (str "load: " resp))
+    resp))
 
 ;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
 ;; why not?
-(defn fetch-records
-  "fetch last `n` submissions."
-  [n]
-  (take n
-        (dedupe ; why needed?
-         (db/q '{:find [author message timestamp]
-                 :keys [author message timestamp]
-                 :where [[e :author author]
-                         [e :message message]
-                         [e :timestamp timestamp]]
-                 :order-by [[timestamp :desc]]}))))
+; (defn fetch-records
+;   "fetch last `n` submissions."
+;   [n]
+;   (take n
+;         (dedupe ; why needed?
+;          (db/q '{:find [author message timestamp]
+;                  :keys [author message timestamp]
+;                  :where [[e :author author]
+;                          [e :message message]
+;                          [e :timestamp timestamp]]
+;                  :order-by [[timestamp :desc]]}))))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -160,9 +162,9 @@
                 ["/load/:n" (fn [{{:keys [n]} :path-params}]
                               (let [n (parse-long n)]
                                 (resp/response (load-records n))))]
-                ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
-                               (let [n (parse-long n)]
-                                 (resp/response (fetch-records n))))]
+                ; ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
+                ;                (let [n (parse-long n)]
+                ;                  (resp/response (fetch-records n))))]
                 ["/user-random" {:get (fn [_]
                                         (resp/response (user-random nil)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}

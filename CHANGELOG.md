@@ -12,12 +12,12 @@
 - ポップアップメニュー、キーバインドを表示する。
 
 
-## v0.24-SNAPSHOT
+## 0.24-SNAPSHOT
 
 - Justfile: set dotenv-load
 - .env gitignored
 - target/.keep
-
+- 新しいものを下に。
 
 ## v0.23.255 / 2025-03-13
 
