@@ -12,12 +12,13 @@
 - ポップアップメニュー、キーバインドを表示する。
 
 
-## 0.24-SNAPSHOT
+## 0.24.0 (2025-03-15)
 
 - Justfile: set dotenv-load
 - .env gitignored
 - target/.keep
 - rearrange the new messages at the bottom.
+- changed the policy of version tags.
 
 ## v0.23.255 / 2025-03-13
 
