@@ -17,7 +17,7 @@
 - Justfile: set dotenv-load
 - .env gitignored
 - target/.keep
-- 新しいものを下に。
+- rearrange the new messages at the bottom.
 
 ## v0.23.255 / 2025-03-13
 
