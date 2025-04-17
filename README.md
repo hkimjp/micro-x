@@ -19,6 +19,10 @@ Development can be started with:
 
 Pantsman contributed the beep sounds.
 
+## Develop
+
+    MX3_DEV=true
+    PORT=3000
 
 ## Require
 

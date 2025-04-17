@@ -11,11 +11,13 @@
 * reconsider how to debug/develop.
 * min-level?
 * ポップアップメニュー、キーバインドを表示する。
-* 引越し
+* リモートリポジトリ引越し
 
 
 ## 0.25.0-SNAPSHOT
 
+* fixed Justfile
+* removed Makefile
 
 ## 0.24.0 (2025-03-15)
 
