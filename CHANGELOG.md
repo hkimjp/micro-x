@@ -16,6 +16,8 @@
 
 ## 0.25.0-SNAPSHOT
 
+* fixed Justfile
+* removed Makefile
 
 ## 0.24.0 (2025-03-15)
 
