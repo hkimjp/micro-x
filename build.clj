@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [test])
   (:require [clojure.tools.build.api :as b]))
 
-(def lib 'build/micro-x)
+(def lib 'hkimjp/micro-x)
 (def version "0.24.0")
 (def main 'chat.server)
 (def class-dir "target/classes")

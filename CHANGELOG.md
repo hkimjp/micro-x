@@ -1,24 +1,29 @@
 # simulated Micro X for hkimura Classes
 
 ## Unreleased
-- who is login now?
+
+* who is login now?
   => redis. when logout, expire. or exire after a period.
-- display error message when sent to a non-existent user.
-- cache messages with `redis`.
-- move `uhour` things from `server.clj` to `client.cljs`.
+* display error message when sent to a non-existent user.
+* cache messages with `redis`.
+* move `uhour` things from `server.clj` to `client.cljs`.
   need api changes.
-- reconsider how to debug/develop.
-- min-level?
-- ポップアップメニュー、キーバインドを表示する。
+* reconsider how to debug/develop.
+* min-level?
+* ポップアップメニュー、キーバインドを表示する。
+* 引越し
+
+
+## 0.25.0-SNAPSHOT
 
 
 ## 0.24.0 (2025-03-15)
 
-- Justfile: set dotenv-load
-- .env gitignored
-- target/.keep
-- rearrange the new messages at the bottom.
-- changed the policy of version tags.
+* Justfile: set dotenv-load
+* .env gitignored
+* target/.keep
+* rearrange the new messages at the bottom.
+* changed the policy of version tags.
 
 ## v0.23.255 / 2025-03-13
 

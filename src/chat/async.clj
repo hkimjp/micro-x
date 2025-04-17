@@ -40,7 +40,7 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-      ;; hkimura, use datascript.
+      ; changed my mind. use datascript.
       ; (xt/put! (assoc mesg
       ;                 :xt/id (random-uuid)
       ;                 :timestamp (jt/local-date-time))

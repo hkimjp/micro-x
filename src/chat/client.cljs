@@ -12,6 +12,7 @@
 (defn author []
   (.-value (query "#author")))
 
+; FIXME
 (defn- admin? []
   (= (author) "hkimura"))
 

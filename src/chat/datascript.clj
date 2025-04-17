@@ -1,7 +1,7 @@
 (ns chat.datascript
   (:require
-   [clojure.java.io :as io]
-   [clojure.main :as main]
+   ; [clojure.java.io :as io]
+   ; [clojure.main :as main]
    [datascript.core :as d]
    [datascript.storage.sql.core :as storage-sql]
    [taoensso.telemere :as t]))
@@ -21,6 +21,7 @@
 
 (def conn nil)
 
+; FIXME: inline def
 (defn create []
   (t/log! :info "create storage backend datascript.")
   (def strogage (make-storage db))
@@ -56,8 +57,3 @@
   ([selector eid] (t/log! :info (str "pull " selector " " eid))
                   (d/pull @conn selector eid)))
 
-(comment
-  (q '[:find ?e ?time
-       :where
-       [?e :timestamp ?time]])
-  :rcf)
