@@ -4,27 +4,39 @@
 
 * who is login now?
   => redis. when logout, expire. or exire after a period.
-* display error message when sent to a non-existent user.
+* display error message when sent to non-exist users.
 * cache messages with `redis`.
-* move `uhour` things from `server.clj` to `client.cljs`.
-  need api changes.
-* reconsider how to debug/develop.
-* min-level?
 * ポップアップメニュー、キーバインドを表示する。
 * リモートリポジトリ引越し
-* 誰がログイン中か？
-* ログアウトは Windows のクローズ？どんなイベントが来るのか来ないのか。
 * msg に通算の id
-* (re)load で表示するメッセージを1日分とか。
-* ログをとる。
+* /api/users を用意、on-load 時に初期化して使い回す。
+
+
+## 0.25.1 (2025-04-18)
+
+* removed src/chat/datascript.clj. changed to hkimjp/util/datascript.
+* upgraded hkimjp/util "0.2.4".
+* libraries update, use hkimjp/util
+
+| :file    | :name                         | :current | :latest |
+|--------- | ----------------------------- | -------- | --------|
+| deps.edn | io.github.clojure/tools.build | v0.10.7  | v0.10.8 |
+|          | io.github.hkimjp/util         | 0.2.0    | 0.2.1   |
+|          | metosin/reitit                | 0.7.2    | 0.8.0   |
+|          | ring/ring-core                | 1.13.0   | 1.14.1  |
+|          | ring/ring-jetty-adapter       | 1.13.0   | 1.14.1  |
+|          | thheller/shadow-cljs          | 2.28.21  | 2.28.23 |
 
 ## 0.25.0 (2025-04-18)
 
+* ログをとる。
+* (re)load で表示するメッセージを1日分(24 x 60min)にした。
 * fixed: Justfile
 * removed: Makefile
 * changed Justfile: client, server をまとめて run とした。
 * changed log level: chat.datascrit, from :info to :debug
 * added `mins-to-load` in `client.cljs`: load messages last `mins-to-load` minutes
+* ログアウトは on-close イベントが届く。
 
 ## 0.24.0 (2025-03-15)
 

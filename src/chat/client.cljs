@@ -10,6 +10,8 @@
   "load messages last `mins-to-load` minutes"
   (* 24 60))
 
+(def users (atom nil))
+
 (defn- query [query]
   (.querySelector js/document query))
 
@@ -137,14 +139,17 @@
            (cond
              (and (.-shiftKey e) (= (.-code e) "Enter"))
              (send-message stream)
+             ;
              (and (.-ctrlKey e) (= (.-code e) "KeyU"))
              (if (admin?)
                (insert-random-user)
                (alert "^U admin only."))
+             ;
              (and (= (.-ctrlKey e) (.-code e) "KeyI"))
              (if (admin?)
                (deliver-random stream)
                (alert "^I admin only."))
+             ;
              ; use as a cheking tool?
              (and (.-ctrlKey e) (= (.-code e) "KeyX"))
              (alert "^X pushed"))))
