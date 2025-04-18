@@ -2,7 +2,6 @@
   (:require [clojure.core.async :as a]
             [ring.websocket :as ws]
             [ring.websocket.protocols :as wsp]
-            ;;[chat.xtdb :as xt]
             [chat.datascript :as ds]
             [java-time.api :as jt]
             ;;
@@ -40,18 +39,22 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-      ; changed my mind. use datascript.
+      ; was xtdb. now datascript.
       ; (xt/put! (assoc mesg
       ;                 :xt/id (random-uuid)
       ;                 :timestamp (jt/local-date-time))
+      (t/log! :info mesg)
       (ds/put! (assoc mesg
                       :db/add -1
                       :timestamp (jt/local-date-time)))
       (a/put! in mesg))
-    (on-pong [_ _ _])
+    (on-pong [_ _ _]
+      (t/log! :info "on-pong"))
     (on-error [_ _ ex]
+      (t/log! {:level :info :data ex} "on-error")
       (a/put! err ex))
     (on-close [_ _ _ _]
+      (t/log! :info "on-close")
       (a/close! in)
       (a/close! out)
       (a/close! err))))

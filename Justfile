@@ -1,9 +1,7 @@
 set dotenv-load
 
-client:
+run:
   clojure -M:cljs compile client
-
-server:
   if [ ! -d "target" ]; then \
     mkdir target; \
   fi
