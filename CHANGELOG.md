@@ -7,7 +7,6 @@
 * display error message when sent to non-exist users.
 * cache messages with `redis`.
 * ポップアップメニュー、キーバインドを表示する。
-
 * msg に通算の id
 * /api/users を用意、on-load 時に初期化して使い回す。
 
