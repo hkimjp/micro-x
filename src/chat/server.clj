@@ -19,7 +19,6 @@
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]
             ;;
-            ;;[chat.xtdb :as db]
             [chat.datascript :as db]))
 
 (def debug? (System/getenv "MX3_DEV"))
