@@ -22,7 +22,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def ^:private version "0.25.2")
+(def version "0.25.3-SNAPSHOT")
 
 ; getenv?
 (def ^:private l22
@@ -115,11 +115,6 @@
   (compare "17:30:00" "18:00:00")
   :rcf)
 
-(defn user-random [_]
-  (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
-              {:as :json :timeout 1000})
-      :body))
-
 ;; clojure has a function `load`.
 (defn load-records
   "fetch last `n` minutes submissions."
@@ -136,19 +131,29 @@
     (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
-;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
-;; why not?
-; (defn fetch-records
-;   "fetch last `n` submissions."
-;   [n]
-;   (take n
-;         (dedupe ; why needed?
-;          (db/q '{:find [author message timestamp]
-;                  :keys [author message timestamp]
-;                  :where [[e :author author]
-;                          [e :message message]
-;                          [e :timestamp timestamp]]
-;                  :order-by [[timestamp :desc]]}))))
+(defn user-random [_]
+  (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
+              {:as :json :timeout 1000})
+      :body))
+
+(defn users [ayear subj]
+  (t/log! {:level :info :data [ayear subj]} "users")
+  (if debug?
+    {:users [{:ayear 2025,
+              :login "jojo",
+              :subj "python-a",
+              :uhour "wed1"},
+             {:ayear 2025,
+              :login "tyabisan",
+              :subj "python-a",
+              :uhour "other"},
+             {:ayear 2025,
+              :login "auct1718",
+              :subj "python-a",
+              :uhour "wed1"}]}
+    (let [url (str l22 "api/users/" ayear "/" subj)]
+      (-> (hc/get url)
+          :body))))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -158,14 +163,16 @@
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
-                ["/load/:n" (fn [{{:keys [n]} :path-params}]
-                              (let [n (parse-long n)]
-                                (resp/response (load-records n))))]
-                ; ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
-                ;                (let [n (parse-long n)]
-                ;                  (resp/response (fetch-records n))))]
-                ["/user-random" {:get (fn [_]
-                                        (resp/response (user-random nil)))}]]
+                ["/load/:n"
+                 (fn [{{:keys [n]} :path-params}]
+                   (let [n (parse-long n)]
+                     (resp/response (load-records n))))]
+                ["/user-random"
+                 {:get (fn [_]
+                         (resp/response (user-random nil)))}]
+                ["/users/:ayear/:subj"
+                 {:get (fn [{{:keys [ayear subj]} :path-params}]
+                         (resp/response (users ayear subj)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
