@@ -14,7 +14,8 @@
 
 ## 0.25.1-SNAPSHOT
 
-* upgraded hkimjp/util 0.2.2
+* removed src/chat/datascript.clj. changed to hkimjp/util/datascript.
+* upgraded hkimjp/util "0.2.4".
 * libraries update, use hkimjp/util
 
 | :file    | :name                         | :current | :latest |
