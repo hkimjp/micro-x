@@ -192,7 +192,7 @@
    (t/log! :info "start")
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
-     (db/start "config.edn")
+     (db/start)
      (println "server started in port" port))))
 
 (defn stop []

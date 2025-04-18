@@ -1,7 +1,5 @@
 (ns chat.datascript
   (:require
-   ; [clojure.java.io :as io]
-   ; [clojure.main :as main]
    [datascript.core :as d]
    [datascript.storage.sql.core :as storage-sql]
    [taoensso.telemere :as t]))
@@ -29,12 +27,10 @@
 
 (defn restore []
   (t/log! :debug "restore")
-
   (def conn (d/restore-conn storage)))
 
-(defn start! [_]
+(defn start! []
   (t/log! :debug "start on-memory database")
-
   (def conn (d/create-conn)))
 
 (defn stop! []

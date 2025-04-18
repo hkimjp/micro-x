@@ -4,7 +4,7 @@
             [ring.websocket.protocols :as wsp]
             [java-time.api :as jt]
             [taoensso.telemere :as t]
-            [hkimip.datascript :as ds]))
+            [hkimjp.datascript :as ds]))
 
 (defrecord Closed [code reason])
 
@@ -43,9 +43,9 @@
       ;                 :xt/id (random-uuid)
       ;                 :timestamp (jt/local-date-time))
       (t/log! :info mesg)
-      (ds/put! (assoc mesg
-                      :db/add -1
-                      :timestamp (jt/local-date-time)))
+      (ds/put (assoc mesg
+                     :db/add -1
+                     :timestamp (jt/local-date-time)))
       (a/put! in mesg))
     (on-pong [_ _ _]
       (t/log! :info "on-pong"))
