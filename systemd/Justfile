@@ -3,13 +3,14 @@ install:
   sudo systemctl daemon-reload
 
 start:
-  sudo systemctl start micro-x.service  
+  sudo systemctl start micro-x.service
 
 enable:
-  sudo systemctl enable micro-x.service  
+  sudo systemctl enable micro-x.service
 
 stop:
-  sudo systemctl stop micro-x.service  
+  sudo systemctl stop micro-x.service
 
 disable:
-  sudo systemctl disable micro-x.service  
+  sudo systemctl disable micro-x.service
+  

@@ -22,7 +22,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def ^:private version "0.25.0")
+(def ^:private version "0.25.2")
 
 ; getenv?
 (def ^:private l22
