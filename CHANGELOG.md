@@ -12,7 +12,7 @@
 * /api/users を用意、on-load 時に初期化して使い回す。
 
 
-## 0.25.1-SNAPSHOT
+## 0.25.1 (2025-04-18)
 
 * removed src/chat/datascript.clj. changed to hkimjp/util/datascript.
 * upgraded hkimjp/util "0.2.4".
