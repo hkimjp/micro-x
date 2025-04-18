@@ -31,11 +31,11 @@
   (t/log! :debug "restore")
   (def conn (d/restore-conn storage)))
 
-(defn start! [_]
+(defn start []
   (t/log! :debug "start on-memory database")
   (def conn (d/create-conn)))
 
-(defn stop! []
+(defn stop []
   (t/log! :debug "stop!")
   (storage-sql/close storage)
   (def conn nil))
@@ -44,11 +44,11 @@
   (t/log! :debug (str "q " query))
   `(d/q ~query @conn ~@inputs))
 
-(defn put! [fact]
+(defn put [fact]
   (t/log! :debug (str "put! " fact))
   (d/transact! conn [fact]))
 
-(defn puts! [facts]
+(defn puts [facts]
   (t/log! :debug (str "puts! " facts))
   (d/transact! conn facts))
 
