@@ -18,7 +18,7 @@
 * (re)load で表示するメッセージを1日分とか。
 * ログをとる。
 
-## 0.25.0-SNAPSHOT
+## 0.25.0 (2025-04-18)
 
 * fixed: Justfile
 * removed: Makefile
