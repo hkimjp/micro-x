@@ -1,39 +1,41 @@
-# Simulated Micro X based on Ring WebSocket Chat Example
+# micto-x
 
-Provide @user facility which enables (simulated) unicast messaging.
+Simulated Micro X based on [Ring Example] by weavejester.
+[Ring Example]: https://github.com/ring-clojure/ring-examples
 
-For development,
+To run it, first compile client:
 
-```
-% make client
-% MX3_DEV=1 make start
-```
+    just client
 
-or simply,
+then start the server with:
 
-```
-% make develop
-```
+    just server
+
+Development can be started with:
+
+    just dev
+
+`just dev` starts shadow-cljs and nrepl.
+
+Pantsman contributed the beep sounds.
+
+## Develop
+
+    MX3_DEV=true
+    PORT=3000
 
 ## Require
 
-- openjdk >= 21
-- clojure >= 1.11
-  clojure.core/parse-long appears in clojure 1.11.
+* openjdk >= 21
+* clojure >= 1.11
 
 ## Usage
 
-* Shift + Enter  send message
-* Cntl + U       insert random user
-* Cntl + I       deliver message to random users
+* Shift + Enter  ... send message
+* Cntl + U       ... insert @user randomly selected
+* Cntl + I       ... deliver a message to some users randomly
 
-## solved
-
-* can not gh repo clone but can `git clone`. Fine-grained GH\_TOKEN is not good yet. Use classic GITHUB\_API\_TOKEN.
-
----
-
-## original documents
+## Original documents from `Ring WebSocket Chat Example`
 
 This is an example project that demonstrates how to use WebSockets in
 [Ring][] to create a simple chat web application.
@@ -58,3 +60,10 @@ By default, the server can be accessed at: <http://localhost:8080>
 [Haslett]: https://github.com/weavejester/haslett
 [tools.deps]: https://github.com/clojure/tools.deps
 [shadow-cljs]: https://github.com/thheller/shadow-cljs
+
+
+## License
+
+Copyright © 2025 Hkim
+
+Distributed under the Eclipse Public License version 1.0.

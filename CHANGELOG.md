@@ -1,24 +1,38 @@
 # simulated Micro X for hkimura Classes
 
 ## Unreleased
-- who is login now?
-  => redis. when logout, expire. or exire after a period.
-- display error message when sent to a non-existent user.
-- cache messages with `redis`.
-- move `uhour` things from `server.clj` to `client.cljs`.
-  need api changes.
-- reconsider how to debug/develop.
-- min-level?
-- ポップアップメニュー、キーバインドを表示する。
 
+* who is login now?
+  => redis. when logout, expire. or exire after a period.
+* display error message when sent to a non-existent user.
+* cache messages with `redis`.
+* move `uhour` things from `server.clj` to `client.cljs`.
+  need api changes.
+* reconsider how to debug/develop.
+* min-level?
+* ポップアップメニュー、キーバインドを表示する。
+* リモートリポジトリ引越し
+* 誰がログイン中か？
+* ログアウトは Windows のクローズ？どんなイベントが来るのか来ないのか。
+* msg に通算の id
+* (re)load で表示するメッセージを1日分とか。
+* ログをとる。
+
+## 0.25.0 (2025-04-18)
+
+* fixed: Justfile
+* removed: Makefile
+* changed Justfile: client, server をまとめて run とした。
+* changed log level: chat.datascrit, from :info to :debug
+* added `mins-to-load` in `client.cljs`: load messages last `mins-to-load` minutes
 
 ## 0.24.0 (2025-03-15)
 
-- Justfile: set dotenv-load
-- .env gitignored
-- target/.keep
-- rearrange the new messages at the bottom.
-- changed the policy of version tags.
+* Justfile: set dotenv-load
+* .env gitignored
+* target/.keep
+* rearrange the new messages at the bottom.
+* changed the policy of version tags.
 
 ## v0.23.255 / 2025-03-13
 

@@ -12,25 +12,22 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.defaults :as def]
             [ring.util.response :as resp]
-            ;; [ring.websocket.async :as wsa]
-            ;; patched by hkimura to record chats in xtdb
-            [chat.async :as wsa]
             [ring.websocket.transit :as wst]
             [ring.websocket.keepalive :as wska]
             [taoensso.telemere :as t]
-            ;;
-            ;;[chat.xtdb :as db]
+            ;; [ring.websocket.async :as wsa]
+            ;; patched by hkimura to record chats in database
+            [chat.async :as wsa]
             [chat.datascript :as db]))
 
 (def debug? (System/getenv "MX3_DEV"))
 
-; (t/set-min-level! (if debug? :debug :info))
+(def ^:private version "0.25.0")
 
-(def ^:private version "0.24.0")
-
+; getenv?
 (def ^:private l22
   (if debug?
-    nil
+    ""
     "https://l22.melt.kyutech.ac.jp/"))
 
 (defn make-chat-handler []
@@ -62,6 +59,7 @@
         (resp/charset "UTF-8"))))
 
 (defn login! [{{:keys [login password]} :params}]
+  (t/log! :info (str "login! " login))
   (if debug?
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
@@ -81,6 +79,7 @@
 
 (defn index [request]
   (let [login (get-in request [:session :identity] "not-found")]
+    (t/log! :info (str "index " login))
     (if (= "not-found" login)
       (-> (resp/redirect "/"))
       (-> (slurp (io/resource "micro-x.html"))
@@ -134,7 +133,7 @@
                      [?e :timestamp ?timestamp]
                      [(<= ?t0 ?timestamp)]]
                    (jt/minus (jt/local-date-time) (jt/minutes n)))]
-    (t/log! :info (str "load: " resp))
+    (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
 ;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.

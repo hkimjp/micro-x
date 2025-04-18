@@ -6,12 +6,17 @@
             [haslett.format :as wsfmt]
             [taoensso.telemere :as t]))
 
+(def mins-to-load
+  "load messages last `mins-to-load` minutes"
+  (* 24 60))
+
 (defn- query [query]
   (.querySelector js/document query))
 
 (defn author []
   (.-value (query "#author")))
 
+; FIXME
 (defn- admin? []
   (= (author) "hkimura"))
 
@@ -130,20 +135,21 @@
          "keyup"
          (fn [e]
            (cond
-             (and (= (.-code e) "Enter") (.-shiftKey e))
+             (and (.-shiftKey e) (= (.-code e) "Enter"))
              (send-message stream)
-             (and (= (.-code e) "KeyU") (.-ctrlKey e))
+             (and (.-ctrlKey e) (= (.-code e) "KeyU"))
              (if (admin?)
                (insert-random-user)
                (alert "^U admin only."))
-             (and (= (.-code e) "KeyI") (.-ctrlKey e))
+             (and (= (.-ctrlKey e) (.-code e) "KeyI"))
              (if (admin?)
                (deliver-random stream)
                (alert "^I admin only."))
-             (and (= (.-code e) "KeyX") (.-ctrlKey e))
+             ; use as a cheking tool?
+             (and (.-ctrlKey e) (= (.-code e) "KeyX"))
              (alert "^X pushed"))))
         (.addEventListener (query "#load") "click"
-                           (fn [_] (load-messages 100))))))
+                           (fn [_] (load-messages mins-to-load))))))
 
 (defn init []
   (.addEventListener js/window "load" on-load))
