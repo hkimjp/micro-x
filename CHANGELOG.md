@@ -11,8 +11,13 @@
 * /api/users を用意、on-load 時に初期化して使い回す。
 
 
+## 0.25.3-SNAPSHOT
+
+
 ## 0.25.2 (2024-04-18)
 
+* .env のコピーを忘れた。旧ワークスペースからコピー。
+* 新しい .git で just deploy できることを確認した。
 * リモートリポジトリ引越し
 * added script/git-rename-tags.bb
 * removed src/chat/datascript.clj. changed to hkimjp/util/datascript.
