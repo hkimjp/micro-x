@@ -19,7 +19,7 @@
   ring/ring-jetty-adapter {:mvn/version "1.14.1"}
   thheller/shadow-cljs {:mvn/version "2.28.23"}
   ;;
-  io.github.hkimjp/util {:git/tag "0.2.1", :git/sha "32b9f51"}
+  io.github.hkimjp/util {:git/tag "0.2.3", :git/sha "4133f48"}
   ; datascript/datascript {:mvn/version "1.7.4"}
   ; io.github.tonsky/datascript-storage-sql {:mvn/version "2.1.0"}
   ; org.xerial/sqlite-jdbc {:mvn/version "3.49.1.0"}

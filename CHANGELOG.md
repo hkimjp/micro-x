@@ -14,6 +14,7 @@
 
 ## 0.25.1-SNAPSHOT
 
+* upgraded hkimjp/util 0.2.2
 * libraries update, use hkimjp/util
 
 | :file    | :name                         | :current | :latest |
