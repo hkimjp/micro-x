@@ -29,10 +29,12 @@
 
 (defn restore []
   (t/log! :debug "restore")
+
   (def conn (d/restore-conn storage)))
 
 (defn start! [_]
   (t/log! :debug "start on-memory database")
+
   (def conn (d/create-conn)))
 
 (defn stop! []

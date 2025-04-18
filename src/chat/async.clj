@@ -2,10 +2,9 @@
   (:require [clojure.core.async :as a]
             [ring.websocket :as ws]
             [ring.websocket.protocols :as wsp]
-            [chat.datascript :as ds]
             [java-time.api :as jt]
-            ;;
-            [taoensso.telemere :as t]))
+            [taoensso.telemere :as t]
+            [hkimip.datascript :as ds]))
 
 (defrecord Closed [code reason])
 

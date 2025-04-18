@@ -18,7 +18,7 @@
             ;; [ring.websocket.async :as wsa]
             ;; patched by hkimura to record chats in database
             [chat.async :as wsa]
-            [chat.datascript :as db]))
+            [hkimjp.datascript :as db]))
 
 (def debug? (System/getenv "MX3_DEV"))
 
@@ -192,14 +192,14 @@
    (t/log! :info "start")
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
-     (db/start! "config.edn")
+     (db/start "config.edn")
      (println "server started in port" port))))
 
 (defn stop []
   (when (some? @server)
     (.stop @server)
     (reset! server nil)
-    (db/stop!)
+    (db/stop)
     (println "server stopped.")))
 
 (defn restart []
