@@ -11,7 +11,7 @@
 * bug - リスタートすると DB がリセットする。
 * Accept:application/json の扱いがあやふや
 
-## 0.25.3-SNAPSHOT
+## 0.25.3 (2025-04-19)
 
 * just dev を just repl に変更。
 * l22/api/users/:year/:subj が利用できる。
