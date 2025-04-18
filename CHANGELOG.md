@@ -12,12 +12,19 @@
 * min-level?
 * ポップアップメニュー、キーバインドを表示する。
 * リモートリポジトリ引越し
-
+* 誰がログイン中か？
+* ログアウトは Windows のクローズ？どんなイベントが来るのか来ないのか。
+* msg に通算の id
+* (re)load で表示するメッセージを1日分とか。
+* ログをとる。
 
 ## 0.25.0-SNAPSHOT
 
-* fixed Justfile
-* removed Makefile
+* fixed: Justfile
+* removed: Makefile
+* changed Justfile: client, server をまとめて run とした。
+* changed log level: chat.datascrit, from :info to :debug
+* added `mins-to-load` in `client.cljs`: load messages last `mins-to-load` minutes
 
 ## 0.24.0 (2025-03-15)
 

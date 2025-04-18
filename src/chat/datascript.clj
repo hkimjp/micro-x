@@ -23,33 +23,33 @@
 
 ; FIXME: inline def
 (defn create []
-  (t/log! :info "create storage backend datascript.")
+  (t/log! :debug "create storage backend datascript.")
   (def strogage (make-storage db))
   (def conn (d/create-conn {:storage storage})))
 
 (defn restore []
-  (t/log! :info "restore")
+  (t/log! :debug "restore")
   (def conn (d/restore-conn storage)))
 
 (defn start! [_]
-  (t/log! :info "start on-memory database")
+  (t/log! :debug "start on-memory database")
   (def conn (d/create-conn)))
 
 (defn stop! []
-  (t/log! :info "stop!")
+  (t/log! :debug "stop!")
   (storage-sql/close storage)
   (def conn nil))
 
 (defmacro q [query & inputs]
-  (t/log! :info (str "q " query))
+  (t/log! :debug (str "q " query))
   `(d/q ~query @conn ~@inputs))
 
 (defn put! [fact]
-  (t/log! :info (str "put! " fact))
+  (t/log! :debug (str "put! " fact))
   (d/transact! conn [fact]))
 
 (defn puts! [facts]
-  (t/log! :info (str "puts! " facts))
+  (t/log! :debug (str "puts! " facts))
   (d/transact! conn facts))
 
 (defn pull
