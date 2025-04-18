@@ -81,18 +81,20 @@
   (ws/connect (websocket-url path) {:format wsfmt/transit}))
 
 (defn- insert-random-user []
-  (js/console.log "insert-radom-user")
   (go (let [response (<! (http/get "/api/user-random"))
-            user (:user (:body response))]
+            user (:body response)]
+        (t/log! {:level :info :data {:user user}} "insert=random-user")
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
 (defn- deliver-random [stream]
+  (js/alert "deliver-random")
   (go (let [response (<! (http/get "/api/user-random"))
-            user (:user (:body response))
+            user (:body response)
             author  (query "#author")
             message (query "#message")]
         (>! (:out stream) {:author (.-value author)
                            :message (str "@" user " " (.-value message))})
+        ;; no.
         ;; (set! (.-value message) "")
         ;; (.focus message)
         )))
@@ -104,9 +106,7 @@
        "<b>" (abbrev author) ":</b> " message "</p>"))
 
 (defn- replace-content [element messages]
-  ;; this again. do not forget.
   (set! (.-textContent element) "")
-  ;; sort-by hear
   (doseq [msg (sort-by :timestamp #(compare %2 %1) messages)]
     (.insertAdjacentHTML element "afterbegin" (format-message msg))))
 
@@ -145,14 +145,17 @@
                (insert-random-user)
                (alert "^U admin only."))
              ;
-             (and (= (.-ctrlKey e) (.-code e) "KeyI"))
+             (and (.-ctrlKey e) (= (.-code e) "KeyI"))
              (if (admin?)
                (deliver-random stream)
                (alert "^I admin only."))
              ;
              ; use as a cheking tool?
              (and (.-ctrlKey e) (= (.-code e) "KeyX"))
-             (alert "^X pushed"))))
+             (alert "^X pushed")
+             ;
+             ; :else (t/log! {:level :info :data (.-code e)} "keyup")
+             )))
         (.addEventListener (query "#load") "click"
                            (fn [_] (load-messages mins-to-load))))))
 

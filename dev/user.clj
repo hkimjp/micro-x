@@ -8,3 +8,7 @@
 
 (s/restart)
 
+(comment
+  @s/users
+  (s/user-random)
+  :rcf)

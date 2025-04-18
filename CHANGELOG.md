@@ -10,10 +10,11 @@
 * msg に通算の id
 * /api/users を用意、on-load 時に初期化して使い回す。
 * bug - リスタートすると DB がリセットする。
-
+* Accept:application/json の扱いがあやふや
 
 ## 0.25.3-SNAPSHOT
 
+* just dev を just repl に変更。
 * l22/api/users/:year/:subj が利用できる。
   しかし、複数クラスを担当しているときはこの手は使えない。拡張しておくべきではないか？
   /api/users/:ayear/:subl/:uhour を作ろう。

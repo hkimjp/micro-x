@@ -1,6 +1,7 @@
 (ns chat.server
   (:gen-class)
   (:require [buddy.hashers :as hashers]
+            [charred.api :as charred]
             [clojure.core.async :as a]
             [clojure.java.io :as io]
             [java-time.api :as jt]
@@ -23,6 +24,10 @@
 (def debug? (System/getenv "MX3_DEV"))
 
 (def version "0.25.3-SNAPSHOT")
+
+(def ayear 2025)
+(def subj  "python-a")
+(def uhour "wed1")
 
 ; getenv?
 (def ^:private l22
@@ -102,7 +107,7 @@
     (between? "16:20:00" hhmmss "17:50:00") 5
     :else 0))
 
-(defn- uhour []
+(defn- uhour-now []
   (let [[wd _ _ hhmmss] (-> (java.util.Date.)
                             str
                             (str/split #"\s"))]
@@ -111,7 +116,7 @@
       (str/lower-case (str wd (utime hhmmss))))))
 
 (comment
-  (uhour)
+  (uhour-now)
   (between? "17:00:00" "17:55:02" "18:00:00")
   (compare "17:00:00" "17:30:30")
   (compare "17:30:00" "18:00:00")
@@ -133,15 +138,17 @@
     (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
-(defn user-random [_]
-  (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
-              {:as :json :timeout 1000})
-      :body))
+; (defn user-random [_]
+;   (-> (hc/get (str l22 "api/user/" (uhour-now) "/randomly")
+;               {:as :json :timeout 1000})
+;       :body))
 
-; need l22 updates about parameter `hour`
-(defn get-users [ayear _hour subj]
-  (t/log! {:level :info :data [ayear subj]} "users")
-  (let [url (str l22 "api/users/" ayear "/" subj)]
+(defn user-random []
+  (rand-nth @users))
+
+(defn get-users [ayear subj uhour]
+  (t/log! {:level :info :data [ayear subj uhour]} "users")
+  (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
     (-> (hc/get url)
         :body)))
 
@@ -159,10 +166,11 @@
                      (resp/response (load-records n))))]
                 ["/user-random"
                  {:get (fn [_]
-                         (resp/response (user-random nil)))}]
-                ["/users/:ayear/:subj"
-                 {:get (fn [{{:keys [ayear subj]} :path-params}]
-                         (resp/response (get-users ayear "wed1" subj)))}]]
+                         (resp/response (user-random)))}]
+                ["/users"  {:get (fn [_] (resp/response @users))}]
+                ["/users/:ayear/:subj/:uhour"
+                 {:get (fn [{{:keys [ayear subj uhour]} :path-params}]
+                         (resp/response (get-users ayear subj uhour)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
@@ -181,11 +189,6 @@
 
 (def server (atom nil))
 
-(defn reset-users
-  ([] (reset-users 2025 "wed1" "python-a"))
-  ([year uhour subj]
-   (reset! users (get-users year uhour subj))))
-
 (defn start
   ([] (if-let [p (System/getenv "PORT")]
         (start {:port (parse-long p)})
@@ -194,7 +197,10 @@
    (t/log! :info "start")
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
-     (reset-users)
+     (reset! users (mapv #(get % "login")
+                         (-> (get-users ayear subj uhour)
+                             charred/read-json
+                             (get "users"))))
      (db/start)
      (println "server started in port" port))))
 
