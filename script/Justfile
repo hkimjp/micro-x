@@ -1,0 +1,3 @@
+# start nrepl at localhost:1667
+bb:
+	bb nrepl-server
