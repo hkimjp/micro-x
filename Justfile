@@ -10,7 +10,7 @@ run:
 watch:
   clojure -M:cljs watch client
 
-dev:
+repl:
   if [ ! -d "target" ]; then \
     mkdir target; \
   fi

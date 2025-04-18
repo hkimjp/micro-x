@@ -1,6 +1,7 @@
 {:deps
  {buddy/buddy-hashers {:mvn/version "2.0.167"}
   cljs-http/cljs-http {:mvn/version "0.1.48"}
+  com.cnuernber/charred {:mvn/version "1.037"}
   com.taoensso/telemere {:mvn/version "1.0.0-RC5"}
   haslett/haslett {:mvn/version "0.2.0"}
   hato/hato {:mvn/version "1.0.0"}
