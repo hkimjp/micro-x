@@ -27,8 +27,10 @@
 ; getenv?
 (def ^:private l22
   (if debug?
-    ""
+    "http://localhost:3022/"
     "https://l22.melt.kyutech.ac.jp/"))
+
+(def users (atom nil))
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -136,24 +138,12 @@
               {:as :json :timeout 1000})
       :body))
 
-(defn users [ayear subj]
+; need l22 updates about parameter `hour`
+(defn get-users [ayear _hour subj]
   (t/log! {:level :info :data [ayear subj]} "users")
-  (if debug?
-    {:users [{:ayear 2025,
-              :login "jojo",
-              :subj "python-a",
-              :uhour "wed1"},
-             {:ayear 2025,
-              :login "tyabisan",
-              :subj "python-a",
-              :uhour "other"},
-             {:ayear 2025,
-              :login "auct1718",
-              :subj "python-a",
-              :uhour "wed1"}]}
-    (let [url (str l22 "api/users/" ayear "/" subj)]
-      (-> (hc/get url)
-          :body))))
+  (let [url (str l22 "api/users/" ayear "/" subj)]
+    (-> (hc/get url)
+        :body)))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -172,7 +162,7 @@
                          (resp/response (user-random nil)))}]
                 ["/users/:ayear/:subj"
                  {:get (fn [{{:keys [ayear subj]} :path-params}]
-                         (resp/response (users ayear subj)))}]]
+                         (resp/response (get-users ayear "wed1" subj)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
@@ -191,6 +181,11 @@
 
 (def server (atom nil))
 
+(defn reset-users
+  ([] (reset-users 2025 "wed1" "python-a"))
+  ([year uhour subj]
+   (reset! users (get-users year uhour subj))))
+
 (defn start
   ([] (if-let [p (System/getenv "PORT")]
         (start {:port (parse-long p)})
@@ -199,6 +194,7 @@
    (t/log! :info "start")
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
+     (reset-users)
      (db/start)
      (println "server started in port" port))))
 
