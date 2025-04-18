@@ -1,6 +1,7 @@
 (ns chat.server
   (:gen-class)
   (:require [buddy.hashers :as hashers]
+            [charred.api :as charred]
             [clojure.core.async :as a]
             [clojure.java.io :as io]
             [java-time.api :as jt]
@@ -22,13 +23,19 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def ^:private version "0.25.2")
+(def version "0.25.3-SNAPSHOT")
+
+(def ayear 2025)
+(def subj  "python-a")
+(def uhour "wed1")
 
 ; getenv?
 (def ^:private l22
   (if debug?
-    ""
+    "http://localhost:3022/"
     "https://l22.melt.kyutech.ac.jp/"))
+
+(def users (atom nil))
 
 (defn make-chat-handler []
   (let [writer  (a/chan)
@@ -100,7 +107,7 @@
     (between? "16:20:00" hhmmss "17:50:00") 5
     :else 0))
 
-(defn- uhour []
+(defn- uhour-now []
   (let [[wd _ _ hhmmss] (-> (java.util.Date.)
                             str
                             (str/split #"\s"))]
@@ -109,16 +116,11 @@
       (str/lower-case (str wd (utime hhmmss))))))
 
 (comment
-  (uhour)
+  (uhour-now)
   (between? "17:00:00" "17:55:02" "18:00:00")
   (compare "17:00:00" "17:30:30")
   (compare "17:30:00" "18:00:00")
   :rcf)
-
-(defn user-random [_]
-  (-> (hc/get (str l22 "api/user/" (uhour) "/randomly")
-              {:as :json :timeout 1000})
-      :body))
 
 ;; clojure has a function `load`.
 (defn load-records
@@ -136,19 +138,19 @@
     (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
-;; FIXME: want to pass n as `in [n]` and use it with `:limit n`.
-;; why not?
-; (defn fetch-records
-;   "fetch last `n` submissions."
-;   [n]
-;   (take n
-;         (dedupe ; why needed?
-;          (db/q '{:find [author message timestamp]
-;                  :keys [author message timestamp]
-;                  :where [[e :author author]
-;                          [e :message message]
-;                          [e :timestamp timestamp]]
-;                  :order-by [[timestamp :desc]]}))))
+; (defn user-random [_]
+;   (-> (hc/get (str l22 "api/user/" (uhour-now) "/randomly")
+;               {:as :json :timeout 1000})
+;       :body))
+
+(defn user-random []
+  (rand-nth @users))
+
+(defn get-users [ayear subj uhour]
+  (t/log! {:level :info :data [ayear subj uhour]} "users")
+  (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
+    (-> (hc/get url)
+        :body)))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -158,14 +160,17 @@
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
-                ["/load/:n" (fn [{{:keys [n]} :path-params}]
-                              (let [n (parse-long n)]
-                                (resp/response (load-records n))))]
-                ; ["/fetch/:n" (fn [{{:keys [n]} :path-params}]
-                ;                (let [n (parse-long n)]
-                ;                  (resp/response (fetch-records n))))]
-                ["/user-random" {:get (fn [_]
-                                        (resp/response (user-random nil)))}]]
+                ["/load/:n"
+                 (fn [{{:keys [n]} :path-params}]
+                   (let [n (parse-long n)]
+                     (resp/response (load-records n))))]
+                ["/user-random"
+                 {:get (fn [_]
+                         (resp/response (user-random)))}]
+                ["/users"  {:get (fn [_] (resp/response @users))}]
+                ["/users/:ayear/:subj/:uhour"
+                 {:get (fn [{{:keys [ayear subj uhour]} :path-params}]
+                         (resp/response (get-users ayear subj uhour)))}]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
@@ -192,6 +197,10 @@
    (t/log! :info "start")
    (when-not (some? @server)
      (reset! server (run-server {:port port :join? false}))
+     (reset! users (mapv #(get % "login")
+                         (-> (get-users ayear subj uhour)
+                             charred/read-json
+                             (get "users"))))
      (db/start)
      (println "server started in port" port))))
 
