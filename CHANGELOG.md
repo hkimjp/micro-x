@@ -7,13 +7,15 @@
 * display error message when sent to non-exist users.
 * cache messages with `redis`.
 * ポップアップメニュー、キーバインドを表示する。
-* リモートリポジトリ引越し
+
 * msg に通算の id
 * /api/users を用意、on-load 時に初期化して使い回す。
 
 
 ## 0.25.2 (2024-04-18)
 
+* リモートリポジトリ引越し
+* added script/git-rename-tags.bb
 * removed src/chat/datascript.clj. changed to hkimjp/util/datascript.
 * upgraded hkimjp/util "0.2.4".
 * libraries update, use hkimjp/util
@@ -21,7 +23,7 @@
 | :file    | :name                         | :current | :latest |
 |--------- | ----------------------------- | -------- | --------|
 | deps.edn | io.github.clojure/tools.build | v0.10.7  | v0.10.8 |
-|          | io.github.hkimjp/util         | 0.2.0    | 0.2.1   |
+|          | io.github.hkimjp/util         | 0.2.0    | 0.2.4   |
 |          | metosin/reitit                | 0.7.2    | 0.8.0   |
 |          | ring/ring-core                | 1.13.0   | 1.14.1  |
 |          | ring/ring-jetty-adapter       | 1.13.0   | 1.14.1  |
