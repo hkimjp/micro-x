@@ -1,7 +1,5 @@
 (ns chat.datascript
   (:require
-   ; [clojure.java.io :as io]
-   ; [clojure.main :as main]
    [datascript.core :as d]
    [datascript.storage.sql.core :as storage-sql]
    [taoensso.telemere :as t]))
