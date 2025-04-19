@@ -11,7 +11,7 @@
 * learn how to hundle Accept:application/json, etc.
 * when can not talk to account server, l22.
 
-## 0.26.0-SNAPSHOT (2025-04-19)
+## 0.26.0 (2025-04-19)
 
 * when can not talk to l22 account server, log message, and continue with empty `users`.
 * bump-version.sh bump up `src/chat/server.clj`.
