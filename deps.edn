@@ -20,11 +20,7 @@
   ring/ring-jetty-adapter {:mvn/version "1.14.1"}
   thheller/shadow-cljs {:mvn/version "2.28.23"}
   ;;
-  io.github.hkimjp/util {:git/tag "0.3.0", :git/sha "332b5e5"}
-  ; datascript/datascript {:mvn/version "1.7.4"}
-  ; io.github.tonsky/datascript-storage-sql {:mvn/version "2.1.0"}
-  ; org.xerial/sqlite-jdbc {:mvn/version "3.49.1.0"}
-  }
+  io.github.hkimjp/util {:git/tag "0.3.0", :git/sha "332b5e5"}}
 
  :paths ["resources" "src" "target/assets"]
 

@@ -23,7 +23,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def version "0.25.3-SNAPSHOT")
+(def version "0.26.0-SNAPSHOT")
 
 (def ayear 2025)
 (def subj  "python-a")
@@ -149,8 +149,12 @@
 (defn get-users [ayear subj uhour]
   (t/log! {:level :info :data [ayear subj uhour]} "users")
   (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
-    (-> (hc/get url)
-        :body)))
+    (try
+      (-> (hc/get url)
+          :body)
+      (catch Exception _e
+        (t/log! {:level :error :url url} "can not talk to server")
+        nil))))
 
 (defn make-app-handler []
   (rr/ring-handler
@@ -201,7 +205,7 @@
                          (-> (get-users ayear subj uhour)
                              charred/read-json
                              (get "users"))))
-     (db/start)
+     (db/start "target/db.sqlite")
      (println "server started in port" port))))
 
 (defn stop []

@@ -25,3 +25,7 @@ ${SED} -i "s/(def version) .+/\1 \"$1\")/" build.clj
 
 # micro-x.html
 ${SED} -i "s/(main.js\?v=).*\"/\1$1\")/" resources/micro-x.html
+
+# server.clj
+${SED} -i -e "/\(def version/c\
+(def version \"${VER}\")" src/chat/server.clj
