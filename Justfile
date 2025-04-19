@@ -20,9 +20,9 @@ stop:
   kill `lsof -t -i:${PORT}`
 
 # FIXME: restart cljs?
-restart:
-  just stop
-  just start
+# restart:
+#   just stop
+#   just repl
 
 build:
   clojure -T:build uber

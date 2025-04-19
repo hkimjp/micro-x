@@ -6,25 +6,27 @@
   => redis. when logout, expire. or exire after a period.
 * display error message when sent to non-exist users.
 * cache messages with `redis`.
-* ポップアップメニュー、キーバインドを表示する。
-* msg に通算の id
-* bug - リスタートすると DB がリセットする。
-* Accept:application/json の扱いがあやふや
+* pop up menu. display key bindings, etc.
+* bug - DB can not survice
+* learn how to hundle Accept:application/json, etc.
+* when can not talk to account server, l22.
+
+## 0.26.0 (2025-04-19)
+
+* hkimjp/util version up.
+* when can not talk to l22 account server, log message, and continue with empty `users`.
+* bump-version.sh bump up `src/chat/server.clj`.
 
 ## 0.25.3 (2025-04-19)
 
-* just dev を just repl に変更。
-* l22/api/users/:year/:subj が利用できる。
-  しかし、複数クラスを担当しているときはこの手は使えない。拡張しておくべきではないか？
-  /api/users/:ayear/:subl/:uhour を作ろう。
-  対象 users を切り替えるトリガーも必要。
-* /api/users を用意、on-load 時に初期化して使い回す。
+* changed `just dev` to `just repl`.
+* added /api/users to get a list of available users.
 
 ## 0.25.2 (2024-04-18)
 
-* .env のコピーを忘れた。旧ワークスペースからコピー。
-* 新しい .git で just deploy できることを確認した。
-* リモートリポジトリ引越し
+* forgot to copy .env.
+* ensure just deploy success with new `.git`.
+* migrate repositories.
 * added script/git-rename-tags.bb
 * removed src/chat/datascript.clj. changed to hkimjp/util/datascript.
 * upgraded hkimjp/util "0.2.4".
@@ -41,14 +43,14 @@
 
 ## 0.25.0 (2025-04-18)
 
-* ログをとる。
-* (re)load で表示するメッセージを1日分(24 x 60min)にした。
+* log by telemere.
+* display last 24x60min messages by (re)load. (not work yet)
 * fixed: Justfile
 * removed: Makefile
-* changed Justfile: client, server をまとめて run とした。
+* changed Justfile: replaced `just client` + `just server` by `just run`.
 * changed log level: chat.datascrit, from :info to :debug
 * added `mins-to-load` in `client.cljs`: load messages last `mins-to-load` minutes
-* ログアウトは on-close イベントが届く。
+* `on-close` packet when closing browser.
 
 ## 0.24.0 (2025-03-15)
 
@@ -61,7 +63,8 @@
 ## v0.23.255 / 2025-03-13
 
 * .env, gitignored.
-* MX3_DEV=1 で l22 を見に行かない。
+* MX3_DEV=true stops conversation with l22 account server.
+  instead uses dummy server for development.
 
 
 ## v0.22.251 / 2025-03-13
