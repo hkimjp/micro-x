@@ -143,17 +143,19 @@
 ;               {:as :json :timeout 1000})
 ;       :body))
 
-(defn user-random []
-  (rand-nth @users))
-
-(defn get-users [ayear subj uhour]
+(defn get-users
+  "returns users list."
+  [ayear subj uhour]
   (t/log! {:level :info :data [ayear subj uhour]} "users")
   (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
     (try
-      (-> (hc/get url)
-          :body)
+      (mapv #(get % "login")
+            (-> (hc/get url)
+                :body
+                charred/read-json
+                (get "users")))
       (catch Exception _e
-        (t/log! {:level :error :url url} "can not talk to server")
+        (t/log! {:level :error :url url} "can not talk  to L22 server")
         nil))))
 
 (defn make-app-handler []
@@ -164,17 +166,12 @@
                ["/api" {:middleware [[def/wrap-defaults def/api-defaults]
                                      mw/wrap-format
                                      mw/wrap-params]}
-                ["/load/:n"
-                 (fn [{{:keys [n]} :path-params}]
-                   (let [n (parse-long n)]
-                     (resp/response (load-records n))))]
-                ["/user-random"
-                 {:get (fn [_]
-                         (resp/response (user-random)))}]
-                ["/users"  {:get (fn [_] (resp/response @users))}]
-                ["/users/:ayear/:subj/:uhour"
-                 {:get (fn [{{:keys [ayear subj uhour]} :path-params}]
-                         (resp/response (get-users ayear subj uhour)))}]]
+                ["/load/:n" (fn [{{:keys [n]} :path-params}]
+                              (let [n (parse-long n)]
+                                (resp/response (load-records n))))]
+                ["/users"  (fn [_] (resp/response @users))]
+                ["/user-random" (fn [_]
+                                  (resp/response (rand-nth @users)))]]
                ["" {:middleware [[def/wrap-defaults def/site-defaults]]}
                 ["/" {:get login :post login!}]
                 ["/logout" (fn [_]
@@ -200,13 +197,11 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
+     ;;(db/start "target/db.sqlite")
+     (db/start)
+     (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
-     (reset! users (mapv #(get % "login")
-                         (-> (get-users ayear subj uhour)
-                             charred/read-json
-                             (get "users"))))
-     (db/start "target/db.sqlite")
-     (println "server started in port" port))))
+     (t/log! :info (str "server started at port " port)))))
 
 (defn stop []
   (when (some? @server)
@@ -221,4 +216,3 @@
 
 (defn -main [& _args]
   (start))
-

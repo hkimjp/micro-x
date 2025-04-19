@@ -20,7 +20,7 @@
   ring/ring-jetty-adapter {:mvn/version "1.14.1"}
   thheller/shadow-cljs {:mvn/version "2.28.23"}
   ;;
-  io.github.hkimjp/util {:git/tag "0.3.0", :git/sha "332b5e5"}}
+  io.github.hkimjp/util {:git/tag "0.3.1", :git/sha "7945200"}}
 
  :paths ["resources" "src" "target/assets"]
 
