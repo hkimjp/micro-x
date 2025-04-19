@@ -12,6 +12,9 @@
 * when can not talk to account server, l22.
 * BUG: restore does not work.
 
+## 0.26.1-SNAPSHOT
+
+* on-memory mode.
 
 ## 0.26.0 (2025-04-19)
 
