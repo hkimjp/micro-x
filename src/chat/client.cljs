@@ -31,6 +31,7 @@
   (js/alert s))
 
 (defn- append-html [element html]
+  (t/log! {:level :info :html html} "append-html")
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
   (.insertAdjacentHTML element "beforeend" html)) ; afterbegin
@@ -50,6 +51,8 @@
 (defn- send-message [stream]
   (let [message (query "#message")
         author  (query "#author")]
+    (t/log! {:level :info :data {:message message :author author}}
+            "send-message")
     (cond
       (str/starts-with? (.-value message) "＠")
       (alert "全角の ＠ を使っています。")
