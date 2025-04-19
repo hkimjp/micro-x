@@ -28,7 +28,7 @@ build:
   clojure -T:build uber
 
 deploy: build
-  scp target/hkimjp/micro-x-*.jar ${DEST}/micro-x.jar
+  scp target/io.github.hkimjp/micro-x-*.jar ${DEST}/micro-x.jar
   ssh ${SERV} sudo systemctl daemon-reload
   ssh ${SERV} sudo systemctl restart micro-x
 

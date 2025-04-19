@@ -10,6 +10,11 @@
 * bug - DB can not survice
 * learn how to hundle Accept:application/json, etc.
 * when can not talk to account server, l22.
+* BUG: restore does not work.
+
+## 0.26.1 (2025-04-20)
+
+* on-memory mode.
 
 ## 0.26.0 (2025-04-19)
 
