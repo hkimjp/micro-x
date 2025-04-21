@@ -23,7 +23,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def version "0.26.0")
+(def version "0.27.0")
 
 (def ayear 2025)
 (def subj  "python-a")
@@ -138,11 +138,6 @@
     (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
-; (defn user-random [_]
-;   (-> (hc/get (str l22 "api/user/" (uhour-now) "/randomly")
-;               {:as :json :timeout 1000})
-;       :body))
-
 (defn get-users
   "returns users list."
   [ayear subj uhour]
@@ -197,8 +192,8 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     ;;(db/start "target/db.sqlite")
-     (db/start)
+     (db/start "storage/db.sqlite")
+     ;;(db/start)
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
      (t/log! :info (str "server started at port " port)))))

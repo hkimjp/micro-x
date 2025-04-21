@@ -38,10 +38,7 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-      ; was xtdb. now datascript.
-      ; (xt/put! (assoc mesg
-      ;                 :xt/id (random-uuid)
-      ;                 :timestamp (jt/local-date-time))
+      ;; patched by hkimura to record chats in datascript.
       (t/log! :info mesg)
       (ds/put (assoc mesg
                      :db/add -1

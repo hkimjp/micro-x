@@ -22,9 +22,8 @@
 (defn- admin? []
   (= (author) "hkimura"))
 
-(defn- abbrev [s]
-  ; (str (first s) "*****")
-  s)
+(defn- anonymize [s]
+  (str (first s) (second s) "*****"))
 
 (defn alert [s]
   (.play js/failed)
@@ -34,13 +33,14 @@
   (t/log! {:level :info :html html} "append-html")
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
-  (.insertAdjacentHTML element "beforeend" html)) ; afterbegin
+  (.insertAdjacentHTML element "beforeend" html) ; afterbegin
+  (.scroll element 0 (.-scrollHeight element)))
 
 (defn- message-html [{:keys [author message]}]
   (str "<li><span class='date'>"
        (js/Date.)
        "<br><span class='author'>"
-       (if (str/blank? author) "Anonymous" (abbrev author)) "</span>"
+       (if (str/blank? author) "Anonymous" (anonymize author)) "</span>"
        "<span class='message'>" message "</span></li>"))
 
 (defn- empty-message? [s]
@@ -90,23 +90,18 @@
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
 (defn- deliver-random [stream]
-  (js/alert "deliver-random")
   (go (let [response (<! (http/get "/api/user-random"))
             user (:body response)
             author  (query "#author")
             message (query "#message")]
         (>! (:out stream) {:author (.-value author)
-                           :message (str "@" user " " (.-value message))})
-        ;; no.
-        ;; (set! (.-value message) "")
-        ;; (.focus message)
-        )))
+                           :message (str "@" user " " (.-value message))}))))
 
 ;; from biff,
 ;; (map message (sort-by :msg/sent-at #(compare %2 %1) messages))
 (defn- format-message [{:keys [author message timestamp]}]
   (str "<p>&nbsp" timestamp "<br>&nbsp"
-       "<b>" (abbrev author) ":</b> " message "</p>"))
+       "<b>" (anonymize author) ":</b> " message "</p>"))
 
 (defn- replace-content [element messages]
   (set! (.-textContent element) "")
@@ -142,21 +137,21 @@
            (cond
              (and (.-shiftKey e) (= (.-code e) "Enter"))
              (send-message stream)
-             ;
+
              (and (.-ctrlKey e) (= (.-code e) "KeyU"))
              (if (admin?)
                (insert-random-user)
                (alert "^U admin only."))
-             ;
+
              (and (.-ctrlKey e) (= (.-code e) "KeyI"))
              (if (admin?)
                (deliver-random stream)
                (alert "^I admin only."))
-             ;
+
              ; use as a cheking tool?
              (and (.-ctrlKey e) (= (.-code e) "KeyX"))
              (alert "^X pushed")
-             ;
+
              ; :else (t/log! {:level :info :data (.-code e)} "keyup")
              )))
         (.addEventListener (query "#load") "click"
