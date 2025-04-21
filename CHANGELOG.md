@@ -14,6 +14,7 @@
 
 ## 0.27.0 (2025-04-21)
 
+* backended datascript mode.
 * scroll to the bottom when receives a new message.
 
 ## 0.26.1 (2025-04-20)
