@@ -12,6 +12,12 @@
 * when can not talk to account server, l22.
 * BUG: restore does not work.
 
+## 0.28.0-SNAPSHOT
+
+* enbug datascript. why?
+* added `just upgrade`
+* fix `Justfile` ... s/target/storage/
+
 ## 0.27.0 (2025-04-21)
 
 * backended datascript mode.

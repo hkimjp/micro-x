@@ -2,8 +2,8 @@ set dotenv-load
 
 run:
   clojure -M:cljs compile client
-  if [ ! -d "target" ]; then \
-    mkdir target; \
+  if [ ! -d "storage" ]; then \
+    mkdir storage; \
   fi
   clojure -X:server
 
@@ -11,8 +11,8 @@ watch:
   clojure -M:cljs watch client
 
 repl:
-  if [ ! -d "target" ]; then \
-    mkdir target; \
+  if [ ! -d "storage" ]; then \
+    mkdir storage; \
   fi
   MX3_DEV=true clojure -M:dev -m nrepl.cmdline
 
@@ -24,6 +24,9 @@ stop:
 #   just stop
 #   just repl
 
+upgrade:
+  clj -Tantq outdated :upgrade true
+
 build:
   clojure -T:build uber
 
@@ -32,5 +35,7 @@ deploy: build
   ssh ${SERV} sudo systemctl daemon-reload
   ssh ${SERV} sudo systemctl restart micro-x
 
+
 clean:
   rm -rf target
+
