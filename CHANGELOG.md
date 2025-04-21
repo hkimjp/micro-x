@@ -12,8 +12,9 @@
 * when can not talk to account server, l22.
 * BUG: restore does not work.
 
-## 0.27.0-SNAPSHOT
+## 0.27.0 (2025-04-21)
 
+* backended datascript mode.
 * scroll to the bottom when receives a new message.
 
 ## 0.26.1 (2025-04-20)
