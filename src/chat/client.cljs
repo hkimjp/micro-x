@@ -89,7 +89,6 @@
         (set! (.-value (query "#message")) (str "@" user " ")))))
 
 (defn- deliver-random [stream]
-  (js/alert "deliver-random")
   (go (let [response (<! (http/get "/api/user-random"))
             user (:body response)
             author  (query "#author")
