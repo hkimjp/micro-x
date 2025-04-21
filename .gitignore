@@ -10,6 +10,7 @@
 /classes
 /codox
 /node_modules
+!/storage/.keep
 /storage
 /resources/public/js
 !/target/.keep
