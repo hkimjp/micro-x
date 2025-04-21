@@ -33,7 +33,8 @@
   (t/log! {:level :info :html html} "append-html")
   ;; https://qiita.com/isseium/items/12b215b6eab26acd2afe
   (.play js/sound)
-  (.insertAdjacentHTML element "beforeend" html)) ; afterbegin
+  (.insertAdjacentHTML element "beforeend" html) ; afterbegin
+  (.scroll element 0 (.-scrollHeight element)))
 
 (defn- message-html [{:keys [author message]}]
   (str "<li><span class='date'>"
