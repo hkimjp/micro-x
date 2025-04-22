@@ -14,13 +14,12 @@
 
 ## 0.28.0-SNAPSHOT
 
-* enbug datascript. why?
+* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode.
 * added `just upgrade`
-* fix `Justfile` ... s/target/storage/
+* fix `Justfile` - rewrite 'target/db.sqlite' as 'storage/db.sqlite'.
 
 ## 0.27.0 (2025-04-21)
 
-* backended datascript mode.
 * scroll to the bottom when receives a new message.
 
 ## 0.26.1 (2025-04-20)
