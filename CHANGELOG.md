@@ -5,18 +5,15 @@
 * who is login now?
   => redis. when logout, expire. or exire after a period.
 * display error message when sent to non-exist users.
-* cache messages with `redis`.
 * pop up menu. display key bindings, etc.
-* bug - DB can not survice
-* learn how to hundle Accept:application/json, etc.
-* when can not talk to account server, l22.
-* BUG: restore does not work.
+* BUG: (db/start "storage/db.sqlite") does not work.
+
 
 ## 0.28.0-SNAPSHOT
 
-* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode.
 * added `just upgrade`
 * fix `Justfile` - rewrite 'target/db.sqlite' as 'storage/db.sqlite'.
+* stop logging on-pong, on-close. noisy.
 
 ## 0.27.0 (2025-04-21)
 
