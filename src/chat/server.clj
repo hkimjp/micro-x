@@ -192,8 +192,8 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     ;; bug.
-     ;;(db/start "storage/db.sqlite")
+     ;; bug. can not start with storage.
+     ;; (db/start "storage/db.sqlite")
      (db/start)
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
