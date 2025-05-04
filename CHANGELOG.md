@@ -5,7 +5,6 @@
 * who is login now?
   => redis. when logout, expire. or exire after a period.
 * display error message when sent to non-exist users.
-* cache messages with `redis`.
 * pop up menu. display key bindings, etc.
 * bug - DB can not survice
 * learn how to hundle Accept:application/json, etc.

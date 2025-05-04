@@ -43,18 +43,16 @@
       ;; to compare timestamps, timestamp must not be strings.
       ;; need improve.
       (t/log! :info mesg)
-      (ds/put (assoc mesg
-                     :db/add -1
-                     :timestamp (jt/local-date-time)))
+      (ds/put (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
       (a/put! in mesg))
     (on-pong [_ _ _]
-      nil
-      #_(t/log! :info "on-pong"))
+      ; (t/log! :info "on-pong")
+      nil)
     (on-error [_ _ ex]
       (t/log! {:level :info :data ex} "on-error")
       (a/put! err ex))
     (on-close [_ _ _ _]
-      (t/log! :info "on-close")
+      ; (t/log! :info "on-close")
       (a/close! in)
       (a/close! out)
       (a/close! err))))
