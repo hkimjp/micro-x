@@ -2,7 +2,7 @@
   (:require [clojure.core.async :as a]
             [ring.websocket :as ws]
             [ring.websocket.protocols :as wsp]
-            [java-time.api :as jt]
+            ; [java-time.api :as jt]
             [taoensso.telemere :as t]
             [hkimjp.datascript :as ds]))
 
@@ -43,7 +43,8 @@
       ;; to compare timestamps, timestamp must not be strings.
       ;; need improve.
       (t/log! :info mesg)
-      (ds/put (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
+      ;(ds/put (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
+      (ds/put (assoc mesg :db/add -1 :timestamp (java.util.Date.)))
       (a/put! in mesg))
     (on-pong [_ _ _]
       ; (t/log! :info "on-pong")
