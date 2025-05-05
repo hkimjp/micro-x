@@ -6,14 +6,13 @@
   => redis. when logout, expire. or exire after a period.
 * display error message when sent to non-exist users.
 * pop up menu. display key bindings, etc.
-* bug - DB can not survice
 * learn how to hundle Accept:application/json, etc.
-* when can not talk to account server, l22.
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related reading tagged-literals issues.
 
 ## 0.28.0-SNAPSHOT
 
+* java.util.Date.
 * libraries updated.
 * added `just upgrade`.
 * fix `Justfile` - rewrite 'target/db.sqlite' as 'storage/db.sqlite'.
