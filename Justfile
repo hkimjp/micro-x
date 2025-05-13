@@ -34,6 +34,7 @@ deploy: build
   scp target/io.github.hkimjp/micro-x-*.jar ${DEST}/micro-x.jar
   ssh ${SERV} sudo systemctl daemon-reload
   ssh ${SERV} sudo systemctl restart micro-x
+  ssh ${SERV} systemctl status micro-x
 
 
 clean:
