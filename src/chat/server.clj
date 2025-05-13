@@ -192,7 +192,8 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     ;; bug.
+     ;; bug. can not read tagged literals.
+     ;; timestamp is a return value of `jt/local-date-time`.
      ;; (db/start "storage/db.sqlite")
      (db/start)
      (reset! users (get-users ayear subj uhour))

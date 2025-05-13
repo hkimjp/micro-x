@@ -6,16 +6,19 @@
   => redis. when logout, expire. or exire after a period.
 * display error message when sent to non-exist users.
 * pop up menu. display key bindings, etc.
-* BUG: (db/start "storage/db.sqlite") does not work.
+* learn how to hundle Accept:application/json, etc.
+* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
+  this bug strongly related reading tagged-literals issues.
 
+## 0.29.0-SNAPSHOT
 
-## 0.28.0-SNAPSHOT
-
-* added `just upgrade`
+* java.util.Date.
+* libraries updated.
+* added `just upgrade`.
 * fix `Justfile` - rewrite 'target/db.sqlite' as 'storage/db.sqlite'.
-* stop logging on-pong, on-close. noisy.
+* does not log `on-pong`s.
 
-## 0.27.0 (2025-04-21)
+## 0.27.0 (2025-04-21)d
 
 * scroll to the bottom when receives a new message.
 
