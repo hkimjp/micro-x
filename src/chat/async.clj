@@ -57,6 +57,17 @@
       (a/close! out)
       (a/close! err))))
 
+(comment
+  (ds/q '[:find (max ?e)
+          :where
+          [?e]])
+
+  (ds/pull 5)
+  (ds/q '[:find ?message
+          :where
+          [?e :message ?message]])
+  :rtf)
+
 (defmacro go-websocket
   "Macro for returning a websocket response handled by an inner go block.
   Expects three binding symbols - in, out and err - and assigns them to

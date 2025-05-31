@@ -12,6 +12,10 @@
 
 (def users (atom nil))
 
+(def last-msg-author (atom nil))
+
+;------------------------------------
+
 (defn- query [query]
   (.querySelector js/document query))
 
@@ -48,18 +52,23 @@
               (str/replace #"^@[^ ]*" "")
               (str/replace #"^\s*" ""))))
 
+(defn- rewrite-if-reply [message]
+  (if (= "@ " (subs message 0 2))
+    (let [message (str "@" @last-msg-author " " (subs message 2))]
+      (t/log! :info (str "rewrote message: " message))
+      message)
+    message))
+
 (defn- send-message [stream]
   (let [message (query "#message")
         author  (query "#author")]
     (t/log! {:level :info :data {:message message :author author}}
             "send-message")
     (cond
-      (str/starts-with? (.-value message) "＠")
-      (alert "全角の ＠ を使っています。")
-      (empty-message? (.-value message))
-      (alert "メッセージが空(カラ)です．")
+      (str/starts-with? (.-value message) "＠") (alert "全角の ＠ を使っています。")
+      (empty-message? (.-value message)) (alert "メッセージが空(カラ)です．")
       :else (go (>! (:out stream) {:author  (.-value author)
-                                   :message (.-value message)})
+                                   :message (rewrite-if-reply (.-value message))})
                 (set! (.-value message) "")
                 (.focus message)))))
 
@@ -71,7 +80,9 @@
     (when-some [message (<! (:in stream))]
       (if (str/starts-with? (:message message) "@")
         (when (= (.-value (query "#author")) (dest (:message message)))
-          (append-html message-log (message-html message)))
+          (append-html message-log (message-html message))
+          (reset! last-msg-author (:author message))
+          (t/log! :info (str "last-msg-author: " @last-msg-author)))
         (append-html message-log (message-html message)))
       (recur))))
 

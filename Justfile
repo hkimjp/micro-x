@@ -14,7 +14,7 @@ repl:
   if [ ! -d "storage" ]; then \
     mkdir storage; \
   fi
-  MX3_DEV=true clojure -M:dev -m nrepl.cmdline
+  clojure -M:dev -m nrepl.cmdline
 
 stop:
   kill `lsof -t -i:${PORT}`

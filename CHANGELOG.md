@@ -10,7 +10,12 @@
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related reading tagged-literals issues.
 
-## 0.29.0-SNAPSHOT
+## 0.30.0-SNAPSHOT
+
+* simply reply by "@ message" to direct messages. no destination required.
+  the destination of the reply is the author of the last direct message.
+
+## 0.29.0
 
 * java.util.Date.
 * libraries updated.
@@ -18,7 +23,7 @@
 * fix `Justfile` - rewrite 'target/db.sqlite' as 'storage/db.sqlite'.
 * does not log `on-pong`s.
 
-## 0.27.0 (2025-04-21)d
+## 0.27.0 (2025-04-21)
 
 * scroll to the bottom when receives a new message.
 

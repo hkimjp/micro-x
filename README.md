@@ -11,18 +11,17 @@ then start the server with:
 
     just server
 
-Development can be started with:
-
-    just dev
-
-`just dev` starts shadow-cljs and nrepl.
 
 Pantsman contributed the beep sounds.
 
 ## Develop
 
-    MX3_DEV=true
-    PORT=3000
+Development can be started with:
+
+    just watch
+    just repl
+
+then connect the .nrepl-port with nrepl-client, such as Sublime.
 
 ## Require
 
@@ -31,9 +30,9 @@ Pantsman contributed the beep sounds.
 
 ## Usage
 
-* Shift + Enter  ... send message
-* Cntl + U       ... insert @user randomly selected
-* Cntl + I       ... deliver a message to some users randomly
+* Shift + Enter  ... send message to all subscribers.
+* Cntl + U       ... insert @user randomly selected.
+* Cntl + I       ... deliver a message to a user randomly selected.
 
 ## Original documents from `Ring WebSocket Chat Example`
 
