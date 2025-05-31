@@ -10,7 +10,17 @@
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related reading tagged-literals issues.
 
-## 0.30.0-SNAPSHOT
+
+| :file    | :name                         | :current | :latest |
+|----------|-------------------------------|----------|---------|
+| deps.edn | com.taoensso/telemere         | 1.0.0    | 1.0.1   |
+|          | io.github.clojure/tools.build | v0.10.8  | v0.10.9 |
+|          | metosin/reitit                | 0.8.0    | 0.9.1   |
+|          | org.clojure/clojurescript     | 1.12.38  | 1.12.42 |
+|          | thheller/shadow-cljs          | 3.0.4    | 3.1.5   |
+
+
+## 0.30.0-SNAPSHOT (2025-06-01)
 
 * simply reply by "@ message" to direct messages. no destination required.
   the destination of the reply is the author of the last direct message.
