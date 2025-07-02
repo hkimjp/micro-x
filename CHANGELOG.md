@@ -12,7 +12,9 @@
 
 
 
-## 0.30.0-SNAPSHOT (2025-06-01)
+## 0.30.0-SNAPSHOT (2025-07-03)
+
+* just `compile` recipe.
 
 * simply reply by "@ message" to direct messages. no destination required.
   the destination of the reply is the author of the last direct message.

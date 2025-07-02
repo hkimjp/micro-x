@@ -1,11 +1,13 @@
 set dotenv-load
 
-run:
-  clojure -M:cljs compile client
+run: compile
   if [ ! -d "storage" ]; then \
     mkdir storage; \
   fi
   clojure -X:server
+
+compile:
+  clojure -M:cljs compile client
 
 watch:
   clojure -M:cljs watch client
@@ -31,6 +33,7 @@ build:
   clojure -T:build uber
 
 deploy: build
+
   scp target/io.github.hkimjp/micro-x-*.jar ${DEST}/micro-x.jar
   ssh ${SERV} sudo systemctl daemon-reload
   ssh ${SERV} sudo systemctl restart micro-x
