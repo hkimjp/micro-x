@@ -2,23 +2,23 @@
  {buddy/buddy-hashers {:mvn/version "2.0.167"}
   cljs-http/cljs-http {:mvn/version "0.1.48"}
   com.cnuernber/charred {:mvn/version "1.037"}
-  com.taoensso/telemere {:mvn/version "1.0.0"}
+  com.taoensso/telemere {:mvn/version "1.0.1"}
   haslett/haslett {:mvn/version "0.2.0"}
   hato/hato {:mvn/version "1.0.0"}
   clojure.java-time/clojure.java-time {:mvn/version "1.4.3"}
   metosin/muuntaja {:mvn/version "0.6.11"}
-  metosin/reitit {:mvn/version "0.8.0"}
-  org.clojure/clojure {:mvn/version "1.12.0"}
-  org.clojure/clojurescript {:mvn/version "1.12.38"}
+  metosin/reitit {:mvn/version "0.9.1"}
+  org.clojure/clojure {:mvn/version "1.12.1"}
+  org.clojure/clojurescript {:mvn/version "1.12.42"}
   org.clojure/tools.analyzer {:mvn/version "1.2.0"}
   org.ring-clojure/ring-websocket-async {:mvn/version "0.2.0"}
   org.ring-clojure/ring-websocket-middleware {:mvn/version "0.2.1"}
   org.ring-clojure/ring-websocket-transit {:mvn/version "0.1.0"}
   ring/ring-anti-forgery {:mvn/version "1.4.0"}
-  ring/ring-core {:mvn/version "1.14.1"}
+  ring/ring-core {:mvn/version "1.14.2"}
   ring/ring-defaults {:mvn/version "0.6.0"}
-  ring/ring-jetty-adapter {:mvn/version "1.14.1"}
-  thheller/shadow-cljs {:mvn/version "3.0.4"}
+  ring/ring-jetty-adapter {:mvn/version "1.14.2"}
+  thheller/shadow-cljs {:mvn/version "3.1.7"}
   ;;
   io.github.hkimjp/util {:git/tag "0.4.9", :git/sha "da6d065" :git/url "https://github.com/hkimjp/util"}}
 
@@ -31,5 +31,5 @@
   :server  {:exec-fn chat.server/start
             :exec-args {:port 8080}}
   :build   {:deps {io.github.clojure/tools.build
-                   {:git/tag "v0.10.8" :git/sha "2fdfd66"}}
+                   {:git/tag "v0.10.9" :git/sha "e405aac"}}
             :ns-default build}}}
