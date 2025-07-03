@@ -11,6 +11,10 @@
   this bug strongly related reading tagged-literals issues.
 
 
+## 0.30.1
+
+* use './bump-version.sh' not '~/bin/bump-version.sh'.
+
 
 ## 0.30.0 (2025-07-03)
 
