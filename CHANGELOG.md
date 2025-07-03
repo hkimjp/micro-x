@@ -8,7 +8,7 @@
 * pop up menu. display key bindings, etc.
 * learn how to hundle Accept:application/json, etc.
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
-  this bug strongly related reading tagged-literals issues.
+  this bug strongly related to reading tagged-literals issue.
 * when connctions from mobile phones, swith html contents. how to?
 
 
