@@ -38,22 +38,35 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-      ;; patched by hkimura to record chats in datascript.
+      ;; FIXME: patched by hkimura to record chats in datascript.
+      ;; hkimura does not know how to read tagged literals.
+      ;; to compare timestamps, timestamp must not be strings.
+      ;; need improve.
       (t/log! :info mesg)
-      (ds/put (assoc mesg
-                     :db/add -1
-                     :timestamp (jt/local-date-time)))
+      (ds/put (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
       (a/put! in mesg))
     (on-pong [_ _ _]
-      (t/log! :info "on-pong"))
+      ; (t/log! :info "on-pong")
+      nil)
     (on-error [_ _ ex]
       (t/log! {:level :info :data ex} "on-error")
       (a/put! err ex))
     (on-close [_ _ _ _]
-      (t/log! :info "on-close")
+      ; (t/log! :info "on-close")
       (a/close! in)
       (a/close! out)
       (a/close! err))))
+
+(comment
+  (ds/q '[:find (max ?e)
+          :where
+          [?e]])
+
+  (ds/pull 5)
+  (ds/q '[:find ?message
+          :where
+          [?e :message ?message]])
+  :rtf)
 
 (defmacro go-websocket
   "Macro for returning a websocket response handled by an inner go block.

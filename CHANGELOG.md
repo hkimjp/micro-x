@@ -5,16 +5,42 @@
 * who is login now?
   => redis. when logout, expire. or exire after a period.
 * display error message when sent to non-exist users.
-* cache messages with `redis`.
 * pop up menu. display key bindings, etc.
-* bug - DB can not survice
 * learn how to hundle Accept:application/json, etc.
-* when can not talk to account server, l22.
-* BUG: restore does not work.
+* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
+  this bug strongly related reading tagged-literals issues.
+
+
+
+## 0.30.0-SNAPSHOT (2025-07-03)
+
+* change width of #author from 150px to 80px.
+* just `compile` recipe.
+* simply reply by "@ message" to direct messages. no destination required.
+  the destination of the reply is the author of the last direct message.
+
+| :file    | :name                         | :current | :latest |
+|--------- | ----------------------------- | -------- | --------|
+| deps.edn | com.taoensso/telemere         | 1.0.0    | 1.0.1   |
+|          | io.github.clojure/tools.build | v0.10.8  | v0.10.9 |
+|          | metosin/reitit                | 0.8.0    | 0.9.1   |
+|          | org.clojure/clojure           | 1.12.0   | 1.12.1  |
+|          | org.clojure/clojurescript     | 1.12.38  | 1.12.42 |
+|          | ring/ring-core                | 1.14.1   | 1.14.2  |
+|          | ring/ring-jetty-adapter       | 1.14.1   | 1.14.2  |
+|          | thheller/shadow-cljs          | 3.0.4    | 3.1.7   |
+
+
+## 0.29.0
+
+* java.util.Date.
+* libraries updated.
+* added `just upgrade`.
+* fix `Justfile` - rewrite 'target/db.sqlite' as 'storage/db.sqlite'.
+* does not log `on-pong`s.
 
 ## 0.27.0 (2025-04-21)
 
-* backended datascript mode.
 * scroll to the bottom when receives a new message.
 
 ## 0.26.1 (2025-04-20)

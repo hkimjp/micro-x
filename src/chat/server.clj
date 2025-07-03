@@ -23,7 +23,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def version "0.27.0")
+(def version "0.30.0-SNAPSHOT")
 
 (def ayear 2025)
 (def subj  "python-a")
@@ -192,8 +192,10 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     (db/start "storage/db.sqlite")
-     ;;(db/start)
+     ;; bug. can not read tagged literals.
+     ;; timestamp is a return value of `jt/local-date-time`.
+     ;; (db/start "storage/db.sqlite")
+     (db/start)
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
      (t/log! :info (str "server started at port " port)))))
