@@ -11,6 +11,10 @@
   this bug strongly related reading tagged-literals issues.
 
 
+## 0.30.2
+
+* fixed login page. forgot viewport.
+
 ## 0.30.1
 
 * use './bump-version.sh' not '~/bin/bump-version.sh'.
