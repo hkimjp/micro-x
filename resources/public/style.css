@@ -55,13 +55,13 @@ body {
 }
 
 #author {
-    width: 150px;
+    width: 80px;
     margin-left: 10px;
 }
 
 #message {
     /* width: calc(100% - 290px); */
-    width: calc(100% - 360px);
+    width: calc(100% - 290px);
 }
 
 #send {

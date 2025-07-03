@@ -14,8 +14,8 @@
 
 ## 0.30.0-SNAPSHOT (2025-07-03)
 
+* change width of #author from 150px to 80px.
 * just `compile` recipe.
-
 * simply reply by "@ message" to direct messages. no destination required.
   the destination of the reply is the author of the last direct message.
 
