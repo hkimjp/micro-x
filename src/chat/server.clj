@@ -23,7 +23,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def version "0.30.0")
+(def version "0.30.1")
 
 (def ayear 2025)
 (def subj  "python-a")
