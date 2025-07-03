@@ -64,6 +64,14 @@ body {
     width: calc(100% - 290px);
 }
 
+/* add */
+#load {
+    background: orange;
+    color: white;
+    width: 60px;
+    cursor: pointer;
+}
+
 #send {
     background: #36a;
     color: white;
@@ -75,13 +83,7 @@ body {
     background: #69d;
 }
 
-/* add */
-#load {
-    background: orange;
-    color: white;
-    width: 60px;
-    cursor: pointer;
-}
+
 
 #load:hover {
     background: rgb(255, 199, 86);

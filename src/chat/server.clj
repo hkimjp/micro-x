@@ -23,7 +23,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def version "0.30.1")
+(def version "0.30.2")
 
 (def ayear 2025)
 (def subj  "python-a")
@@ -67,7 +67,7 @@
            <p>version "
           version
           "</p></body></form>"))
-        (resp/content-type "text/html")))
+        (resp/content-type "text/html"))))
 
 (defn login! [{{:keys [login password]} :params}]
   (t/log! :info (str "login! " login))

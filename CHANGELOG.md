@@ -9,6 +9,7 @@
 * learn how to hundle Accept:application/json, etc.
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related reading tagged-literals issues.
+* when connctions from mobile phones, swith html contents. how to?
 
 
 ## 0.30.2
@@ -18,7 +19,6 @@
 ## 0.30.1
 
 * use './bump-version.sh' not '~/bin/bump-version.sh'.
-
 
 ## 0.30.0 (2025-07-03)
 
