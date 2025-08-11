@@ -7,9 +7,14 @@
 * display error message when sent to non-exist users.
 * pop up menu. display key bindings, etc.
 * learn how to hundle Accept:application/json, etc.
+* on mobile phone, do not display the input area for user's login name
+  to widen message area.
+
+
+## 0.30.0-SNAPSHOT (2025-06-01)
+
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related reading tagged-literals issues.
-
 
 | :file    | :name                         | :current | :latest |
 |----------|-------------------------------|----------|---------|
@@ -18,10 +23,6 @@
 |          | metosin/reitit                | 0.8.0    | 0.9.1   |
 |          | org.clojure/clojurescript     | 1.12.38  | 1.12.42 |
 |          | thheller/shadow-cljs          | 3.0.4    | 3.1.5   |
-
-
-## 0.30.0-SNAPSHOT (2025-06-01)
-
 * simply reply by "@ message" to direct messages. no destination required.
   the destination of the reply is the author of the last direct message.
 
