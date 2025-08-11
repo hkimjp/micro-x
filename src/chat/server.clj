@@ -23,7 +23,7 @@
 
 (def debug? (System/getenv "MX3_DEV"))
 
-(def version "0.30.0-SNAPSHOT")
+(def version "0.30.2")
 
 (def ayear 2025)
 (def subj  "python-a")
@@ -49,9 +49,14 @@
   (let [flash (:flash request)]
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>Micro X</title>
-           <h1>Micro X</h1>
+          "<!DOCTYPE html>
+           <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1'>
+            <title>Micro X</title>
+           </head>
            <body style='font-family:sans-serif;'>
+           <h1>Micro X</h1>
            <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
@@ -62,8 +67,7 @@
            <p>version "
           version
           "</p></body></form>"))
-        (resp/content-type "text/html")
-        (resp/charset "UTF-8"))))
+        (resp/content-type "text/html"))))
 
 (defn login! [{{:keys [login password]} :params}]
   (t/log! :info (str "login! " login))

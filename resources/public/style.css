@@ -55,13 +55,21 @@ body {
 }
 
 #author {
-    width: 150px;
+    width: 80px;
     margin-left: 10px;
 }
 
 #message {
     /* width: calc(100% - 290px); */
-    width: calc(100% - 360px);
+    width: calc(100% - 290px);
+}
+
+/* add */
+#load {
+    background: orange;
+    color: white;
+    width: 60px;
+    cursor: pointer;
 }
 
 #send {
@@ -75,13 +83,7 @@ body {
     background: #69d;
 }
 
-/* add */
-#load {
-    background: orange;
-    color: white;
-    width: 60px;
-    cursor: pointer;
-}
+
 
 #load:hover {
     background: rgb(255, 199, 86);

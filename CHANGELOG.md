@@ -14,17 +14,36 @@
 ## 0.30.0-SNAPSHOT (2025-06-01)
 
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
-  this bug strongly related reading tagged-literals issues.
+  this bug strongly related to reading tagged-literals issue.
+* when connctions from mobile phones, swith html contents. how to?
+
+
+## 0.30.2
+
+* fixed login page. forgot viewport.
+
+## 0.30.1
+
+* use './bump-version.sh' not '~/bin/bump-version.sh'.
+
+## 0.30.0 (2025-07-03)
+
+* change width of #author from 150px to 80px.
+* just `compile` recipe.
+* simply reply by "@ message" to direct messages. no destination required.
+  the destination of the reply is the author of the last direct message.
 
 | :file    | :name                         | :current | :latest |
-|----------|-------------------------------|----------|---------|
+|--------- | ----------------------------- | -------- | --------|
 | deps.edn | com.taoensso/telemere         | 1.0.0    | 1.0.1   |
 |          | io.github.clojure/tools.build | v0.10.8  | v0.10.9 |
 |          | metosin/reitit                | 0.8.0    | 0.9.1   |
+|          | org.clojure/clojure           | 1.12.0   | 1.12.1  |
 |          | org.clojure/clojurescript     | 1.12.38  | 1.12.42 |
-|          | thheller/shadow-cljs          | 3.0.4    | 3.1.5   |
-* simply reply by "@ message" to direct messages. no destination required.
-  the destination of the reply is the author of the last direct message.
+|          | ring/ring-core                | 1.14.1   | 1.14.2  |
+|          | ring/ring-jetty-adapter       | 1.14.1   | 1.14.2  |
+|          | thheller/shadow-cljs          | 3.0.4    | 3.1.7   |
+
 
 ## 0.29.0
 
