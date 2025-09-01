@@ -1,8 +1,17 @@
 (ns user
   (:require [taoensso.telemere :as t]
             [chat.server :as s]
+            [hkimjp.datascript :as ds]
             #_[hato.client :as hc]))
+(comment
+  (s/restart)
 
-(t/set-min-level! :debug)
+  @s/users
 
-(s/start)
+  (ds/qq '[:find ?e
+           :where
+           [?e]])
+  (ds/pl 3)
+
+  (ds/stop)
+  :rcf)

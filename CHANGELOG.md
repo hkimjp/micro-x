@@ -9,14 +9,29 @@
 * learn how to hundle Accept:application/json, etc.
 * on mobile phone, do not display the input area for user's login name
   to widen message area.
+* when connctions from mobile phones, swith html contents. how to?
+
+## 0.31-SNAPSHOT
+
+* updated libraries
+
+| :file    | :name                         | :current | :latest  |
+|----------|-------------------------------|----------|----------|
+| deps.edn | cljs-http/cljs-http           | 0.1.48   | 0.1.49   |
+|          | com.taoensso/telemere         | 1.0.1    | 1.1.0    |
+|          | io.github.clojure/tools.build | v0.10.9  | v0.10.10 |
+|          | org.clojure/clojure           | 1.12.1   | 1.12.2   |
+|          | thheller/shadow-cljs          | 3.1.7    | 3.2.0    |
+
+* io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
+* envvar AYEAR, SUBJ, UHOUR, updated `systemd/start.sh`
+
 
 
 ## 0.30.0-SNAPSHOT (2025-06-01)
 
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related to reading tagged-literals issue.
-* when connctions from mobile phones, swith html contents. how to?
-
 
 ## 0.30.2
 

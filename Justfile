@@ -12,7 +12,7 @@ compile:
 watch:
   clojure -M:cljs watch client
 
-repl:
+nrepl:
   if [ ! -d "storage" ]; then \
     mkdir storage; \
   fi
