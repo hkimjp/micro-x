@@ -8,10 +8,11 @@
 
   @s/users
 
+  (ds/put! {:char "d"})
   (ds/qq '[:find ?e
            :where
            [?e]])
-  (ds/pl 3)
+  (ds/pl 2)
 
   (ds/stop)
   :rcf)

@@ -20,7 +20,7 @@
   ring/ring-jetty-adapter {:mvn/version "1.14.2"}
   thheller/shadow-cljs {:mvn/version "3.2.0"}
   ;;
-  io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}}
+  io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.2" :git/sha "53b8e91"}}
 
  :paths ["resources" "src" "target/assets"]
 

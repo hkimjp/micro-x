@@ -195,7 +195,7 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     (ds/start {:url "jdbc:sqlite:storage/micro-x.sqlite"})
+     (ds/start-or-restore {:url "jdbc:sqlite:storage/micro-x.sqlite"})
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
      (t/log! :info (str "server started at port " port)))))

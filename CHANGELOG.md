@@ -13,8 +13,9 @@
 
 ## 0.31-SNAPSHOT
 
+* why different git/sha - `git show-ref --tags` and `clj -Tantq outdated`
+  hkimjp/datascript-storage-javatime.
 * call l22:/api/users/2025/python-b/tue2
-* hkimjp.datascript (start-or-restore jdbc-url)
 * updated libraries
 
 | :file    | :name                         | :current | :latest  |
