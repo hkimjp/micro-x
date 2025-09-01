@@ -19,17 +19,16 @@
             ;; [ring.websocket.async :as wsa]
             ;; patched by hkimura to record chats in database
             [chat.async :as wsa]
-            [hkimjp.datascript :as db]))
-
-(def debug? (System/getenv "MX3_DEV"))
+            [hkimjp.datascript :as ds]))
 
 (def version "0.30.2")
 
-(def ayear 2025)
-(def subj  "python-a")
-(def uhour "wed1")
+(def debug? (System/getenv "MX3_DEV"))
 
-; getenv?
+(def ayear (or (System/getenv "AYEAR") 2025))
+(def subj  (or (System/getenv "SUBJ")  "python-a"))
+(def uhour (or (System/getenv "UHOUR") "wed1"))
+
 (def ^:private l22
   (if debug?
     "http://localhost:3022/"
@@ -130,15 +129,15 @@
 (defn load-records
   "fetch last `n` minutes submissions."
   [n]
-  (let [resp (db/q '[:find ?author ?message ?timestamp
-                     :keys author message timestamp
-                     :in $ ?t0
-                     :where
-                     [?e :author ?author]
-                     [?e :message ?message]
-                     [?e :timestamp ?timestamp]
-                     [(<= ?t0 ?timestamp)]]
-                   (jt/minus (jt/local-date-time) (jt/minutes n)))]
+  (let [resp (ds/qq '[:find ?author ?message ?timestamp
+                      :keys author message timestamp
+                      :in $ ?t0
+                      :where
+                      [?e :author ?author]
+                      [?e :message ?message]
+                      [?e :timestamp ?timestamp]
+                      [(<= ?t0 ?timestamp)]]
+                    (jt/minus (jt/local-date-time) (jt/minutes n)))]
     (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
@@ -196,19 +195,20 @@
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     ;; bug. can not read tagged literals.
-     ;; timestamp is a return value of `jt/local-date-time`.
-     ;; (db/start "storage/db.sqlite")
-     (db/start)
+     (ds/start-or-restore {:url "jdbc:sqlite:storage/micro-x.sqlite"})
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
      (t/log! :info (str "server started at port " port)))))
+
+(comment
+  (get-users ayear subj "wed1")
+  :rcf)
 
 (defn stop []
   (when (some? @server)
     (.stop @server)
     (reset! server nil)
-    (db/stop)
+    (ds/stop)
     (println "server stopped.")))
 
 (defn restart []
