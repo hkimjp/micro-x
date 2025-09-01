@@ -13,6 +13,8 @@
 
 ## 0.31-SNAPSHOT
 
+* call l22:/api/users/2025/python-b/tue2
+* hkimjp.datascript (start-or-restore jdbc-url)
 * updated libraries
 
 | :file    | :name                         | :current | :latest  |
