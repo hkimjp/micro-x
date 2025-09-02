@@ -21,13 +21,14 @@
             [chat.async :as wsa]
             [hkimjp.datascript :as ds]))
 
-(def version "0.30.2")
+(def version "0.31-SNAPSHOT")
 
 (def debug? (System/getenv "MX3_DEV"))
 
 (def ayear (or (System/getenv "AYEAR") 2025))
-(def subj  (or (System/getenv "SUBJ")  "python-a"))
-(def uhour (or (System/getenv "UHOUR") "wed1"))
+(def subj  (or (System/getenv "SUBJ")  "python-b"))
+(def uhour (or (System/getenv "UHOUR") "tue2"))
+(def db-url "jdbc:sqlite:storage/micro-x.sqlite")
 
 (def ^:private l22
   (if debug?
@@ -115,7 +116,7 @@
                             str
                             (str/split #"\s"))]
     (if debug?
-      "wed1"
+      "tue2"
       (str/lower-case (str wd (utime hhmmss))))))
 
 (comment
@@ -142,16 +143,16 @@
     resp))
 
 (defn get-users
-  "returns users list."
+  "fetch users from l22/api/users/:year/:subj/:uhour
+   returns `login` list."
   [ayear subj uhour]
   (t/log! {:level :info :data [ayear subj uhour]} "users")
   (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
     (try
-      (mapv #(get % "login")
-            (-> (hc/get url)
-                :body
-                charred/read-json
-                (get "users")))
+      (mapv #(get % "login") (-> (hc/get url)
+                                 :body
+                                 charred/read-json
+                                 (get "users")))
       (catch Exception _e
         (t/log! {:level :error :url url} "can not talk  to L22 server")
         nil))))
@@ -183,10 +184,10 @@
 
 ;; ----------------------
 
+(def server (atom nil))
+
 (defn run-server [options]
   (adapter/run-jetty (make-app-handler) options))
-
-(def server (atom nil))
 
 (defn start
   ([] (if-let [p (System/getenv "PORT")]
@@ -199,10 +200,6 @@
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
      (t/log! :info (str "server started at port " port)))))
-
-(comment
-  (get-users ayear subj "wed1")
-  :rcf)
 
 (defn stop []
   (when (some? @server)

@@ -13,6 +13,13 @@
 
 ## 0.31-SNAPSHOT
 
+* stopped warning. is this correct?
+
+```
+  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+             "--sun-misc-unsafe-memory-access=allow"]
+```
+
 * why different git/sha - `git show-ref --tags` and `clj -Tantq outdated`
   hkimjp/datascript-storage-javatime.
 * call l22:/api/users/2025/python-b/tue2
