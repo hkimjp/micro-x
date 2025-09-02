@@ -21,7 +21,7 @@
             [chat.async :as wsa]
             [hkimjp.datascript :as ds]))
 
-(def version "0.31-SNAPSHOT")
+(def ^:private version "0.31-SNAPSHOT")
 
 (def debug? (System/getenv "MX3_DEV"))
 

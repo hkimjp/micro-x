@@ -11,6 +11,11 @@
   to widen message area.
 * when connctions from mobile phones, swith html contents. how to?
 
+
+## 0.31.1 (2025-09-02)
+
+* updated `bump-version-local.sh`
+
 ## 0.31.0 (2025-09-02)
 
 * bump-version-local.sh - moved generic rules to `~/bin/bump-version.sh`
