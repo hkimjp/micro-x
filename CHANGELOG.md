@@ -35,11 +35,6 @@
 
 * io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
 * envvar AYEAR, SUBJ, UHOUR, updated `systemd/start.sh`
-
-
-
-## 0.30.0-SNAPSHOT (2025-06-01)
-
 * **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
   this bug strongly related to reading tagged-literals issue.
 
