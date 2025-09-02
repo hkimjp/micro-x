@@ -13,6 +13,7 @@
 
 ## 0.31-SNAPSHOT
 
+* bump-version-local.sh - moved generic rules to `~/bin/bump-version.sh`
 * stopped warning. is this correct?
 
 ```
