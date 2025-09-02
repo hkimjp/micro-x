@@ -10,12 +10,10 @@ compile:
   clojure -M:cljs compile client
 
 watch:
-  clojure -M:cljs watch client
+  clojure -M:dev:cljs watch client
 
-repl:
-  if [ ! -d "storage" ]; then \
-    mkdir storage; \
-  fi
+nrepl:
+  @echo just watch?
   clojure -M:dev -m nrepl.cmdline
 
 stop:

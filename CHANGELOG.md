@@ -7,14 +7,45 @@
 * display error message when sent to non-exist users.
 * pop up menu. display key bindings, etc.
 * learn how to hundle Accept:application/json, etc.
-* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
-  this bug strongly related reading tagged-literals issues.
+* on mobile phone, do not display the input area for user's login name
+  to widen message area.
+* when connctions from mobile phones, swith html contents. how to?
 
+## 0.31.0 (2025-09-02)
+
+* bump-version-local.sh - moved generic rules to `~/bin/bump-version.sh`
+* stopped warning. is this correct?
+
+```
+  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+             "--sun-misc-unsafe-memory-access=allow"]
+```
+
+* why different git/sha - `git show-ref --tags` and `clj -Tantq outdated`
+  hkimjp/datascript-storage-javatime.
+* call l22:/api/users/2025/python-b/tue2
+* updated libraries
+
+| :file    | :name                         | :current | :latest  |
+|----------|-------------------------------|----------|----------|
+| deps.edn | cljs-http/cljs-http           | 0.1.48   | 0.1.49   |
+|          | com.taoensso/telemere         | 1.0.1    | 1.1.0    |
+|          | io.github.clojure/tools.build | v0.10.9  | v0.10.10 |
+|          | org.clojure/clojure           | 1.12.1   | 1.12.2   |
+|          | thheller/shadow-cljs          | 3.1.7    | 3.2.0    |
+
+* io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
+* envvar AYEAR, SUBJ, UHOUR, updated `systemd/start.sh`
+* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
+  this bug strongly related to reading tagged-literals issue.
+
+## 0.30.2
+
+* fixed login page. forgot viewport.
 
 ## 0.30.1
 
 * use './bump-version.sh' not '~/bin/bump-version.sh'.
-
 
 ## 0.30.0 (2025-07-03)
 

@@ -43,7 +43,7 @@
       ;; to compare timestamps, timestamp must not be strings.
       ;; need improve.
       (t/log! :info mesg)
-      (ds/put (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
+      (ds/put! (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
       (a/put! in mesg))
     (on-pong [_ _ _]
       ; (t/log! :info "on-pong")
@@ -58,14 +58,14 @@
       (a/close! err))))
 
 (comment
-  (ds/q '[:find (max ?e)
-          :where
-          [?e]])
+  (ds/qq '[:find (max ?e)
+           :where
+           [?e]])
 
-  (ds/pull 5)
-  (ds/q '[:find ?message
-          :where
-          [?e :message ?message]])
+  (ds/pl 5)
+  (ds/qq '[:find ?message
+           :where
+           [?e :message ?message]])
   :rtf)
 
 (defmacro go-websocket
