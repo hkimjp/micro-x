@@ -13,8 +13,9 @@
 
 ## 0.31-SNAPSHOT
 
+* io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
 * why different git/sha - `git show-ref --tags` and `clj -Tantq outdated`
-  hkimjp/datascript-storage-javatime.
+  hkimjp/datascript-storage-javatime. => OK. understood.
 * call l22:/api/users/2025/python-b/tue2
 * updated libraries
 
@@ -26,10 +27,7 @@
 |          | org.clojure/clojure           | 1.12.1   | 1.12.2   |
 |          | thheller/shadow-cljs          | 3.1.7    | 3.2.0    |
 
-* io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
 * envvar AYEAR, SUBJ, UHOUR, updated `systemd/start.sh`
-
-
 
 ## 0.30.0-SNAPSHOT (2025-06-01)
 
