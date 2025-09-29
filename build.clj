@@ -3,7 +3,7 @@
   (:require [clojure.tools.build.api :as b]))
 
 (def lib 'io.github.hkimjp/micro-x)
-(def version "0.30.2")
+(def version "0.31.1")
 (def main 'chat.server)
 (def class-dir "target/classes")
 
