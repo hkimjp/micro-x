@@ -72,7 +72,7 @@
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
-      (let [resp (hc/get (str l22 "api/user/" login)
+      (let [resp (hc/get (str l22 "/api/user/" login)
                          {:timeout 3000 :as :json})]
         (if (and (some? resp)
                  (hashers/check password (get-in resp [:body :password])))
@@ -187,7 +187,7 @@
   (adapter/run-jetty (make-app-handler) options))
 
 (defn start
-  ([] (if-let [p (System/getenv "PORT")]
+  ([] (if-let [p (env :port)]
         (start {:port (parse-long p)})
         (start {:port 3000})))
   ([{:keys [port]}]

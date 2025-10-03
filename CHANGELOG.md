@@ -14,9 +14,11 @@
 
 ## 0.32.0-SNAPSHOT
 
-- fixed a bug `just watch` miss loaded the `user` namespace.
+- added `/resources/schema.md`
+- correct url handling. url must not end with `/`
+- fixed a bug `just watch` miss loaded the `user` namespace
 - clojure -J--enable-native-access=ALL-UNNAMED -M:cljs watch client
-- added `dev` recipe to `Justfile`.
+- added `dev` recipe to `Justfile`
 - updated libraries
 
 | :file    | :name                                        | :current | :latest |
