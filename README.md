@@ -31,8 +31,8 @@ then connect the .nrepl-port with nrepl-client, such as Sublime.
 ## Usage
 
 * Shift + Enter  ... send message to all subscribers.
-* Cntl + U       ... insert @user randomly selected.
-* Cntl + I       ... deliver a message to a user randomly selected.
+* Cntl  + U      ... insert @user randomly selected.
+* Cntl  + I      ... deliver a message to a user randomly selected.
 
 ## Original documents from `Ring WebSocket Chat Example`
 

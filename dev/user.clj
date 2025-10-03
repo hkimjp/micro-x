@@ -1,8 +1,20 @@
 (ns user
   (:require [taoensso.telemere :as t]
             [chat.server :as s]
-            #_[hato.client :as hc]))
+            [hkimjp.datascript :as ds]))
 
 (t/set-min-level! :debug)
+(s/restart)
 
-(s/start)
+(comment
+  @s/users
+  (ds/put! {:char "d"})
+  (ds/qq '[:find ?e
+           :where
+           [?e]])
+  (ds/pl 9)
+  (ds/put! {:db/id -1 , :id "check"})
+  (ds/pl 10)
+
+  (ds/stop)
+  :rcf)
