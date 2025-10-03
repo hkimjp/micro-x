@@ -11,7 +11,24 @@
   to widen message area.
 * when connctions from mobile phones, swith html contents. how to?
 
-## 0.31-SNAPSHOT
+
+## 0.32.0-SNAPSHOT
+
+- updated libraries
+
+| :file    | :name                                        | :current | :latest |
+|----------|----------------------------------------------|----------|---------|
+| deps.edn | io.github.hkimjp/datascript-storage-javatime | 0.7.2    | 0.7.4   |
+|          | nrepl/nrepl                                  | 1.3.1    | 1.4.0   |
+|          | org.clojure/clojure                          | 1.12.2   | 1.12.3  |
+|          | ring/ring-core                               | 1.14.2   | 1.15.3  |
+|          | ring/ring-defaults                           | 0.6.0    | 0.7.0   |
+|          | ring/ring-jetty-adapter                      | 1.14.2   | 1.15.3  |
+|          | thheller/shadow-cljs                         | 3.2.0    | 3.2.1   |
+
+
+
+## 0.31.0
 
 * io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
 * why different git/sha - `git show-ref --tags` and `clj -Tantq outdated`
