@@ -4,6 +4,7 @@
             [charred.api :as charred]
             [clojure.core.async :as a]
             [clojure.java.io :as io]
+            [environ.core :refer [env]]
             [java-time.api :as jt]
             [clojure.string :as str]
             [hato.client :as hc]
@@ -23,17 +24,13 @@
 
 (def ^:private version "0.31.1")
 
-(def debug? (System/getenv "MX3_DEV"))
+(def debug? (some? (env :develop)))
 
-(def ayear (or (System/getenv "AYEAR") 2025))
-(def subj  (or (System/getenv "SUBJ")  "python-b"))
-(def uhour (or (System/getenv "UHOUR") "tue2"))
-(def db-url "jdbc:sqlite:storage/micro-x.sqlite")
-
-(def ^:private l22
-  (if debug?
-    "http://localhost:3022/"
-    "https://l22.melt.kyutech.ac.jp/"))
+(def ayear (or (env :ayear) 2025))
+(def subj  (or (env :sub)  "python-b"))
+(def uhour (or (env :uhour) "tue2"))
+(def db-url (or (env :url) "jdbc:sqlite:storage/micro-x.sqlite"))
+(def l22 (or (env :l22) "https://l22.melt.kyutech.ac.jp/"))
 
 (def users (atom nil))
 
@@ -75,7 +72,7 @@
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
-      (let [resp (hc/get (str l22 "api/user/" login)
+      (let [resp (hc/get (str l22 "/api/user/" login)
                          {:timeout 3000 :as :json})]
         (if (and (some? resp)
                  (hashers/check password (get-in resp [:body :password])))
@@ -190,7 +187,7 @@
   (adapter/run-jetty (make-app-handler) options))
 
 (defn start
-  ([] (if-let [p (System/getenv "PORT")]
+  ([] (if-let [p (env :port)]
         (start {:port (parse-long p)})
         (start {:port 3000})))
   ([{:keys [port]}]
