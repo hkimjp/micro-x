@@ -5,6 +5,7 @@
   cljs-http/cljs-http {:mvn/version "0.1.49"}
   com.cnuernber/charred {:mvn/version "1.037"}
   com.taoensso/telemere {:mvn/version "1.1.0"}
+  environ/environ {:mvn/version "1.2.0"}
   haslett/haslett {:mvn/version "0.2.0"}
   hato/hato {:mvn/version "1.0.0"}
   clojure.java-time/clojure.java-time {:mvn/version "1.4.3"}

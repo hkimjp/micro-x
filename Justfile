@@ -10,11 +10,14 @@ compile:
   clojure -M:cljs compile client
 
 watch:
-  clojure -M:dev:cljs watch client
+  clojure -J--enable-native-access=ALL-UNNAMED -M:cljs watch client
 
 nrepl:
-  @echo just watch?
   clojure -M:dev -m nrepl.cmdline
+
+dev:
+  just watch &
+  just nrepl
 
 stop:
   kill `lsof -t -i:${PORT}`

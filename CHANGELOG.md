@@ -14,6 +14,9 @@
 
 ## 0.32.0-SNAPSHOT
 
+- fixed a bug `just watch` miss loaded the `user` namespace.
+- clojure -J--enable-native-access=ALL-UNNAMED -M:cljs watch client
+- added `dev` recipe to `Justfile`.
 - updated libraries
 
 | :file    | :name                                        | :current | :latest |

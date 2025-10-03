@@ -38,15 +38,10 @@
                                  (ws/close sock)))))]
         (out-loop)))
     (on-message [_ _ mesg]
-      ;; FIXME: patched by hkimura to record chats in datascript.
-      ;; hkimura does not know how to read tagged literals.
-      ;; to compare timestamps, timestamp must not be strings.
-      ;; need improve.
       (t/log! :info mesg)
-      (ds/put! (assoc mesg :db/add -1 :timestamp (jt/local-date-time)))
+      (ds/put! (assoc mesg :timestamp (jt/local-date-time)))
       (a/put! in mesg))
     (on-pong [_ _ _]
-      ;; to noisy
       ;; (t/log! :info "on-pong")
       nil)
     (on-error [_ _ ex]
