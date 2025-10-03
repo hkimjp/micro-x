@@ -22,7 +22,7 @@
             [chat.async :as wsa]
             [hkimjp.datascript :as ds]))
 
-(def ^:private version "0.31.1")
+(def ^:private version "0.32.0")
 
 (def debug? (some? (env :develop)))
 

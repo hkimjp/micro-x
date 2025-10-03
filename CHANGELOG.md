@@ -12,7 +12,7 @@
 * when connctions from mobile phones, swith html contents. how to?
 
 
-## 0.32.0-SNAPSHOT
+## 0.32.0 (2025-10-04)
 
 - added `/resources/schema.md`
 - correct url handling. url must not end with `/`
