@@ -31,8 +31,6 @@
 |          | ring/ring-jetty-adapter                      | 1.14.2   | 1.15.3  |
 |          | thheller/shadow-cljs                         | 3.2.0    | 3.2.1   |
 
-
-
 ## 0.31.0
 
 * io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
