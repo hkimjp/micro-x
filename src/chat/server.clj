@@ -4,6 +4,7 @@
             [charred.api :as charred]
             [clojure.core.async :as a]
             [clojure.java.io :as io]
+            [environ.core :refer [env]]
             [java-time.api :as jt]
             [clojure.string :as str]
             [hato.client :as hc]
@@ -19,21 +20,17 @@
             ;; [ring.websocket.async :as wsa]
             ;; patched by hkimura to record chats in database
             [chat.async :as wsa]
-            [hkimjp.datascript :as db]))
+            [hkimjp.datascript :as ds]))
 
-(def debug? (System/getenv "MX3_DEV"))
+(def ^:private version "0.32.0")
 
-(def version "0.30.1")
+(def debug? (some? (env :develop)))
 
-(def ayear 2025)
-(def subj  "python-a")
-(def uhour "wed1")
-
-; getenv?
-(def ^:private l22
-  (if debug?
-    "http://localhost:3022/"
-    "https://l22.melt.kyutech.ac.jp/"))
+(def ayear (or (env :ayear) 2025))
+(def subj  (or (env :sub)  "python-b"))
+(def uhour (or (env :uhour) "tue2"))
+(def db-url (or (env :url) "jdbc:sqlite:storage/micro-x.sqlite"))
+(def l22 (or (env :l22) "https://l22.melt.kyutech.ac.jp/"))
 
 (def users (atom nil))
 
@@ -49,9 +46,14 @@
   (let [flash (:flash request)]
     (-> (resp/response
          (str
-          "<!DOCTYPE html><title>Micro X</title>
-           <h1>Micro X</h1>
+          "<!DOCTYPE html>
+           <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1'>
+            <title>Micro X</title>
+           </head>
            <body style='font-family:sans-serif;'>
+           <h1>Micro X</h1>
            <form method='post'>"
           (anti-forgery-field)
           (when (some? flash)
@@ -62,8 +64,7 @@
            <p>version "
           version
           "</p></body></form>"))
-        (resp/content-type "text/html")
-        (resp/charset "UTF-8"))))
+        (resp/content-type "text/html"))))
 
 (defn login! [{{:keys [login password]} :params}]
   (t/log! :info (str "login! " login))
@@ -71,7 +72,7 @@
     (-> (resp/redirect "/index")
         (assoc-in [:session :identity] login))
     (try
-      (let [resp (hc/get (str l22 "api/user/" login)
+      (let [resp (hc/get (str l22 "/api/user/" login)
                          {:timeout 3000 :as :json})]
         (if (and (some? resp)
                  (hashers/check password (get-in resp [:body :password])))
@@ -112,7 +113,7 @@
                             str
                             (str/split #"\s"))]
     (if debug?
-      "wed1"
+      "tue2"
       (str/lower-case (str wd (utime hhmmss))))))
 
 (comment
@@ -126,29 +127,29 @@
 (defn load-records
   "fetch last `n` minutes submissions."
   [n]
-  (let [resp (db/q '[:find ?author ?message ?timestamp
-                     :keys author message timestamp
-                     :in $ ?t0
-                     :where
-                     [?e :author ?author]
-                     [?e :message ?message]
-                     [?e :timestamp ?timestamp]
-                     [(<= ?t0 ?timestamp)]]
-                   (jt/minus (jt/local-date-time) (jt/minutes n)))]
+  (let [resp (ds/qq '[:find ?author ?message ?timestamp
+                      :keys author message timestamp
+                      :in $ ?t0
+                      :where
+                      [?e :author ?author]
+                      [?e :message ?message]
+                      [?e :timestamp ?timestamp]
+                      [(<= ?t0 ?timestamp)]]
+                    (jt/minus (jt/local-date-time) (jt/minutes n)))]
     (t/log! :info (str "load-records " n ":" (first resp) "..."))
     resp))
 
 (defn get-users
-  "returns users list."
+  "fetch users from l22/api/users/:year/:subj/:uhour
+   returns `login` list."
   [ayear subj uhour]
   (t/log! {:level :info :data [ayear subj uhour]} "users")
   (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
     (try
-      (mapv #(get % "login")
-            (-> (hc/get url)
-                :body
-                charred/read-json
-                (get "users")))
+      (mapv #(get % "login") (-> (hc/get url)
+                                 :body
+                                 charred/read-json
+                                 (get "users")))
       (catch Exception _e
         (t/log! {:level :error :url url} "can not talk  to L22 server")
         nil))))
@@ -180,22 +181,19 @@
 
 ;; ----------------------
 
+(def server (atom nil))
+
 (defn run-server [options]
   (adapter/run-jetty (make-app-handler) options))
 
-(def server (atom nil))
-
 (defn start
-  ([] (if-let [p (System/getenv "PORT")]
+  ([] (if-let [p (env :port)]
         (start {:port (parse-long p)})
         (start {:port 3000})))
   ([{:keys [port]}]
    (t/log! :info "start")
    (when-not (some? @server)
-     ;; bug. can not read tagged literals.
-     ;; timestamp is a return value of `jt/local-date-time`.
-     ;; (db/start "storage/db.sqlite")
-     (db/start)
+     (ds/start-or-restore {:url "jdbc:sqlite:storage/micro-x.sqlite"})
      (reset! users (get-users ayear subj uhour))
      (reset! server (run-server {:port port :join? false}))
      (t/log! :info (str "server started at port " port)))))
@@ -204,7 +202,7 @@
   (when (some? @server)
     (.stop @server)
     (reset! server nil)
-    (db/stop)
+    (ds/stop)
     (println "server stopped.")))
 
 (defn restart []

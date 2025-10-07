@@ -10,13 +10,14 @@ compile:
   clojure -M:cljs compile client
 
 watch:
-  clojure -M:cljs watch client
+  clojure -J--enable-native-access=ALL-UNNAMED -M:cljs watch client
 
-repl:
-  if [ ! -d "storage" ]; then \
-    mkdir storage; \
-  fi
+nrepl:
   clojure -M:dev -m nrepl.cmdline
+
+dev:
+  just watch &
+  just nrepl
 
 stop:
   kill `lsof -t -i:${PORT}`
@@ -42,3 +43,7 @@ deploy: compile build
 clean:
   rm -rf target
 
+eq: compile build
+  scp target/io.github.hkimjp/micro-x-*.jar eq.local:micro-x/micro-x.jar
+  scp .env start.sh eq.local:micro-x/
+  ssh eq.local 'cd micro-x && ./start.sh > log/micro-x.log 2>&1'

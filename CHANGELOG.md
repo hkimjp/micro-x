@@ -7,14 +7,60 @@
 * display error message when sent to non-exist users.
 * pop up menu. display key bindings, etc.
 * learn how to hundle Accept:application/json, etc.
-* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
-  this bug strongly related reading tagged-literals issues.
+* on mobile phone, do not display the input area for user's login name
+  to widen message area.
+* when connctions from mobile phones, swith html contents. how to?
 
+
+## 0.32.0 (2025-10-04)
+
+- added `/resources/schema.md`
+- correct url handling. url must not end with `/`
+- fixed a bug `just watch` miss loaded the `user` namespace
+- clojure -J--enable-native-access=ALL-UNNAMED -M:cljs watch client
+- added `dev` recipe to `Justfile`
+- updated libraries
+
+| :file    | :name                                        | :current | :latest |
+|----------|----------------------------------------------|----------|---------|
+| deps.edn | io.github.hkimjp/datascript-storage-javatime | 0.7.2    | 0.7.4   |
+|          | nrepl/nrepl                                  | 1.3.1    | 1.4.0   |
+|          | org.clojure/clojure                          | 1.12.2   | 1.12.3  |
+|          | ring/ring-core                               | 1.14.2   | 1.15.3  |
+|          | ring/ring-defaults                           | 0.6.0    | 0.7.0   |
+|          | ring/ring-jetty-adapter                      | 1.14.2   | 1.15.3  |
+|          | thheller/shadow-cljs                         | 3.2.0    | 3.2.1   |
+
+## 0.31.0
+
+* io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.1" :git/sha "bdd351c"}
+* why different git/sha - `git show-ref --tags` and `clj -Tantq outdated`
+  hkimjp/datascript-storage-javatime. => OK. understood.
+* call l22:/api/users/2025/python-b/tue2
+* updated libraries
+
+| :file    | :name                         | :current | :latest  |
+|----------|-------------------------------|----------|----------|
+| deps.edn | cljs-http/cljs-http           | 0.1.48   | 0.1.49   |
+|          | com.taoensso/telemere         | 1.0.1    | 1.1.0    |
+|          | io.github.clojure/tools.build | v0.10.9  | v0.10.10 |
+|          | org.clojure/clojure           | 1.12.1   | 1.12.2   |
+|          | thheller/shadow-cljs          | 3.1.7    | 3.2.0    |
+
+* envvar AYEAR, SUBJ, UHOUR, updated `systemd/start.sh`
+
+## 0.30.0-SNAPSHOT (2025-06-01)
+
+* **BUG** can not restore 'storage/db.sqlite'. now on-memory mode only.
+  this bug strongly related to reading tagged-literals issue.
+
+## 0.30.2
+
+* fixed login page. forgot viewport.
 
 ## 0.30.1
 
 * use './bump-version.sh' not '~/bin/bump-version.sh'.
-
 
 ## 0.30.0 (2025-07-03)
 
