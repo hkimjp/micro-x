@@ -11,6 +11,14 @@
   to widen message area.
 * when connctions from mobile phones, swith html contents. how to?
 
+## 0.33.0-SNAPSHOT
+
+- updated libraries
+
+| :file    | :name                                        | :current | :latest |
+|----------|----------------------------------------------|----------|---------|
+| deps.edn | io.github.hkimjp/datascript-storage-javatime | 0.7.4    | 0.7.6   |
+|          | nrepl/nrepl                                  | 1.4.0    | 1.5.0   |
 
 ## 0.32.0 (2025-10-04)
 

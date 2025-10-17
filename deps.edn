@@ -23,14 +23,14 @@
   ring/ring-jetty-adapter {:mvn/version "1.15.3"}
   thheller/shadow-cljs {:mvn/version "3.2.1"}
   ;;
-  io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.4" :git/sha "f5c3196"}}
+  io.github.hkimjp/datascript-storage-javatime {:git/tag "0.7.6" :git/sha "815ae05"}}
 
  :aliases
  {:run-m   {:main-opts ["-m" "chat.server"]
             :jvm-opts  ["--enable-native-access=ALL-UNNAMED"]}
   :cljs    {:main-opts ["-m" "shadow.cljs.devtools.cli"]}
   :dev     {:extra-paths ["dev"]
-            :extra-deps {nrepl/nrepl {:mvn/version "1.4.0"}
+            :extra-deps {nrepl/nrepl {:mvn/version "1.5.0"}
                          org.slf4j/slf4j-nop {:mvn/version "2.0.17"}}
             :jvm-opts ["--enable-native-access=ALL-UNNAMED"
                        "--sun-misc-unsafe-memory-access=allow"]}
