@@ -11,6 +11,16 @@
   to widen message area.
 * when connctions from mobile phones, swith html contents. how to?
 
+## 0.34.0-SNAPSHOT
+
+- updated libraries
+
+| :file    | :name                         | :current | :latest  |
+|----------|-------------------------------|----------|----------|
+| deps.edn | io.github.clojure/tools.build | v0.10.10 | v0.10.11 |
+|          | metosin/reitit                | 0.9.1    | 0.9.2    |
+|          | nrepl/nrepl                   | 1.5.0    | 1.5.1    |
+
 ## 0.33.0-SNAPSHOT
 
 - updated libraries
