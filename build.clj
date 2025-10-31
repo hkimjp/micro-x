@@ -3,13 +3,14 @@
   (:require [clojure.tools.build.api :as b]))
 
 (def lib 'io.github.hkimjp/micro-x)
-(def version "0.32.0")
+(def version "0.34.0")
 (def main 'chat.server)
 (def class-dir "target/classes")
 
 (defn- uber-opts [opts]
   (assoc opts
-         :lib lib :main main
+         :lib lib
+         :main main
          :uber-file (format "target/%s-%s.jar" lib version)
          :basis (b/create-basis {})
          :class-dir class-dir
