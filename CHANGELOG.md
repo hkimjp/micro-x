@@ -13,6 +13,7 @@
 
 ## 0.34.0-SNAPSHOT
 
+- after removing `.shadow-cljs` then the error on `just watch` disappeared.
 - updated libraries
 
 | :file    | :name                         | :current | :latest  |
