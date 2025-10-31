@@ -11,7 +11,7 @@
   to widen message area.
 * when connctions from mobile phones, swith html contents. how to?
 
-## 0.34.0-SNAPSHOT
+## 0.34.0 (2025-10-31)
 
 - after removing `.shadow-cljs` then the error on `just watch` disappeared.
 - updated libraries
