@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# called from ~/bin/bump-version.sh as;
+# if [ -x "bump-version-local.sh" ]; then
+#    ./bump-version-local.sh ${VER}
+# fi
 
 if [ -z "$1" ]; then
     echo "usage: $0 <version>"
@@ -17,6 +21,3 @@ ${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/chat/server.clj
 # micro-x.html
 ${SED} -i "s/(main.js\?v=).*\"/\1$1\")/" resources/micro-x.html
 
-# server.clj
-${SED} -i -e "/\(def version/c\
-(def version \"${VER}\")" src/chat/server.clj
