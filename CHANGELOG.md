@@ -28,7 +28,7 @@
 |          | metosin/reitit                | 0.9.1    | 0.9.2    |
 |          | nrepl/nrepl                   | 1.5.0    | 1.5.1    |
 
-## 0.33.0-SNAPSHOT
+## 0.34.2 (2025-11-04)
 
 - updated libraries
 
