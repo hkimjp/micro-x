@@ -4,7 +4,7 @@
             [hkimjp.datascript :as ds]))
 
 (t/set-min-level! :debug)
-
+(s/start)
 (comment
   (s/restart)
 
