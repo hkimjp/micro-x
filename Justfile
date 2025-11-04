@@ -9,12 +9,18 @@ run: compile
 compile:
   clojure -M:cljs compile client
 
+release:
+  clojure -M:cljs release client
+
 watch:
   clojure -M:dev:cljs watch client
 
 nrepl:
-  @echo just watch?
   clojure -M:dev -m nrepl.cmdline
+
+dev:
+  just watch &
+  just nrepl
 
 stop:
   kill `lsof -t -i:${PORT}`

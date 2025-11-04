@@ -29,11 +29,16 @@
 (def subj  (or (System/getenv "SUBJ")  "python-b"))
 (def uhour (or (System/getenv "UHOUR") "tue2"))
 (def db-url "jdbc:sqlite:storage/micro-x.sqlite")
+(def l22 (or (System/getenv "L22") "https://l22.melt.kyutech.ac.jp"))
 
-(def ^:private l22
-  (if debug?
-    "http://localhost:3022/"
-    "https://l22.melt.kyutech.ac.jp/"))
+(t/log! {:level :info
+         :id "server"
+         :data {:version version
+                :ayear   ayear
+                :subj    subj
+                :uhour   uhour
+                :db-url  db-url
+                :l22     l22}})
 
 (def users (atom nil))
 
