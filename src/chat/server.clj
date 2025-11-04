@@ -26,11 +26,20 @@
 
 (def debug? (some? (env :develop)))
 
-(def ayear (or (env :ayear) 2025))
-(def subj  (or (env :sub)  "python-b"))
-(def uhour (or (env :uhour) "tue2"))
-(def db-url (or (env :url) "jdbc:sqlite:storage/micro-x.sqlite"))
-(def l22 (or (env :l22) "https://l22.melt.kyutech.ac.jp/"))
+(def ayear  (or (env :ayear)  2025))
+(def subj   (or (env :subj)   "python-b"))
+(def uhour  (or (env :uhour)  "tue2"))
+(def db-url (or (env :db-url) "jdbc:sqlite:storage/micro-x.sqlite"))
+(def l22    (or (env :l22)    "https://l22.melt.kyutech.ac.jp"))
+
+(t/log! {:level :info
+         :id "server"
+         :data {:version version
+                :ayear   ayear
+                :subj    subj
+                :uhour   uhour
+                :db-url  db-url
+                :l22     l22}})
 
 (def users (atom nil))
 
@@ -144,14 +153,14 @@
    returns `login` list."
   [ayear subj uhour]
   (t/log! {:level :info :data [ayear subj uhour]} "users")
-  (let [url (str l22 "api/users/" ayear "/" subj "/" uhour)]
+  (let [url (str l22 "/api/users/" ayear "/" subj "/" uhour)]
     (try
       (mapv #(get % "login") (-> (hc/get url)
                                  :body
                                  charred/read-json
                                  (get "users")))
       (catch Exception _e
-        (t/log! {:level :error :url url} "can not talk  to L22 server")
+        (t/log! {:level :error :data {:url url}} "can not talk to L22 server")
         nil))))
 
 (defn make-app-handler []

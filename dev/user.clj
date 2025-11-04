@@ -4,9 +4,11 @@
             [hkimjp.datascript :as ds]))
 
 (t/set-min-level! :debug)
-(s/restart)
+(s/start)
 
 (comment
+  (s/restart)
+
   @s/users
   (ds/put! {:char "d"})
   (ds/qq '[:find ?e
