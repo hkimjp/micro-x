@@ -8,7 +8,6 @@
 
 (comment
   (s/restart)
-
   @s/users
   (ds/put! {:char "d"})
   (ds/qq '[:find ?e
