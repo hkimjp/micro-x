@@ -4,13 +4,10 @@
             [hkimjp.datascript :as ds]))
 
 (t/set-min-level! :debug)
-<<<<<<< HEAD
 (s/start)
-=======
-(s/restart)
 
->>>>>>> refs/remotes/origin/main
 (comment
+  (s/restart)
   @s/users
   (ds/put! {:char "d"})
   (ds/qq '[:find ?e

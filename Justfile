@@ -25,11 +25,6 @@ dev:
 stop:
   kill `lsof -t -i:${PORT}`
 
-# FIXME: restart cljs?
-# restart:
-#   just stop
-#   just repl
-
 upgrade:
   clj -Tantq outdated :upgrade true
 

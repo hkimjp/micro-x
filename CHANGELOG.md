@@ -11,15 +11,13 @@
   to widen message area.
 * when connctions from mobile phones, swith html contents. how to?
 
-<<<<<<< HEAD
-## 0.34.1-SNAPSHOT
+
+## 0.34.1 (2025-11-04)
 
 - log version etc.
 
-## 0.31.0 (2025-09-02)
-=======
 ## 0.34.0 (2025-10-31)
->>>>>>> refs/remotes/origin/main
+
 
 - after removing `.shadow-cljs` then the error on `just watch` disappeared.
 - updated libraries
